@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User interface", "User inte
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rlogik", "Rlogik", "{D424A7FF-3A72-41C2-9B8B-E31041D550ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rupor.Domain.Interfaces", "Rupor.Domain.Interfaces\Rupor.Domain.Interfaces.csproj", "{BAEB6109-0DDB-4B63-A61D-0F29B0D95046}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{7E0A2617-9E0D-4FF3-958B-C312F3EC4FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E0A2617-9E0D-4FF3-958B-C312F3EC4FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E0A2617-9E0D-4FF3-958B-C312F3EC4FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAEB6109-0DDB-4B63-A61D-0F29B0D95046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEB6109-0DDB-4B63-A61D-0F29B0D95046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEB6109-0DDB-4B63-A61D-0F29B0D95046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEB6109-0DDB-4B63-A61D-0F29B0D95046}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{05370370-E897-4B12-83EE-EB0CCF39F451} = {559B7D81-3B0B-4E0A-9B10-163DB96440DA}
 		{97D4E499-2CC2-4363-B42E-F8EC9629E855} = {559B7D81-3B0B-4E0A-9B10-163DB96440DA}
 		{7E0A2617-9E0D-4FF3-958B-C312F3EC4FA9} = {559B7D81-3B0B-4E0A-9B10-163DB96440DA}
+		{BAEB6109-0DDB-4B63-A61D-0F29B0D95046} = {6296E23D-8FB2-4B12-BC72-CEFFF1D513A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {67D0AD48-8CB1-40A0-83CC-600C7E49D955}
