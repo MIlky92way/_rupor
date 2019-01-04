@@ -1,19 +1,14 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Rupor.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rupor.domain.Context
+namespace Rupor.Domain.Entities.User
 {
-    public class RuporDbContext:IdentityDbContext<UserEntity>
+    public class RoleEntity : IdentityRole
     {
-        public RuporDbContext()
-        {
-
-        }
 
     }
 }

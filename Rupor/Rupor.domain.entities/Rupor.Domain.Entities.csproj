@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference\ReferenceEntity.cs" />
     <Compile Include="Reference\ReferenceSection.cs" />
+    <Compile Include="User\RoleEntity.cs" />
     <Compile Include="User\UserEntity.cs" />
   </ItemGroup>
   <ItemGroup>

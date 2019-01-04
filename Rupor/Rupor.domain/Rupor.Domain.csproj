@@ -53,16 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\RuporContext.cs" />
+    <Compile Include="Context\RuporDbContext.cs" />
+    <Compile Include="Context\RuporDbContext.Fluent.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Rupor.domain.entities\Rupor.Domain.Entities.csproj">
       <Project>{B19FFD8C-B947-4361-A227-32EB9DBB5292}</Project>
