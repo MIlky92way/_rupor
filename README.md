@@ -1,3 +1,3 @@
-![alt text](https://i.ibb.co/GtHjyPk/logo-default.png) 
+![alt text](https://i.ibb.co/z76wpfb/logo-default.png) 
 # Rupor
 Education project for me :)
