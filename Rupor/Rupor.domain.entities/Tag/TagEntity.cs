@@ -1,4 +1,5 @@
-﻿using Rupor.Domain.Entities.Base;
+﻿using Rupor.Domain.Entities.Article;
+using Rupor.Domain.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,14 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rupor.Domain.Entities.Reference
+namespace Rupor.Domain.Entities.Tag
 {
-    [Table("ReferenceSection")]
-    public class ReferenceSectionEntity : BaseEntity
+    [Table("Tag")]
+    public class TagEntity : BaseEntity
     {
-        [MaxLength(250)]
+        [MaxLength(50)]
         public string Name { get; set; }
-        [MaxLength(280)]
+        [MaxLength(50)]
         public string Alias { get; set; }
+        public ICollection<ArticleEntity> Articles { get; set; }
+
     }
 }

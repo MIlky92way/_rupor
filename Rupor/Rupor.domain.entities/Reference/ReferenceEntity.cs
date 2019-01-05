@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rupor.Domain.Entities.Reference
 {
+    [Table("Reference")]
     public class ReferenceEntity
     {
         [MaxLength(255)]
