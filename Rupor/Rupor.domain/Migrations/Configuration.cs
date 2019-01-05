@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Rupor.domain.Context;
 using Rupor.Domain.Entities.User;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Rupor.domain.Migrations
 {

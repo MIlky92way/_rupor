@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rupor.Domain.Entities.Article;
 using Rupor.Domain.Entities.Reference;
 using Rupor.Domain.Entities.Tag;
 using Rupor.Domain.Entities.User;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Rupor.domain.Context
 {
