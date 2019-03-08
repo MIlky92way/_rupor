@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/_public_template/css/style.css" rel="stylesheet" />
+    <link href="~/Content/_public_template/fonts/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    <!--BEGIN header-->
+    <header class="header">
+        <div class="app-container header-inner">
+            <div class="container-fluid">
+                <div class="header-top">
+                    <div class="header-top__item">
+                        <a class="logo" href="@Url.Action("Index","Home")">
+                        </a>
+                    </div>
+                    <div class="header-top__item">
+                        <div class="account">
+                            <div class="account-info">
+                                <a href="@Url.Action("SignUp","Account")" class="account-info__login">Вход </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navigation">
+            <div class="app-container">
+                <div class="container-fluid">
+                    <div class="navigation-toggle">
+                        <a href="javascript:void(0);" class="toggle-button" id="toggle_button">
+                            <i class="fa fa-bars" aria-hidden="true" id="toggle_icon"></i>
+                        </a>
+                    </div>
+                    <ul class="col-lg-8 col-md-12 col-xs-12 navigation-menu" id="navigation_menu">
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner" href="section.html">
+                                горячие новости
+                            </a>
+                        </li>
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner" href="section.html">
+                                проишествия
+                            </a>
+                        </li>
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner active" href="section.html">
+                                общество
+                            </a>
+                        </li>
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner" href="section.html">
+                                политика
+                            </a>
+                        </li>
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner" href="section.html">
+                                россия
+                            </a>
+                        </li>
+                        <li class="navigation-menu__item">
+                            <a class="navigation-menu__inner" href="section.html">
+                                спорт
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--END header-->
+
+    <div class="app-container">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-md-2 app-leftmenu">
+                    <ul class="leftmenu">
+                        <li class="leftmenu-item"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></li>
+                        <li class="leftmenu-item">
+                            <a href="section.html" class="leftmenu-item__link info">
+                                Рассказать о проблеме!
+                            </a>
+                        </li>
+                        <li class="leftmenu-item">
+                            <a href="section.html" class="leftmenu-item__link">
+                                Экономика
+                            </a>
+                        </li>
+                        <li class="leftmenu-item">
+                            <a href="section.html" class="leftmenu-item__link">
+                                Культура
+                            </a>
+                        </li>
+                        <li class="leftmenu-item">
+                            <a href="section.html" class="leftmenu-item__link">
+                                Новости России
+                            </a>
+                        </li>
+                        <li class="leftmenu-item">
+                            <a href="login.html" class="leftmenu-item__link">
+                                Вход
+                            </a>
+                        </li>
+                        <li class="leftmenu-item">
+                            <a href="login.html" class="leftmenu-item__link">
+                                Регитсрация
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+                <div class="col-lg-8 col-md-8 col-xs-12 app-content">
+                    <article class="app-content__inner">
+                        @RenderBody()
+
+                        <!--BEGIN loader-->
+                        <div class="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <!--END loader-->
+
+                    </article>
+                </div>
+
+                <!--BEGIN RIGHT ASIDE-->
+                <aside class="col-md-2 rupor-latest_news">
+                    <h3 class="title-latest">Последние</h3>
+                    <a class="rupor-latest_news__inner" style="background-image: url('other/img_5.jpg')" href="article.html">
+                        <div class="rupor-latest_news__item">
+                            <div class="date">22.01.2018</div>
+                            <div class="content">
+                                Городской прокурор Сергей Зайцев - "рост подростковой преступности нас пугает"
+                            </div>
+                        </div>
+                    </a>
+                    <a class="rupor-latest_news__inner" style="background-image: url('other/img_4.jpg')" href="article.html">
+                        <div class="rupor-latest_news__item">
+                            <div class="date">22.01.2018</div>
+                            <div class="content">
+                                В Камышине полицейские задержали подозреваемую в сбыте наркотических средств
+                            </div>
+                        </div>
+                    </a>
+                    <a class="rupor-latest_news__inner" style="background-image: url('other/img_3.jpg')" href="article.html">
+                        <div class="rupor-latest_news__item">
+                            <div class="date">22.01.2018</div>
+                            <div class="content">
+                                Активисты Камышинского горкома КПРФ провели пикеты против пенсионной реформы и витка цен
+                            </div>
+                        </div>
+                    </a>
+
+                </aside>
+                <!--END RIGHT ASIDE-->
+
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/_public_template/js/bundle.js"></script>
+</body>
+</html>
