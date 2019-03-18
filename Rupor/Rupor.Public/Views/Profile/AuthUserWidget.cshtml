@@ -1,0 +1,15 @@
+﻿@model Rupor.Public.Models.Profile.AuthUserWidgetModel
+<div class="account">
+    @if (Model.IsAuth)
+    {
+        <div class="account-info">
+
+        </div>
+    }
+    else
+    {
+        <div class="account-info">
+            <a href="@Url.Action("Login","Account")" class="account-info__login">Вход </a>
+        </div>
+    }
+</div>

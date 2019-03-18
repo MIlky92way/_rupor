@@ -2,8 +2,9 @@
 using Rupor.Domain.Entities.Article;
 using Rupor.Domain.Entities.Tag;
 using System.Data.Entity;
+using Rupor.Domain.Entities.RssAgregate;
 
-namespace Rupor.domain.Context
+namespace Rupor.Domain.Context
 {
     public partial class RuporDbContext
     {
@@ -24,6 +25,21 @@ namespace Rupor.domain.Context
                     e.MapRightKey("TagId");
                     e.ToTable("ArticleTag");
                 });
+
+            builder.Entity<RssFeedEntity>()
+                .HasMany<TagEntity>(x => x.Tags)
+                .WithMany(x => x.RssFeeds)
+                .Map(e =>
+                {
+                    e.MapLeftKey("RssFeedId");
+                    e.MapRightKey("TagId");
+                    e.ToTable("RssFeedTag");
+                });
+        }
+
+        public static  RuporDbContext GetInstance()
+        {
+            return new RuporDbContext();
         }
     }
 }

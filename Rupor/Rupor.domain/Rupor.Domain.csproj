@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rupor.domain</RootNamespace>
     <AssemblyName>Rupor.domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\Rupor.domain.entities\Rupor.Domain.Entities.csproj">
       <Project>{B19FFD8C-B947-4361-A227-32EB9DBB5292}</Project>
       <Name>Rupor.Domain.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Tools\Rupor.Tools.csproj">
+      <Project>{97cee56c-cc6f-4661-aa72-5a93c81b74a8}</Project>
+      <Name>Rupor.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Rupor.domain.Context;
+using Rupor.Domain.Context;
 using Rupor.Domain.Entities.User;
 using System.Data.Entity.Migrations;
+using Rupor.Tools.Consts;
 
-
-namespace Rupor.domain.Migrations
+namespace Rupor.Domain.Migrations
 {
     public class Configuration : DbMigrationsConfiguration<RuporDbContext>
     {
@@ -33,7 +33,7 @@ namespace Rupor.domain.Migrations
             try
             {
                 role = new RoleEntity();
-                role.Name = "Administrator";
+                role.Name = Role._ROOT;
                 manager.Create(role);
             }
             catch (Exception ex) { }
@@ -41,7 +41,7 @@ namespace Rupor.domain.Migrations
             try
             {
                 role = new RoleEntity();
-                role.Name = "Editor";
+                role.Name = Role._ADMINISTRATOR;
                 manager.Create(role);
             }
             catch (Exception ex) { }
@@ -49,7 +49,7 @@ namespace Rupor.domain.Migrations
             try
             {
                 role = new RoleEntity();
-                role.Name = "Moderator";
+                role.Name = Role._RUBRICATOR;
                 manager.Create(role);
             }
             catch (Exception ex) { }
@@ -57,7 +57,7 @@ namespace Rupor.domain.Migrations
             try
             {
                 role = new RoleEntity();
-                role.Name = "User";
+                role.Name = Role._USER;
                 manager.Create(role);
             }
             catch (Exception ex) { }
@@ -70,19 +70,21 @@ namespace Rupor.domain.Migrations
                 new UserManager<UserEntity>(new UserStore<UserEntity>(context));
 
             UserEntity user;
-            string name = "rupor.adm@rupor.pw";
+            string name = "rupor.adm@rupor.com";
             try
             {
                 user = new UserEntity();
                 user.UserName = user.Email = name;
-                var res = manager.Create(user, "_qazwsxedc123!_@");
+                var res = manager.Create(user, "_Xz.23Az4kf-vdf-343fX+-__1");
                 if (res.Succeeded)
                 {
-                    manager.AddToRole(user.Id, "Administrator");
+                    manager.AddToRole(user.Id, Role._ROOT);
                 }
             }
             catch (Exception ex)
-            { }
+            {
+
+            }
         }
 
     }

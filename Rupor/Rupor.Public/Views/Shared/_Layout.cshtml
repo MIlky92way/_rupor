@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/Content/_public_template/css/style.css" rel="stylesheet" />
     <link href="~/Content/_public_template/fonts/font-awesome.css" rel="stylesheet" />
+    @RenderSection("styles", false)
 </head>
 <body>
     <!--BEGIN header-->
@@ -18,11 +19,7 @@
                         </a>
                     </div>
                     <div class="header-top__item">
-                        <div class="account">
-                            <div class="account-info">
-                                <a href="@Url.Action("SignUp","Account")" class="account-info__login">Вход </a>
-                            </div>
-                        </div>
+                       @Html.Action("AuthUserWidget","Profile")
                     </div>
                 </div>
             </div>
@@ -162,5 +159,8 @@
         </div>
     </div>
     <script src="~/Content/_public_template/js/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+    <script src="~/Content/glob/js/wrapper.validate.js"></script>
+    @RenderSection("scripts",false)
 </body>
 </html>

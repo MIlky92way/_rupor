@@ -53,6 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/Content/_internal_template/assets/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
+    @RenderSection("styles",false)
 </head>
 <!-- END HEAD -->
 
@@ -1047,7 +1048,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <!--<a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;-->
     <!--<a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>-->
-
+    @RenderSection("scripts", false)
 </body>
 
 </html>

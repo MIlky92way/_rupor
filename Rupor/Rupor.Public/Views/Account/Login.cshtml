@@ -1,0 +1,68 @@
+﻿@model Rupor.Public.Models.Account.LoginModel
+@{
+    ViewBag.Title = "Вход";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<form class="login-form" action="@Url.Action("Login","Account")" method="post" id="loginForm">
+    <h2 class="color-white text-center">
+        @ViewBag.Title
+    </h2>
+    <div class="login-form__field">
+        <div class="social-login">
+            <a class="btn-social" href="javascript:void(0);">
+                <i class="fa fa-google-plus"></i>
+            </a>
+            <a href="javascript:void(0);" class="btn-social">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="javascript:void(0);" class="btn-social">
+                <i class="fa fa-vk"></i>
+            </a>
+        </div>
+    </div>
+    <div class="login-form__fieldset">
+        @Html.AntiForgeryToken()
+        <div class="login-form__field">
+            <label for="Email">Email</label>
+            @Html.TextBoxFor(x => x.Email, new { @type = "email", placeholder = "Укажите свой Email" })
+        </div>
+        <div class="login-form__field">
+            <label for="Password">Пароль</label>
+            @Html.PasswordFor(x => x.Password, new { placeholder = "Введите пароль" })
+        </div>
+        <div class="login-form__field">
+            <a href="@Url.Action("Register","Account")" class="color-white">Регистрация </a>
+        </div>
+        <div class="login-form__field">
+            <button type="submit" class="btn-login">Вход</button>
+        </div>
+    </div>
+</form>
+@section styles{
+    @Styles.Render("~/content/css")
+}
+@section scripts{
+    <script>
+        $(function () {
+            var validateForm = $("#loginForm").validate();
+
+            addFieldRule("#Email", {
+                required: true,
+                email: true,
+                messages: {
+                    required: "Необхоидмо указать Email адрес.",
+                    email: "Введите корректный адрес почты."
+                }
+            });
+
+            addFieldRule("#Password", {
+                required: true,
+                messages: {
+                    required: "Необходимо указать пароль.",
+                }
+            });
+
+        });
+    </script>
+}
