@@ -37,8 +37,8 @@ namespace Rupor.Domain.Entities.User
         public bool IsDelete { get; set; }
         public string Email { get; set; }
 
-        public int OriginalPictureId { get; set; }
-        public int MinPictureId { get; set; }
+        public int? OriginalPictureId { get; set; }
+        public int? MinPictureId { get; set; }
 
         [ForeignKey("OriginalPictureId")]
         public FileEntity OriginalPicture { get; set; }

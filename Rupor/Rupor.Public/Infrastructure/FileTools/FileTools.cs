@@ -15,11 +15,9 @@ namespace Rupor.Public.Infrastructure.FileTools
     {
         protected const string _RootDir = "~/uploads";
 
-       
-
-        protected readonly HttpContextBase HttpContext;
-        protected HttpServerUtilityBase Server { get; }
-        protected IFileService FileService { get; }
+        public readonly HttpContextBase HttpContext;
+        public HttpServerUtilityBase Server { get; }
+        public IFileService FileService { get; }
         protected string[] NotSupportedExtensions { get; }
 
         public FileTools(HttpContextBase context, HttpServerUtilityBase server, IFileService fileSrv)
@@ -37,7 +35,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 "sass",
                 "sql"
             };
-           
+
         }
 
         /// <summary>
@@ -58,13 +56,23 @@ namespace Rupor.Public.Infrastructure.FileTools
             }
         }
 
+        public FileStream GetFile(string path)
+        {
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                return stream;
+            }
+        }
+
         /// <summary>
         /// Сохранение набора файлов. 
         /// </summary>
         /// <param name="files">Набор сохраняемых файлов</param>
         /// <param name="path">Путь куда будет сохранен файл</param>
-        public void SaveFilesRange(HttpFileCollection files, string path, bool isPic = false)
+        /// <returns>Набор идентификаторов файлов сохрпаненных в источник</returns>
+        public virtual ICollection<int> SaveFilesRange(HttpFileCollection files, string path, FileArea area, FileType fileType)
         {
+            List<int> fileIdentifiers = new List<int>();
             foreach (string key in files)
             {
                 var file = files[key];
@@ -76,8 +84,12 @@ namespace Rupor.Public.Infrastructure.FileTools
                     continue;
                 }
 
-                SaveFile(file, path, isPic);
+                var id = SaveFile(file, path, area, fileType);
+
+                fileIdentifiers.Add(id);
             }
+
+            return fileIdentifiers;
         }
 
         /// <summary>
@@ -85,34 +97,50 @@ namespace Rupor.Public.Infrastructure.FileTools
         /// </summary>
         /// <param name="file"></param>
         /// <param name="path"></param>
-        public int SaveFile(HttpPostedFile file, string path, bool isPic = false)
+        /// <returns>Набор идентификатор файла сохраненного в источник</returns>
+        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="HttpException"></exception>
+        /// <exception cref="Exception"></exception>
+        public virtual int SaveFile(HttpPostedFile file, string path, FileArea area, FileType fileType)
         {
-
             var fileEntity = new FileEntity();
+
+            if (CheckNotSupportedFile(file.FileName))
+            {
+                throw new NotSupportedException("File not supported");
+            }
+
             try
             {
-              
+                file.SaveAs(path);
 
+                fileEntity.Name = file.FileName;
                 fileEntity.Alt = fileEntity.FileName =
                     Path.GetFileName(file.FileName);
-
                 fileEntity.FileExtension = Path.GetExtension(file.FileName);
-
+                fileEntity.FileType = fileType;
+                fileEntity.FileArea = area;
                 FileService.Edit(fileEntity);
-            }                            
-            catch (Exception ex)
+            }
+            catch (HttpException httpEx)
             {
+                //TODO LOG
+                throw httpEx;
+            }
+            catch (Exception ex)
+            {                
                 //TODO LOG
                 throw ex;
             }
 
-            file.SaveAs(path);
-
             return fileEntity.Id;
         }
 
-
-        private bool InitialDirs(string path)
+        protected bool CheckNotSupportedFile(string fileName)
+        {
+            return NotSupportedExtensions.Any(x => Path.GetExtension(fileName) == x);
+        }
+        protected bool InitialDirs(string path)
         {
             bool check = true;
 

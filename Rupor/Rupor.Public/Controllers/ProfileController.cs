@@ -18,6 +18,12 @@ namespace Rupor.Public.Controllers
             return View();
         }
 
+
+        public PartialViewResult UserInfo()
+        {
+            return PartialView();
+        }
+
         [AllowAnonymous]
         public PartialViewResult AuthUserWidget()
         {

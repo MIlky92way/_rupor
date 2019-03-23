@@ -11,7 +11,7 @@ namespace Rupor.Logik.File
 {
     public interface IFileService:IRuporService<FileEntity>
       
-    {
+    {       
         IEnumerable<FileEntity> Get(Expression<Func<FileEntity, bool>> expr);
         void Remove(int id);
         void Remove(int[] ids);

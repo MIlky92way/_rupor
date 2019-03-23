@@ -2,9 +2,10 @@
 <div class="account">
     @if (Model.IsAuth)
     {
-        <div class="account-info">
-
-        </div>
+    <div class="account-info">
+        <a href="@Url.Action("Index","Profile")" class="account-info__login">@Model.Name </a>
+        
+    </div>
     }
     else
     {

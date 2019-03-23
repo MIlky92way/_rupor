@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Rupor.Logik.File;
+using Rupor.Public.Infrastructure.ProfileTools;
+using Rupor.Public.Infrastructure.FileTools;
 
 namespace Rupor.Public.Controllers
 {
@@ -18,10 +20,13 @@ namespace Rupor.Public.Controllers
         
         
         protected IUserProfileService<ProfileEntity> ProfileService { get; private set; }
-        
+        protected IFileService FileService { get; }
+        protected ImageTools ImageTools { get; }
         protected BaseController()
         {
             ProfileService = new UserProfileService();
+            FileService = new FileService();
+            ImageTools = new ImageTools(HttpContext, Server, FileService);
         }
         
 
@@ -43,9 +48,9 @@ namespace Rupor.Public.Controllers
             }
         }
 
-        protected ProfileEntity CurrentUser => InitialCurrentUser();
+        protected ProfileWeb CurrentUser => InitialCurrentUser();
 
-        private ProfileEntity InitialCurrentUser()
+        private ProfileWeb InitialCurrentUser()
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -54,7 +59,11 @@ namespace Rupor.Public.Controllers
 
             RuporUser model = new RuporUser();
             string userEmail = User.Identity.Name;
-            return ProfileService[userEmail];
+            var profile = ProfileService[userEmail];
+           
+            ProfileWeb profileWeb = new ProfileWeb(profile, ImageTools);
+
+            return profileWeb;
         }
     }
 }

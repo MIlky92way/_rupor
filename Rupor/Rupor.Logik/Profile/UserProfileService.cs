@@ -63,6 +63,10 @@ namespace Rupor.Logik.Profile
                 entity.BirthDate = model.BirthDate;
                 entity.FileNameOriginal = model.FileNameOriginal;
                 entity.FileNameMin = model.FileNameMin;
+                entity.Email = model.Email;
+
+                entity.MinPictureId = model.MinPictureId;
+                entity.OriginalPictureId = model.OriginalPictureId;
 
                 dbContext.SaveChanges();
             }
@@ -131,8 +135,9 @@ namespace Rupor.Logik.Profile
                 using (dbContext = new RuporDbContext())
                 {
                     profile = dbContext.UserProfile
-                        .Include(x=>x.OriginalPicture)
-                        .Include(x=>x.MinPicture)
+                        .Include(x => x.OriginalPicture)
+                        .Include(x => x.MinPicture)
+                        .Include(x => x.Owner)
                         .AsNoTracking()
                         .FirstOrDefault(x => x.Id == id);
                 }

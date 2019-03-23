@@ -90,31 +90,38 @@ namespace Rupor.Public.Controllers
 
                 IdentityResult identResult = UserManager.Create(user, model.Password);
 
-
-
                 if (identResult.Succeeded)
                 {
-                    #region profile
+                    identResult = UserManager.AddToRole(user.Id, Role._USER);
 
-                    var profile = new ProfileEntity();
-
-                    profile.Email = user.Email;
-                    profile.OwnerId = user.Id;
-                    profile.LastAuth = DateTime.Now;
-                    profile.GivenName = model.GivenName;
-
-                    var result = ProfileService.Edit(profile);
-
-                    if (result != null && result.Id > 0)
+                    if (identResult.Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        
+                        #region profile
+
+                        var profile = new ProfileEntity();
+
+                        profile.Email = user.Email;
+                        profile.OwnerId = user.Id;
+                        profile.LastAuth = DateTime.Now;
+                        profile.GivenName = model.GivenName;
+
+                        var result = ProfileService.Edit(profile);
+
+                        if (result != null && result.Id > 0)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "При сохранении профиля произошли ошибки!");
+                        }
+                        #endregion
                     }
                     else
                     {
-                        ModelState.AddModelError("", "При сохранении профиля произошли ошибки!");
+                        AddErrorsFromResult(identResult);
                     }
-                    #endregion
-                    
                 }
                 else
                 {
