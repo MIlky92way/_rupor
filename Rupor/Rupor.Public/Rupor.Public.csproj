@@ -5544,16 +5544,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Cab\CabAreaRegistration.cs" />
-    <Compile Include="Areas\Cab\Controllers\AppConfigurationController.cs" />
     <Compile Include="Areas\Cab\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Cab\Controllers\ProfileDashboardController.cs" />
+    <Compile Include="Areas\Cab\Models\ProfileSettingsModel.cs" />
+    <Compile Include="Areas\Cab\Models\SectionsSettingsModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PicController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UserPhotoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CurrentUrlHelper.cs" />
+    <Compile Include="Helpers\UserNameHelper.cs" />
     <Compile Include="Infrastructure\FileTools\Additional\FileResult.cs" />
     <Compile Include="Infrastructure\FileTools\Additional\ImageSaveData.cs" />
     <Compile Include="Infrastructure\FileTools\FileTools.cs" />
@@ -6003,6 +6008,12 @@
     <Content Include="Content\_internal_template\assets\pages\media\blog\Thumbs.db" />
     <Content Include="Content\_internal_template\assets\pages\media\pages\Thumbs.db" />
     <Content Include="Content\glob\scss\custom.validate.scss" />
+    <Content Include="Areas\Cab\Views\Dashboard\AppSettings.cshtml" />
+    <Content Include="Areas\Cab\Views\ProfileDashboard\Index.cshtml" />
+    <Content Include="Areas\Cab\Views\Dashboard\ProfileSettings.cshtml" />
+    <Content Include="Areas\Cab\Views\Dashboard\SectionSettings.cshtml" />
+    <Content Include="Areas\Cab\Views\Dashboard\RssSettings.cshtml" />
+    <Content Include="Areas\Cab\Views\Dashboard\MaterialSettings.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -6028,12 +6039,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Cab\Models\" />
     <Folder Include="Areas\Cab\Views\AppConfiguration\" />
     <Folder Include="Areas\Cab\Views\Shared\" />
     <Folder Include="Content\_internal_template\assets\apps\img\" />
     <Folder Include="Content\_internal_template\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Pic\" />
     <Folder Include="Views\UserPhoto\" />
   </ItemGroup>
   <ItemGroup>

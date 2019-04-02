@@ -35,6 +35,10 @@ namespace Rupor.Logik.File
                 entity.Name = model.Name;
                 entity.Picture = model.Picture;
                 entity.Alt = model.Alt;
+                entity.ContentType = model.ContentType;
+                entity.FileArea = model.FileArea;
+                entity.IsDefault = model.IsDefault;
+                entity.FileType = model.FileType;
 
                 context.SaveChanges();
             }

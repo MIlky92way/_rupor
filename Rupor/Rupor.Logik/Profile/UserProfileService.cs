@@ -105,7 +105,7 @@ namespace Rupor.Logik.Profile
                 }
             }
         }
-
+        //TODO - изменить обновление фото профиля!
         public void UpdatePictue(PictureModel model)
         {
             ProfileEntity entry = null;

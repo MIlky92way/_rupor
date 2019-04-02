@@ -9,38 +9,45 @@ using System.Threading.Tasks;
 
 namespace Rupor.Domain.Entities.File
 {
+    /// <summary>
+    /// Тип файла.
+    /// </summary>
     public enum FileType
     {
-        Document,
-        Image,
-        Archive
+        Document = 0,
+        Image = 1,
+        Archive = 2
     }
-
+    /// <summary>
+    /// Область контекста, в котором будет отоюражаться файл
+    /// </summary>
     public enum FileArea
     {
         Profile,
         Article,
         Section
     }
-    
+
+
+
     [Table("File")]
     public class FileEntity : BaseEntity
     {
         /// <summary>
         /// Файлы отдающиеся как дефолтные (условия использования, нормативные документы, дефолтные картинки и т.д.) 
         /// </summary>
-        public bool IsDefault { get; set; } 
+        public bool IsDefault { get; set; }
         public bool Picture { get; set; }
-        [MaxLength(15)]
+        [MaxLength(25)]
         public string Alt { get; set; }
         public string FileExtension { get; set; }
-        [MaxLength(15)]
+        [MaxLength(25)]
         public string FileName { get; set; }
         /// <summary>
         /// Имя файла с его расширением
         /// </summary>
         [MaxLength(50)]
-        public string Name { get; set; }        
+        public string Name { get; set; }
         [MaxLength(515)]
         public string Description { get; set; }
 

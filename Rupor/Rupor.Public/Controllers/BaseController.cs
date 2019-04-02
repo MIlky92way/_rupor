@@ -22,11 +22,14 @@ namespace Rupor.Public.Controllers
         protected IUserProfileService<ProfileEntity> ProfileService { get; private set; }
         protected IFileService FileService { get; }
         protected ImageTools ImageTools { get; }
+        
         protected BaseController()
         {
             ProfileService = new UserProfileService();
             FileService = new FileService();
-            ImageTools = new ImageTools(HttpContext, Server, FileService);
+
+            ImageTools = new ImageTools();
+
         }
         
 

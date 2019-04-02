@@ -15,16 +15,17 @@ namespace Rupor.Public.Infrastructure.FileTools
     {
         protected const string _RootDir = "~/uploads";
 
-        public readonly HttpContextBase HttpContext;
-        public HttpServerUtilityBase Server { get; }
+        public readonly HttpContext HttpContext;
+        public HttpServerUtility Server { get; }
         public IFileService FileService { get; }
         protected string[] NotSupportedExtensions { get; }
 
-        public FileTools(HttpContextBase context, HttpServerUtilityBase server, IFileService fileSrv)
+        public FileTools(IFileService fileSrv)
         {
-            HttpContext = context;
-            Server = server;
-            FileService = fileSrv;
+            HttpContext = System.Web.HttpContext.Current;
+            Server = HttpContext.Server;
+
+            FileService = fileSrv ?? throw new ArgumentNullException("fileSrv");
 
             NotSupportedExtensions = new string[] {
                 "exe",
@@ -58,10 +59,7 @@ namespace Rupor.Public.Infrastructure.FileTools
 
         public FileStream GetFile(string path)
         {
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                return stream;
-            }
+            return new FileStream(path, FileMode.Open, FileAccess.Read);
         }
 
         /// <summary>
@@ -128,7 +126,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 throw httpEx;
             }
             catch (Exception ex)
-            {                
+            {
                 //TODO LOG
                 throw ex;
             }

@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rupor.Domain.Entities.RssAgregate;
 
 namespace Rupor.Domain.Entities.User
 {
@@ -30,6 +31,7 @@ namespace Rupor.Domain.Entities.User
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public UserEntity Owner { get; set; }
+        
         public string FileNameOriginal { get; set; }
         public string FileNameMin { get; set; }
         public int? AccessLevelToImage { get; set; }
@@ -44,6 +46,19 @@ namespace Rupor.Domain.Entities.User
         public FileEntity OriginalPicture { get; set; }
         [ForeignKey("MinPictureId")]
         public FileEntity MinPicture { get; set; }
+        /// <summary>
+        /// Ссылка на аккаунт instagramm
+        /// </summary>
+        public string SocialInstagramm { get; set; }
+        /// <summary>
+        /// Ссылка на аккаунт vk
+        /// </summary>
+        public string SocialVk { get; set; }
+        /// <summary>
+        /// Ссылка на аккаунт facebook
+        /// </summary>
+        public string SocialFb { get; set; }
 
+        public  virtual  ICollection<RssChannelEntity> SubscribersOnChannels { get; set; }
     }
 }

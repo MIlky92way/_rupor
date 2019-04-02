@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace Rupor.Public.Areas.Cab.Controllers
 {
-    public class AppConfigurationController : Controller
+    [Authorize]
+    public class ProfileDashboardController : Controller
     {
-        // GET: Cab/AppConfiguration
+        // GET: Cab/ProfileDashboard
         public ActionResult Index()
         {
             return View();

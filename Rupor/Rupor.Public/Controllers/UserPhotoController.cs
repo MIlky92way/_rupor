@@ -51,7 +51,7 @@ namespace Rupor.Public.Controllers
             return result;
         }
        
-        public ActionResult SavePhoto(HttpPostedFile file)
+        public ActionResult SavePhoto(HttpPostedFileBase file)
         {
             ImageTools.SaveImage(file, FileArea.Profile);
 

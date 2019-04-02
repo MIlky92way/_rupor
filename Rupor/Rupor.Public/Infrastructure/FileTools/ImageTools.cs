@@ -9,23 +9,28 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Rupor.Tools.Extend;
+using WebGrease.Css.Extensions;
 
 namespace Rupor.Public.Infrastructure.FileTools
 {
 
-
+    /// <summary>
+    /// Обработчик изображений
+    /// </summary>
     public class ImageTools : FileTools
     {
         private const int _ThumbZise = 256;
         public readonly string _PicPathProfile = $"{_RootDir}/protected/profile/";
         private readonly string _PicPathArticle = $"{_RootDir}/protected/article/";
         private readonly string _PicPathSection = $"{_RootDir}/protected/section/";
-
+        private string fileName;
+        private string fileExtension;
         public readonly string _PicPathMinDefaultProfile = $"~/pub/min/";
         public readonly string _PicPathDefaultProfile = $"~/pub/orig/";
 
-        public ImageTools(HttpContextBase context, HttpServerUtilityBase server, IFileService fileSrv)
-            : base(context, server, fileSrv)
+        public ImageTools()
+            : base(new FileService())
         {
             //_PicPathArticle;
             //_PicPathProfile = Server.MapPath(_PicPathProfile);
@@ -33,32 +38,66 @@ namespace Rupor.Public.Infrastructure.FileTools
         }
         #region Save images
         /// <summary>
-        /// Сохраняет 
+        /// Сохраняет изображение учитывая сохранение в иcточник.
         /// </summary>
-        /// <param name="file"></param>
-        /// <param name="imageArea"></param>
-        /// <param name="compressed"></param>
-        /// <param name="crop"></param>
-        /// <param name="saveData"></param>
+        /// <param name="file">Файл</param>
+        /// <param name="imageArea">Область контекста</param>
+        /// <param name="compressed">Сжатие</param>
+        /// <param name="crop">Обрезка</param>
+        /// <param name="saveData">Данные для работы с изо.</param>
         /// <returns></returns>
-        public int SaveImage(HttpPostedFile file, FileArea imageArea, bool compressed = true, bool crop = false, ImageSaveData saveData = null)
+        public int SaveImage(HttpPostedFileBase file, FileArea imageArea, bool compressed = true, bool crop = false, bool isDefault = false, ImageSaveData saveData = null)
         {
             var fileEntity = new FileEntity();
             bool successSave = false;
-            string path = string.Empty;
+            var path = string.Empty;
+
+            fileExtension = Path.GetExtension(file.FileName).ToLower().Substring(1);
+            fileName = FileNameExtend.GetRandomFileName(11);
+            fileName = $"{fileName}.{fileExtension}";
 
             switch (imageArea)
             {
                 case FileArea.Article:
-                    path = Server.MapPath($"{_PicPathArticle}/{file.FileName}");
+
+                    if (isDefault)
+                    {
+
+                    }
+                    else
+                    {
+                        path = _PicPathArticle;
+                    }
+
+                    if (InitialDirs(Server.MapPath(path)))
+                        path = Server.MapPath($"{path}/{fileName}");
+
                     break;
                 case FileArea.Section:
-                    path = Server.MapPath($"{_PicPathSection}/{file.FileName}");
+
+                    if (isDefault)
+                    {
+
+                    }
+                    else
+                    {
+                        path = _PicPathSection;
+                    }
+                    if (InitialDirs(Server.MapPath(path)))
+                        path = Server.MapPath($"{path}/{fileName}");
+
                     break;
                 case FileArea.Profile:
-
                 default:
-                    path = Server.MapPath($"{_PicPathProfile}/{file.FileName}");
+
+                    if (isDefault)
+                        path = _PicPathDefaultProfile;
+                    else
+                        path = _PicPathProfile;
+
+                    if (InitialDirs(Server.MapPath(path)))
+                        path = Server.MapPath($"{path}/{fileName}");
+
                     break;
             }
 
@@ -73,26 +112,26 @@ namespace Rupor.Public.Infrastructure.FileTools
 
             if (successSave)
             {
-                SaveFileEntity(file.FileName, crop);
-
                 if (crop)
-                {
-                    SaveFileEntity(file.FileName, crop);
-                }
+                    SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
+                else
+                    SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
             }
+
             return fileEntity.Id;
         }
 
 
-        private bool Save(HttpPostedFile file, string path, bool compressed = true, bool crop = false, ImageSaveData saveData = null)
+        private bool Save(HttpPostedFileBase file, string path, bool compressed = true, bool crop = false, ImageSaveData saveData = null)
         {
-            ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+            ImageCodecInfo jpgEncoder = null;
             EncoderParameters encoderParams = null;
 
-            if (jpgEncoder == null)
-            {
-                throw new NullReferenceException("jpg encoder");
-            }
+            //if (jpgEncoder == null)
+            //{
+            //    throw new NullReferenceException("jpg encoder");
+            //}
+
 
             using (Stream stream = file.InputStream)
             {
@@ -103,9 +142,9 @@ namespace Rupor.Public.Infrastructure.FileTools
                         var myEncoder = Encoder.Quality;
                         var myEncoderParameter = new EncoderParameter(myEncoder, 50L);
 
-                        if (Path.GetExtension(path).ToLower() == "png")
+                        if (fileExtension == ImageFormat.Png.ToString().ToLower())
                             jpgEncoder = GetEncoder(ImageFormat.Png);
-                        else if (Path.GetExtension(path).ToLower() == "bmp")
+                        else if (fileExtension == ImageFormat.Bmp.ToString().ToLower())
                             jpgEncoder = GetEncoder(ImageFormat.Bmp);
                         else
                             jpgEncoder = GetEncoder(ImageFormat.Jpeg);
@@ -116,6 +155,10 @@ namespace Rupor.Public.Infrastructure.FileTools
                     }
                     if (crop)
                     {
+                        if (saveData == null)
+                        {
+                            throw new ArgumentNullException("saveData");
+                        }
                         Rectangle rect = new Rectangle(saveData.X, saveData.Y, saveData.Width, saveData.Height);
                         using (Bitmap cropImg = new Bitmap(saveData.Width, saveData.Height))
                         {
@@ -126,8 +169,8 @@ namespace Rupor.Public.Infrastructure.FileTools
 
                             if (compressed)
                                 cropImg.Save(path, jpgEncoder, encoderParams);
-
-                            cropImg.Save(path);
+                            else
+                                cropImg.Save(path);
 
                         }
                     }
@@ -135,8 +178,8 @@ namespace Rupor.Public.Infrastructure.FileTools
                     {
                         if (compressed)
                             srcImg.Save(path, jpgEncoder, encoderParams);
-
-                        srcImg.Save(path);
+                        else
+                            srcImg.Save(path);
                     }
                 }
             }
@@ -144,33 +187,39 @@ namespace Rupor.Public.Infrastructure.FileTools
             return true;
         }
 
-        private ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
-                    return codec;
-                }
-            }
-            return null;
-        }
 
-        private FileEntity SaveFileEntity(string fileName, bool crop)
+
+        private void SaveFileEntity(FileArea area, string fileName, bool crop, bool isDefault, string contentType, FileEntity entity = null)
         {
-            FileEntity file = new FileEntity();
+            entity = entity ?? new FileEntity();
             try
             {
-                if (crop)
-                    file.Alt = file.Name =
-                        $"{Guid.NewGuid().ToString().Split('-')[2]}-th";
-                else
-                    file.Alt = file.Name = Guid.NewGuid().ToString().Split('-')[2];
+                if (isDefault)
+                {
+                    var defaultImage =
+                        FileService.Get(f => f.IsDefault && f.FileType == FileType.Image && f.FileArea == area);
 
-                file.FileExtension = Path.GetExtension(fileName);
-                file.Picture = true;
-                FileService.Edit(file);
+                    if (defaultImage != null)
+                    {
+                        FileService.Remove(defaultImage.Select(x => x.Id).ToArray());
+                    }
+                }
+
+                if (crop)
+                    entity.Alt = entity.Name =
+                        $"thumb-{fileName}";
+                else
+                    entity.Alt = fileName;
+
+                entity.FileExtension = fileExtension;
+                entity.Picture = true;
+                entity.FileType = FileType.Image;
+                entity.FileArea = area;
+                entity.ContentType = contentType;
+                entity.Name = entity.FileName = fileName;
+                entity.Alt = fileName;
+                entity.IsDefault = isDefault;
+                FileService.Edit(entity);
             }
             catch (Exception ex)
             {
@@ -178,7 +227,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 throw ex;
             }
 
-            return file;
+            //return entity;
         }
         #endregion
 
@@ -214,20 +263,19 @@ namespace Rupor.Public.Infrastructure.FileTools
 
         public FileStreamResult GetDefaultImage(FileArea area)
         {
-
-            var files = FileService.Get(f => f.FileArea == area && f.FileType == FileType.Image)
+            var files = FileService.Get(f => f.FileArea == area && f.FileType == FileType.Image && f.IsDefault)
                 .OrderByDescending(f => f.DateCreate)
                 .ToList();
-            var file = files.LastOrDefault();
+            var file = files.FirstOrDefault();
             if (file == null)
             {
-                throw new NullReferenceException("Default image is empty");
+                return null;
             }
             var path = string.Empty;
             switch (area)
             {
                 case FileArea.Profile:
-                    path = Server.MapPath($"{_PicPathDefaultProfile}");
+                    path = Server.MapPath($"{_PicPathDefaultProfile}/{file.Name}");
                     break;
                 case FileArea.Article:
                     break;
@@ -241,6 +289,28 @@ namespace Rupor.Public.Infrastructure.FileTools
 
         }
 
+        #endregion
+
+        #region tool
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
+
+
+        private void RemovePhysImage(string fileName)
+        {
+            FileInfo file = new FileInfo(fileName);
+            file.Delete();
+        }
         #endregion
     }
 }

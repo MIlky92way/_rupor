@@ -62,6 +62,8 @@
     <Compile Include="Reference\ReferenceSection.cs" />
     <Compile Include="RssAgregate\RssChannelEntity.cs" />
     <Compile Include="RssAgregate\RssFeedEntity.cs" />
+    <Compile Include="Section\SectionEntity.cs" />
+    <Compile Include="Section\SectionSettingsEntity.cs" />
     <Compile Include="Tag\TagEntity.cs" />
     <Compile Include="User\ProfileEntity.cs" />
     <Compile Include="User\RoleEntity.cs" />
