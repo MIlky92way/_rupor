@@ -2,6 +2,9 @@
 using Rupor.Domain.Entities.User;
 using Rupor.Logik.File;
 using Rupor.Logik.Profile;
+using Rupor.Logik.Section;
+using Rupor.Services.Core.File;
+using Rupor.Services.Core.Section;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +25,12 @@ namespace Rupor.Ioc.Container
             //builder.RegisterAssemblyTypes(typeof(ProblemType).Assembly)
             //    .AsImplementedInterfaces();
 
-            builder.RegisterType<FileService>().As<IFileService>();
-            
+            builder.RegisterType<FileService>().As<IFileService>();            
+
             builder.RegisterType<UserProfileService>().PropertiesAutowired(PropertyWiringOptions.None);
+
+            builder.RegisterType<SectionSettingsService>().As<ISectionSettingsService > ()
+                .InstancePerRequest();
         }
     }
 }

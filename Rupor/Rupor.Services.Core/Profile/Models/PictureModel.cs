@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rupor.Logik.Profile.Model
+namespace Rupor.Services.Core.Profile.Models
 {
     public class PictureModel
     {

@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity;
 using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.ProfileTools;
 using Rupor.Public.Infrastructure.FileTools;
+using Rupor.Services.Core.Profile;
+using Rupor.Services.Core.File;
 
 namespace Rupor.Public.Controllers
 {
@@ -27,9 +29,7 @@ namespace Rupor.Public.Controllers
         {
             ProfileService = new UserProfileService();
             FileService = new FileService();
-
             ImageTools = new ImageTools();
-
         }
         
 

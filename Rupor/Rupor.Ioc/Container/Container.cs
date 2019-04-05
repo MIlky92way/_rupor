@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Rupor.Ioc.Container
 {
@@ -19,6 +20,10 @@ namespace Rupor.Ioc.Container
 
             var init = new MvcRegisterTypes(builder);
 
+            init.InitDependencies();
+
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }

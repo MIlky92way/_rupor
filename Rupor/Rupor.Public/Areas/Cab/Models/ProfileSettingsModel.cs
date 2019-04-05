@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Rupor.Public.Areas.Cab.Models
 {
-    public class ProfileSettingsModel
+    public class ProfileSettingsModel:BaseAppSettingsModel
     {
         public HttpPostedFileBase File { get; set; }
        
@@ -15,7 +15,7 @@ namespace Rupor.Public.Areas.Cab.Models
 
         public FileType FileType { get; set; }
 
-        public bool IsEmptyDefaultImage { get; set; }
+      
         public ProfileSettingsModel()
         {
             FileArea = FileArea.Profile;            

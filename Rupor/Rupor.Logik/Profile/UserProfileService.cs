@@ -1,7 +1,5 @@
 ﻿using Rupor.Domain.Context;
 using Rupor.Domain.Entities.User;
-using Rupor.Logik.Base.Model;
-using Rupor.Logik.Profile.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +7,16 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+
+using Rupor.Services.Core.Base.Models;
+using Rupor.Services.Core.Profile;
+using Rupor.Services.Core.Profile.Models;
+
 namespace Rupor.Logik.Profile
 {
+    //TODO --UserProfileService Возможно придется половину менять.
+    //TODO --UserProfileService Подписка на рубрикаторов, подписка на RSS каналы.
+    // --UserProfileService Допил методов разграничения по ролям, и выдачи по ролям данных.(в дальнейшем)
     public class UserProfileService : IUserProfileService<ProfileEntity>
     {
         private RuporDbContext dbContext;
@@ -79,7 +85,7 @@ namespace Rupor.Logik.Profile
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ProfileEntity> Get(BaseModel model, Expression<Func<bool, ProfileEntity>> predicate)
+        public IEnumerable<ProfileEntity> Get(Model model, Expression<Func<bool, ProfileEntity>> predicate)
         {
             throw new NotImplementedException();
         }

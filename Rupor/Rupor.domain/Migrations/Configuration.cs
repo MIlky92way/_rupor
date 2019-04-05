@@ -86,6 +86,5 @@ namespace Rupor.Domain.Migrations
 
             }
         }
-
     }
 }

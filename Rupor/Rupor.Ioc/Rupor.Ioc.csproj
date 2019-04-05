@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
@@ -84,6 +84,10 @@
     <ProjectReference Include="..\Rupor.Logik\Rupor.Services.csproj">
       <Project>{B5B22AE6-F84D-4996-8D0F-EC24D835F0CB}</Project>
       <Name>Rupor.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Services.Core\Rupor.Services.Core.csproj">
+      <Project>{E581077B-EFEE-440B-BD57-7FBBCCF459C4}</Project>
+      <Name>Rupor.Services.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

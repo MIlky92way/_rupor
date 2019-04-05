@@ -21,5 +21,10 @@ namespace Rupor.Public.Controllers
         {
             return ImageTools.GetDefaultImage(FileArea.Profile);
         }
+
+        public FileStreamResult GetDefaultSectionImage(int id = 0)
+        {
+            return ImageTools.GetDefaultImage(FileArea.Section, id);
+        }
     }
 }

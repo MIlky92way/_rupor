@@ -57,14 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\IRuporService.cs" />
-    <Compile Include="Base\Model\BaseModel.cs" />
     <Compile Include="File\FileService.cs" />
-    <Compile Include="File\IFileService.cs" />
-    <Compile Include="Profile\IUserProfileService.cs" />
-    <Compile Include="Profile\Model\PictureModel.cs" />
     <Compile Include="Profile\UserProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Section\Settings\SectionSettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rupor.domain.entities\Rupor.Domain.Entities.csproj">
@@ -74,6 +70,10 @@
     <ProjectReference Include="..\Rupor.domain\Rupor.Domain.csproj">
       <Project>{D86844A8-E092-4476-9424-BBD005EAE4C7}</Project>
       <Name>Rupor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Services.Core\Rupor.Services.Core.csproj">
+      <Project>{e581077b-efee-440b-bd57-7fbbccf459c4}</Project>
+      <Name>Rupor.Services.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

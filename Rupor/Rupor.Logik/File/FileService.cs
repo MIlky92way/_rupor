@@ -1,6 +1,6 @@
 ﻿using Rupor.Domain.Context;
 using Rupor.Domain.Entities.File;
-using Rupor.Logik.Base;
+using Rupor.Services.Core.File;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,10 @@ namespace Rupor.Logik.File
 {
     public class FileService : IFileService
     {
+        public FileService()
+        {
+            
+        }
         public FileEntity this[int id] => Get(id);
 
         public FileEntity Edit(FileEntity model)

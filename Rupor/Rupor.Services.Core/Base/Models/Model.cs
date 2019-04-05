@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rupor.Logik.Base.Model
+namespace Rupor.Services.Core.Base.Models
 {
-    public class BaseModel
+    public class Model
     {
 
-        public BaseModel()
+        public Model()
         {
-            CountOnPage = 10;
+            Pages = 10;
             Page = 1;
         }
 
-        public int CountOnPage { get; set; }
-        public int TotalItems { get; set; }//total elements from  data
+        public int Pages { get; set; }
+        public int Items { get; set; }//total elements from  data
         public int Page { get; set; } //pages
         public int Total
         {
-            get { return (int)Math.Ceiling((decimal)TotalItems / CountOnPage); }
+            get { return (int)Math.Ceiling((decimal)Items / Pages); }
         }
 
         public int[] CountOnPageArray

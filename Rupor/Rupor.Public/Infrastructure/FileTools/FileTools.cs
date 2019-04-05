@@ -2,6 +2,7 @@
 using Rupor.Domain.Entities.User;
 using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.FileTools.Additional;
+using Rupor.Services.Core.File;
 using System;
 using System.Collections.Generic;
 using System.IO;

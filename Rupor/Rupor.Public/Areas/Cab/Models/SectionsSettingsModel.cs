@@ -11,19 +11,22 @@ namespace Rupor.Public.Areas.Cab.Models
         general,
         standardSections,
     }
-    public class SectionsSettingsModel
+    public class SectionsSettingsModel: BaseAppSettingsModel
     {
         public SectionsSettingsModel()
         {
             FileArea = FileArea.Section;
         }
 
+        public int DefaultPictureId { get; set; }
         public int MaxAllowedSections { get; set; }
+
         public HttpPostedFileBase SectionImage { get; set; }
-        
-        public bool SectionOnTop { get; set; }
-        public SectionSettingArea SectionSettingArea{get; set; }
+                  
         public FileArea FileArea { get; private set; }
+
+        public IEnumerable<DefaultSectionModel> Sections { get; set; }
+
     }
 
 
@@ -32,9 +35,11 @@ namespace Rupor.Public.Areas.Cab.Models
         public DefaultSectionModel()
         {
             IsDefault = true;
+            IsActive = true;
         }
         public bool IsDefault { get; set; }
         public string Name { get; set; }
         public bool OnTop { get; set; }
+        public bool IsActive { get; set; }
     }
 }

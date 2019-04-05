@@ -1,6 +1,7 @@
 ﻿using Rupor.Domain.Entities.User;
 using Rupor.Logik.Profile;
 using Rupor.Public.Infrastructure.ProfileTools;
+using Rupor.Services.Core.Profile;
 using System;
 using System.Collections.Generic;
 using System.Linq;

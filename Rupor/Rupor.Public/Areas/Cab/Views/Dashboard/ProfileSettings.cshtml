@@ -1,7 +1,7 @@
 ﻿@using Rupor.Domain.Entities.File
 @model Rupor.Public.Areas.Cab.Models.ProfileSettingsModel
 @{
-
+    ViewBag.Title = "Настройки профиля";
 }
 <div class="alert alert-success margin-bottom-10">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <input type="hidden" name="FileType" value="@FileType.Image" />
-                            @if (!Model.IsEmptyDefaultImage)
+                            @if (!Model.IsEmptyDefaultPicture)
                             {
                                 <div class="col-md-4">
                                     <img class="img-responsive" src="@Url.Action("GetDefaultProfileImage", "Pic", new {area = ""})" />

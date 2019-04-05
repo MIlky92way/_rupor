@@ -28,7 +28,7 @@ namespace Rupor.Public.Infrastructure.FileTools
         private string fileExtension;
         public readonly string _PicPathMinDefaultProfile = $"~/pub/min/";
         public readonly string _PicPathDefaultProfile = $"~/pub/orig/";
-
+        public readonly string _PicPathDefault = $"~/pub/orig/";
         public ImageTools()
             : base(new FileService())
         {
@@ -61,13 +61,9 @@ namespace Rupor.Public.Infrastructure.FileTools
                 case FileArea.Article:
 
                     if (isDefault)
-                    {
-
-                    }
+                        path = _PicPathDefault;
                     else
-                    {
                         path = _PicPathArticle;
-                    }
 
                     if (InitialDirs(Server.MapPath(path)))
                         path = Server.MapPath($"{path}/{fileName}");
@@ -76,13 +72,10 @@ namespace Rupor.Public.Infrastructure.FileTools
                 case FileArea.Section:
 
                     if (isDefault)
-                    {
-
-                    }
+                        path = _PicPathDefault;
                     else
-                    {
                         path = _PicPathSection;
-                    }
+
                     if (InitialDirs(Server.MapPath(path)))
                         path = Server.MapPath($"{path}/{fileName}");
 
@@ -91,7 +84,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 default:
 
                     if (isDefault)
-                        path = _PicPathDefaultProfile;
+                        path = _PicPathDefault;
                     else
                         path = _PicPathProfile;
 
@@ -113,9 +106,9 @@ namespace Rupor.Public.Infrastructure.FileTools
             if (successSave)
             {
                 if (crop)
-                    SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
+                    fileEntity = SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
                 else
-                    SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
+                    fileEntity = SaveFileEntity(imageArea, fileName, crop, isDefault, file.ContentType, fileEntity);
             }
 
             return fileEntity.Id;
@@ -171,7 +164,6 @@ namespace Rupor.Public.Infrastructure.FileTools
                                 cropImg.Save(path, jpgEncoder, encoderParams);
                             else
                                 cropImg.Save(path);
-
                         }
                     }
                     else
@@ -189,13 +181,14 @@ namespace Rupor.Public.Infrastructure.FileTools
 
 
 
-        private void SaveFileEntity(FileArea area, string fileName, bool crop, bool isDefault, string contentType, FileEntity entity = null)
+        private FileEntity SaveFileEntity(FileArea area, string fileName, bool crop, bool isDefault, string contentType, FileEntity entity = null)
         {
             entity = entity ?? new FileEntity();
             try
             {
                 if (isDefault)
                 {
+
                     var defaultImage =
                         FileService.Get(f => f.IsDefault && f.FileType == FileType.Image && f.FileArea == area);
 
@@ -206,7 +199,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 }
 
                 if (crop)
-                    entity.Alt = entity.Name =
+                    entity.Alt = entity.Name = entity.FileName =
                         $"thumb-{fileName}";
                 else
                     entity.Alt = fileName;
@@ -219,7 +212,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 entity.Name = entity.FileName = fileName;
                 entity.Alt = fileName;
                 entity.IsDefault = isDefault;
-                FileService.Edit(entity);
+                entity = FileService.Edit(entity);
             }
             catch (Exception ex)
             {
@@ -227,7 +220,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 throw ex;
             }
 
-            //return entity;
+            return entity;
         }
         #endregion
 
@@ -261,32 +254,22 @@ namespace Rupor.Public.Infrastructure.FileTools
             return new FileStreamResult(GetFile(path), file.ContentType);
         }
 
-        public FileStreamResult GetDefaultImage(FileArea area)
+        public FileStreamResult GetDefaultImage(FileArea area, int id = 0)
         {
-            var files = FileService.Get(f => f.FileArea == area && f.FileType == FileType.Image && f.IsDefault)
+            var path = string.Empty;
+
+            var file = FileService.Get(f => f.FileArea == area && f.FileType == FileType.Image && f.IsDefault && id == 0 || f.Id == id)
                 .OrderByDescending(f => f.DateCreate)
-                .ToList();
-            var file = files.FirstOrDefault();
+                .FirstOrDefault();
+
             if (file == null)
             {
                 return null;
             }
-            var path = string.Empty;
-            switch (area)
-            {
-                case FileArea.Profile:
-                    path = Server.MapPath($"{_PicPathDefaultProfile}/{file.Name}");
-                    break;
-                case FileArea.Article:
-                    break;
-                case FileArea.Section:
-                    break;
-                default:
-                    break;
-            }
+
+            path = Server.MapPath($"{_PicPathDefault}/{file.Name}");
 
             return new FileStreamResult(GetFile(path), file.ContentType);
-
         }
 
         #endregion
