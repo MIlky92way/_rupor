@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Rupor.Domain.Entities.File;
+using Rupor.Public.Models;
 
 namespace Rupor.Public.Areas.Cab.Models
 {
@@ -30,16 +31,24 @@ namespace Rupor.Public.Areas.Cab.Models
     }
 
 
-    public class DefaultSectionModel
+    public class DefaultSectionModel: BaseModel
     {
         public DefaultSectionModel()
         {
             IsDefault = true;
             IsActive = true;
         }
+        public int Id { get; set; }
         public bool IsDefault { get; set; }
         public string Name { get; set; }
         public bool OnTop { get; set; }
         public bool IsActive { get; set; }
+        /// <summary>
+        /// Проверка на наличие дефолтных настроек разделов.
+        /// </summary>
+        public bool IsEmptySetting { get; set; }
+
+        public int MaxAllowedSections { get; set; }
+        public bool OverflowSections { get; set; }
     }
 }

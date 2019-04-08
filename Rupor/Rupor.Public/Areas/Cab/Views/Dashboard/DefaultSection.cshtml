@@ -1,0 +1,93 @@
+﻿@using Rupor.Public.Models.Additional
+@model Rupor.Public.Areas.Cab.Models.DefaultSectionModel
+@{
+    ViewBag.Title = "Редактор стандартных разделов";
+}
+
+@Html.ValidationSummary()
+
+@if (Model.OverflowSections)
+{
+    <div class="alert alert-danger margin-bottom-10">
+        <i class="fa fa-warning fa-lg"></i> Превышено количество допустимых разделов
+    </div>
+}
+else
+{
+    if (Model.Change)
+    {
+        if (Model.SuccessCnages)
+         {
+             <div class="alert alert-success margin-bottom-10">
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                 <i class="fa fa-info fa-lg"></i> Запись успешно сохранена.
+             </div>
+         }
+        else
+        {
+            <div class="alert alert-danger margin-bottom-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <i class="fa fa-warning fa-lg"></i> Во время сохранения произошли ошибки
+            </div>    
+       }
+        
+    }
+    
+    <div class="col-md-9" style="float:none; margin:0 auto;">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-bookmark"></i>
+                    @(Model.Name ?? "Добавление раздела")
+                </div>
+                <div class="actions">
+                    @*<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                        <a href="javascript:;" class="reload" data-original-title="" title=""> </a>*@
+                    <a href="@Url.Action("SectionSettings","Dashboard")" class="btn btn-circle btn-default">Назад</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("DefaultSection", "Dashboard", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.MaxAllowedSections)
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label">Наименование</label>
+                            <div class="input-icon">
+                                <i class="fa fa-book"></i>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Расположить в шапке</label>
+                            <label class="">
+                                @Html.CheckBoxFor(m => m.OnTop)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Активен</label>
+                            <label class="">
+                                @Html.CheckBoxFor(m => m.IsActive)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions right">
+                        <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Apply))">Примиенть</button>
+                        <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
+                    </div>
+                }
+
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+

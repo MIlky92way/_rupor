@@ -5566,6 +5566,8 @@
     <Compile Include="Infrastructure\FileTools\ImageTools.cs" />
     <Compile Include="Infrastructure\ProfileTools\ProfileWeb.cs" />
     <Compile Include="Models\Account\AccountModel.cs" />
+    <Compile Include="Models\Additional\AddittionalTools.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Profile\AuthUserWidgetModel.cs" />
     <Compile Include="Models\Profile\ProfileViewModel.cs" />
     <Compile Include="Models\UserPhoto\CropModel.cs" />
@@ -6015,6 +6017,7 @@
     <Content Include="Areas\Cab\Views\Dashboard\SectionSettings.cshtml" />
     <Content Include="Areas\Cab\Views\Dashboard\RssSettings.cshtml" />
     <Content Include="Areas\Cab\Views\Dashboard\MaterialSettings.cshtml" />
+    <Content Include="Areas\Cab\Views\Dashboard\DefaultSection.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

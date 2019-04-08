@@ -1,16 +1,14 @@
-﻿using Rupor.Public.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.Win32;
-using Rupor.Domain.Entities.File;
-using Rupor.Tools.Consts;
+﻿using Rupor.Domain.Entities.File;
 using Rupor.Public.Areas.Cab.Models;
-using Rupor.Public.Infrastructure.FileTools.Additional;
+using Rupor.Public.Controllers;
+using Rupor.Public.Models.Additional;
 using Rupor.Services.Core.Section;
 using Rupor.Services.Core.Section.Models;
+using Rupor.Tools.Consts;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using Antlr.Runtime.Misc;
 using SectionSettingArea = Rupor.Services.Core.Section.Models.SectionSettingArea;
 
 namespace Rupor.Public.Areas.Cab.Controllers
@@ -93,6 +91,16 @@ namespace Rupor.Public.Areas.Cab.Controllers
             {
                 model.MaxAllowedSections = settings.MaxAllowedSections;
                 model.DefaultPictureId = settings.DefaultPictureId.HasValue ? settings.DefaultPictureId.Value : 0;
+
+                model.Sections = SectionSettingsService
+                    .DefaultSections
+                    .Select(s => new DefaultSectionModel()
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        OnTop = s.OnTop,
+                        IsActive = s.IsActive
+                    });
             }
 
             return View(model);
@@ -112,7 +120,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
             {
                 SectionSettingsService.RemoveDefaultSettings();
 
-                if (model.SectionImage!=null && model.SectionImage.ContentLength > 0)
+                if (model.SectionImage != null && model.SectionImage.ContentLength > 0)
                 {
                     serviceModel.DefaultPictureId = ImageTools
                         .SaveImage(model.SectionImage, model.FileArea, isDefault: true);
@@ -120,7 +128,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
                 else
                 {
                     serviceModel.DefaultPictureId = model.DefaultPictureId;
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -135,13 +143,29 @@ namespace Rupor.Public.Areas.Cab.Controllers
                 ModelState.AddModelError("", "Во  время сохранения произошли ошибки");
             }
 
-            return View(model);
+            return RedirectToAction("SectionSettings");
         }
 
         [Authorize(Roles = Role._ROOT)]
-        public ActionResult DefaultSection()
+        public ActionResult DefaultSection(int id = 0)
         {
             DefaultSectionModel model = new DefaultSectionModel();
+            var settings = SectionSettingsService.Settings;
+            var countDefauleSections = SectionSettingsService.DefaultSections.Count();
+            model.IsEmptySetting = settings == null;
+            model.MaxAllowedSections = settings.MaxAllowedSections;
+            model.OverflowSections = countDefauleSections > model.MaxAllowedSections;
+
+            if (id > 0)
+            {
+                var section = SectionSettingsService.GetDefaultSection(id);
+                model.Name = section.Name;
+                model.IsActive = section.IsActive;
+                model.OnTop = section.OnTop;
+                model.Id = section.Id;
+            }
+
+            model.Change = TempData["change"] != null ? (bool) TempData["change"] : false;
 
             return View(model);
         }
@@ -149,23 +173,45 @@ namespace Rupor.Public.Areas.Cab.Controllers
         [Authorize(Roles = Role._ROOT)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DefaultSection(DefaultSectionModel model)
+        public ActionResult DefaultSection(DefaultSectionModel model, string action)
         {
             var serviceModel = new SectionSettingsModel();
-
+            serviceModel.SettingsArea = SectionSettingArea.DefaultSections;
             serviceModel.Name = model.Name;
             serviceModel.OnTop = model.OnTop;
-
+            serviceModel.IsActive = model.IsActive;
+            serviceModel.SectionId = model.Id;
+            serviceModel.MaxAllowedSections = model.MaxAllowedSections;
+            TempData["change"] = true;
             try
             {
                 SectionSettingsService.Edit(serviceModel);
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", "Во  время сохранения произошли ошибки");
+                model.SuccessCnages = false;
             }
 
-            return View(model);
+            if (action == nameof(ExperienceForSubmit.Save))
+            {
+                return RedirectToAction("SectionSettings");
+            }
+
+            return RedirectToAction("DefaultSection");
+
+        }
+
+        [Authorize(Roles = Role._ROOT)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveDefaultSection(int id = 0)
+        {
+            if (id > 0)
+            {
+                SectionSettingsService.RemoveDefaultSection(id);
+            }
+
+            return RedirectToAction("SectionSettings");
         }
 
         [Authorize(Roles = Role._ROOT)]
@@ -173,8 +219,6 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             return View();
         }
-
-
 
         [Authorize(Roles = Role._ROOT)]
         public ActionResult RssSettings()
@@ -187,8 +231,6 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             return PartialView();
         }
-
-
 
     }
 }

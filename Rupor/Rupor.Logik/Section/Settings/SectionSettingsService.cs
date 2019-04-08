@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rupor.Logik.Section
 {
@@ -52,6 +50,34 @@ namespace Rupor.Logik.Section
             }
         }
 
+        public SectionEntity GetDefaultSection(int id)
+        {
+            SectionEntity section = null;
+
+            if (id > 0)
+            {
+                using (var ctx = new RuporDbContext())
+                {
+                    section = ctx.Sections.FirstOrDefault(s => s.Id == id && s.IsDefault);
+                }
+            }
+
+            return section;
+        }
+
+        public void RemoveDefaultSection(int id)
+        {            
+            if (id > 0)
+            {
+                using (var ctx = new RuporDbContext())
+                {
+                   var section = ctx.Sections.FirstOrDefault(s => s.Id == id && s.IsDefault);
+                   ctx.Sections.Remove(section);
+                   ctx.SaveChanges();
+                }
+            }
+        }
+
         #region edit tool
 
         private void EditDefaultSection(RuporDbContext context, SectionSettingsModel model)
@@ -72,7 +98,7 @@ namespace Rupor.Logik.Section
                     throw new InvalidOperationException("Cannot create than maximum allowed!");
                 }
 
-                AttachSection(context, section);
+                section = AttachSection(context, section);
             }
 
             if (!ExistSettings())
@@ -80,7 +106,8 @@ namespace Rupor.Logik.Section
                 throw new InvalidOperationException("Cannot create default section, because not exists default setting for sections!");
             }
 
-            section.IsActive = true;
+
+            section.IsActive = model.IsActive;
             section.IsDefault = true;
             section.Name = model.Name;
             section.Description = model.Description;
@@ -91,12 +118,12 @@ namespace Rupor.Logik.Section
                 var count = context.Sections
                     .Where(s => s.IsDefault).Count();
 
-                return count >= max;
+                return count < max;
             }
 
             bool ExistSettings() => context.SectionSettings
                                         .OrderByDescending(s => s.DateCreate)
-                                        .FirstOrDefault() == null;
+                                        .FirstOrDefault() != null;
         }
 
         private void EditSectionSettings(RuporDbContext context, SectionSettingsModel model)

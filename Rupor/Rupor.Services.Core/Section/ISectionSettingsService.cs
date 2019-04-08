@@ -13,9 +13,9 @@ namespace Rupor.Services.Core.Section
         SectionSettingsModel Settings { get; }
 
         IList<SectionEntity> DefaultSections { get; }
-
+        SectionEntity GetDefaultSection(int id);
         void Edit(SectionSettingsModel model);
-
         void RemoveDefaultSettings();
+        void RemoveDefaultSection(int id);
     }
 }

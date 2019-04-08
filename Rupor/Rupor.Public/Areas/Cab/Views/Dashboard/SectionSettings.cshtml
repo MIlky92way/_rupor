@@ -1,32 +1,47 @@
-﻿@using Rupor.Public.Areas.Cab.Models
+﻿@using Rupor.Domain.Entities.Section
+@using Rupor.Public.Areas.Cab.Models
 @model SectionsSettingsModel
 @{
     ViewBag.Title = "Настройки разделов";
+    var existSections = Model.Sections != null && Model.Sections.Count() > 0;
 }
 <div class="alert alert-success margin-bottom-10">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-    <i class="fa fa-warning fa-lg"></i> Укажите базовые настройки разделов приложения.
+    <i class="fa fa-info fa-lg"></i> Укажите базовые настройки разделов приложения.
 </div>
-
+<div class="alert alert-danger margin-bottom-10">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+    <i class="fa fa-warning fa-lg"></i> Для создания стандартных разделов, необходимо указать базовые настройки разделов!
+</div>
 <div class="">
-    <form action="@Url.Action("SectionSettings", "Dashboard")" method="post" enctype="multipart/form-data" class="form-vertical">
-        @Html.AntiForgeryToken()
-        <div class="col-md-7">
-            <div class="portlet light">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <label class="caption-subject font-blue sbold uppercase">Стандартные разделы</label>
-                    </div>
+
+    <div class="col-md-7">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <label class="caption-subject font-blue sbold uppercase">Стандартные разделы</label>
                 </div>
-                <div class="portlet-body">
-                    <div class="form-body">
-                        Ыыыы
-                    </div>
+                <div class="actions">
+                    <a href="@Url.Action("DefaultSection","Dashboard")" class="btn btn-circle blue-hoki">Добавить раздел</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-body">
+                    @if (existSections)
+                    {
+                        @DefaultSections(Model.Sections)
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Стандартные разделы отсутствуют</p>
+                    }
                 </div>
             </div>
         </div>
-
-        <div class="col-md-5">
+    </div>
+    <div class="col-md-5">
+        <form action="@Url.Action("SectionSettings", "Dashboard")" method="post" enctype="multipart/form-data" class="form-vertical">
+            @Html.AntiForgeryToken()
             <div class="portlet light">
                 <div class="portlet-title">
                     <div class="caption">
@@ -41,7 +56,7 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div class="form-body">                        
+                    <div class="form-body">
                         @Html.HiddenFor(m => m.DefaultPictureId)
                         <div class="form-group">
                             <label>Максимальное кол-во разделов</label>
@@ -50,20 +65,23 @@
                         <div class="form-group">
                             @if (!Model.IsEmptyDefaultPicture)
                             {
-                                <div class="col-md-4">
-                                    <img class="img-responsive" src="@Url.Action("GetDefaultSectionImage", "Pic", new {area = "",id=Model.DefaultPictureId})" />
+                                <p class="control-label text-muted">
+                                    Стандартное изображение раздела
+                                </p>
+
+                                <div class="col-md-12">
+                                    <img class="img-responsive" src="@Url.Action("GetDefaultSectionImage", "Pic", new {area = "", id = Model.DefaultPictureId})" />
                                 </div>
-                                <label class="control-label">
-                                    Стандартное изображение
-                                </label>
                             }
                             else
                             {
-                                <label class="control-label">
+                                <label class="control-label text-muted">
                                     Стандартное изображение отсутствует
                                 </label>
                             }
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                        </div>
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput" style="padding: 15px;">
                                 <div class="input-group input-large">
                                     <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
                                         <i class="fa fa-file fileinput-exists"></i>&nbsp;
@@ -81,7 +99,70 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
     <hr />
 </div>
+@helper DefaultSections(IEnumerable<DefaultSectionModel> sections)
+{
+    <div class="">
+        <table class="table table-hover table-light">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Расположен в шапке</th>
+                    <th>Активен</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in sections)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>
+                            @if (item.OnTop)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-minus"></i>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-minus"></i>
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("DefaultSection", "Dashboard", new {id = item.Id})" class="btn btn-circle btn-default">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("RemoveDefaultSection", "Dashboard", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-circle btn-default">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
+}
