@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts\Role.cs" />
+    <Compile Include="Extend\DateTimeExtend.cs" />
     <Compile Include="Extend\FileExtend.cs" />
+    <Compile Include="Extend\StirngExtend.cs" />
+    <Compile Include="Extend\XDocExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

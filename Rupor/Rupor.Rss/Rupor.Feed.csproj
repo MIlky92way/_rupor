@@ -41,12 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\DocInitializer.cs" />
+    <Compile Include="Core\Parsers\Versions\RSS2Parser.cs" />
+    <Compile Include="Core\Parsers\XmlParser.cs" />
+    <Compile Include="Core\Readers\FeedReader.cs" />
+    <Compile Include="Core\Readers\IFeedReader.cs" />
+    <Compile Include="Core\Types\Types.cs" />
+    <Compile Include="Core\IDocInitializer.cs" />
+    <Compile Include="Feeds\BaseFeed.cs" />
+    <Compile Include="Feeds\FeedItem.cs" />
+    <Compile Include="Feeds\Versions\RSS2\RSS2Feed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\UrlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Feed\" />
-    <Folder Include="Utility\" />
+    <Compile Include="Feeds\Versions\RSS2\RSS2FeedItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rupor.Tools\Rupor.Tools.csproj">
+      <Project>{97CEE56C-CC6F-4661-AA72-5A93C81B74A8}</Project>
+      <Name>Rupor.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
