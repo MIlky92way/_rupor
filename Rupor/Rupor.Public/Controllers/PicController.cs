@@ -17,12 +17,12 @@ namespace Rupor.Public.Controllers
 
 
         //Pic/GetDefaultProfileImage
-        public FileStreamResult GetDefaultProfileImage()
+        public FileStreamResult GetProfileImage()
         {
             return ImageTools.GetDefaultImage(FileArea.Profile);
         }
 
-        public FileStreamResult GetDefaultSectionImage(int id = 0)
+        public FileStreamResult GetSectionImage(int id = 0)
         {
             return ImageTools.GetDefaultImage(FileArea.Section, id);
         }

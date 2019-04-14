@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6296E2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{559B7D81-3B0B-4E0A-9B10-163DB96440DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rupor.Rss", "Rupor.Rss\Rupor.Rss.csproj", "{97D4E499-2CC2-4363-B42E-F8EC9629E855}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rupor.Feed", "Rupor.Rss\Rupor.Feed.csproj", "{97D4E499-2CC2-4363-B42E-F8EC9629E855}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rupor.Auth", "Rupor.Auth\Rupor.Auth.csproj", "{7E0A2617-9E0D-4FF3-958B-C312F3EC4FA9}"
 EndProject

@@ -8,7 +8,6 @@ using Rupor.Tools.Consts;
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using Antlr.Runtime.Misc;
 using SectionSettingArea = Rupor.Services.Core.Section.Models.SectionSettingArea;
 
 namespace Rupor.Public.Areas.Cab.Controllers
@@ -31,6 +30,8 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             return View();
         }
+
+        #region  profile
 
         [Authorize(Roles = Role._ROOT)]
         public ActionResult ProfileSettings()
@@ -73,6 +74,10 @@ namespace Rupor.Public.Areas.Cab.Controllers
 
             return View(model);
         }
+
+        #endregion
+
+        #region section settings
 
         [Authorize(Roles = Role._ROOT)]
         public ActionResult SectionSettings()
@@ -165,7 +170,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
                 model.Id = section.Id;
             }
 
-            model.Change = TempData["change"] != null ? (bool) TempData["change"] : false;
+            model.Change = TempData["change"] != null ? (bool)TempData["change"] : false;
 
             return View(model);
         }
@@ -214,11 +219,21 @@ namespace Rupor.Public.Areas.Cab.Controllers
             return RedirectToAction("SectionSettings");
         }
 
+        #endregion
+
+
+        #region article
+
+
         [Authorize(Roles = Role._ROOT)]
         public ActionResult ArticleSettings()
         {
+
             return View();
         }
+
+
+        #endregion
 
         [Authorize(Roles = Role._ROOT)]
         public ActionResult RssSettings()
@@ -226,11 +241,6 @@ namespace Rupor.Public.Areas.Cab.Controllers
             return PartialView();
         }
 
-        [Authorize(Roles = Role._ROOT)]
-        public ActionResult MaterialSettings()
-        {
-            return PartialView();
-        }
 
     }
 }
