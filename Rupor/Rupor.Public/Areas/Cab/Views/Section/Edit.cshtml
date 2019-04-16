@@ -1,0 +1,94 @@
+﻿@using Rupor.Public.Models.Additional
+@model Rupor.Public.Areas.Cab.Models.Section.SectionEditModel
+@{
+    var name = string.Empty;
+    name = string.IsNullOrEmpty(Model.Name) ? "Добавление раздела" : "Редактирование раздела: " + Model.Name;
+    ViewBag.Title = name;
+}
+
+<div class="col-md-9" style="float:none; margin:0 auto;">
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-bookmark"></i>
+                @ViewBag.Title
+            </div>
+            <div class="actions">
+                @*<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                    <a href="javascript:;" class="reload" data-original-title="" title=""> </a>*@
+                <a href="@Url.Action("Index")" class="btn btn-circle btn-default">Назад</a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            @using (Html.BeginForm("Edit", "Section", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                <div class="form-body">
+                    @if (Model.ImageId > 0)
+                    {
+                        <div class="form-group">
+                            <img class="img-responsive" src="@Url.Action("GetSectionImage", "Pic", new {area = "", id = Model.ImageId})" />
+                        </div>
+                    }
+                    <div class="form-group">
+                        <div class="fileinput fileinput-new" data-provides="fileinput" style="padding: 15px;">
+                            <div class="input-group input-large">
+                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-addon btn default btn-file">
+                                    <span class="fileinput-new"> Выбрать файл </span>
+                                    <span class="fileinput-exists"> Изменить </span>
+                                    @Html.TextBoxFor(m => m.SectionImage, new { type = "file" })
+                                </span>
+                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Удалить </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Наименование</label>
+                        <div class="input-icon">
+                            <i class="fa fa-book"></i>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Описание</label>
+                        <div class="input-icon">
+                            <i class="fa fa-book"></i>
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Расположить в шапке</label>
+                        <label class="">
+                            @Html.CheckBoxFor(m => m.OnTop)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Активен</label>
+                        <label class="">
+                            @Html.CheckBoxFor(m => m.IsActive)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Удален</label>
+                        <label class="">
+                            @Html.CheckBoxFor(m => m.IsDelete)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions right">
+                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Apply))">Примиенть</button>
+                    <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
+                </div>
+            }
+
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+

@@ -1,6 +1,7 @@
 ﻿using Rupor.Domain.Entities.File;
 using Rupor.Public.Areas.Cab.Models;
 using Rupor.Public.Controllers;
+using Rupor.Public.Infrastructure.Attributes;
 using Rupor.Public.Models.Additional;
 using Rupor.Services.Core.Section;
 using Rupor.Services.Core.Section.Models;
@@ -12,7 +13,7 @@ using SectionSettingArea = Rupor.Services.Core.Section.Models.SectionSettingArea
 
 namespace Rupor.Public.Areas.Cab.Controllers
 {
-    [Authorize]
+    [CustomAuth(roles: new[] { Role._ROOT })]
     public class DashboardController : BaseController
     {
         public ISectionSettingsService SectionSettingsService;

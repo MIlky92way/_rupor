@@ -31,6 +31,9 @@ namespace Rupor.Ioc.Container
 
             builder.RegisterType<SectionSettingsService>().As<ISectionSettingsService > ()
                 .InstancePerRequest();
+
+            builder.RegisterType<SectionService>().As<ISectionService>()
+                .InstancePerRequest();
         }
     }
 }

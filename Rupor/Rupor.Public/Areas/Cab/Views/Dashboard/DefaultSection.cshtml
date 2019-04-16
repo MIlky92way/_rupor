@@ -47,9 +47,8 @@ else
                 </div>
             </div>
             <div class="portlet-body form">
-
                 <!-- BEGIN FORM-->
-                @using (Html.BeginForm("DefaultSection", "Dashboard", FormMethod.Post))
+                @using (Html.BeginForm("DefaultSection", "Dashboard", FormMethod.Post,new { enctype = "multipart/form-data" } ))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.Id)

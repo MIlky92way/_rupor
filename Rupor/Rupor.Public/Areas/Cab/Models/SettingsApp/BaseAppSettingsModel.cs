@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Rupor.Public.Areas.Cab.Models
 {
-    public class BaseAppSettingsModel: BaseModel
+    public class BaseAppSettingsModel: BaseAppModel
     {
         public bool IsEmptyDefaultPicture { get; set; }
     }

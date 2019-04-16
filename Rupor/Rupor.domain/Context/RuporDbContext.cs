@@ -22,8 +22,8 @@ namespace Rupor.Domain.Context
 
 
         //public DbSet<ReferenceSectionEntity> ReferenceSection { get; set; }
-
         //public DbSet<ReferenceEntity> Reference { get; set; }
+
         public DbSet<ArticleEntity> Article { get; set; }
         public DbSet<TagEntity> Tag { get; set; }
         public DbSet<RssChannelEntity> RssChannel { get; set; }

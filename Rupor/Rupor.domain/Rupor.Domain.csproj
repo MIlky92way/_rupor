@@ -7,7 +7,7 @@
     <ProjectGuid>{D86844A8-E092-4476-9424-BBD005EAE4C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rupor.domain</RootNamespace>
+    <RootNamespace>Rupor.Domain</RootNamespace>
     <AssemblyName>Rupor.domain</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

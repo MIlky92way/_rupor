@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Rupor.Domain.Entities.Section;
+using Rupor.Services.Core.Base;
+using Rupor.Services.Core.Base.Models;
+using Rupor.Services.Core.Section.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Rupor.Services.Core.Section
 {
-    interface ISectionService
-    {
+    public interface ISectionService: IRuporService<SectionEntity>
+    {        
+        IEnumerable<SectionEntity> Get(BaseModel filterModel,Func<SectionEntity,bool> expr);        
     }
 }

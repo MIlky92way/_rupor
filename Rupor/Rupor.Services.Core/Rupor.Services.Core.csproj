@@ -57,6 +57,14 @@
       <Project>{b19ffd8c-b947-4361-a227-32eb9dbb5292}</Project>
       <Name>Rupor.Domain.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rupor.domain\Rupor.Domain.csproj">
+      <Project>{D86844A8-E092-4476-9424-BBD005EAE4C7}</Project>
+      <Name>Rupor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Tools\Rupor.Tools.csproj">
+      <Project>{97CEE56C-CC6F-4661-AA72-5A93C81B74A8}</Project>
+      <Name>Rupor.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

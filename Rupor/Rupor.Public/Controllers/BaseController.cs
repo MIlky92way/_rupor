@@ -18,9 +18,7 @@ using Rupor.Services.Core.File;
 namespace Rupor.Public.Controllers
 {
     public class BaseController : Controller
-    {
-        
-        
+    {                
         protected IUserProfileService<ProfileEntity> ProfileService { get; private set; }
         protected IFileService FileService { get; }
         protected ImageTools ImageTools { get; }
@@ -63,9 +61,10 @@ namespace Rupor.Public.Controllers
             RuporUser model = new RuporUser();
             string userEmail = User.Identity.Name;
             var profile = ProfileService[userEmail];
-           
+            var current = UserManager.FindByName(userEmail);
+            
             ProfileWeb profileWeb = new ProfileWeb(profile, ImageTools);
-
+            
             return profileWeb;
         }
     }

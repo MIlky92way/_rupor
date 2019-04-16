@@ -5546,6 +5546,9 @@
     <Compile Include="Areas\Cab\CabAreaRegistration.cs" />
     <Compile Include="Areas\Cab\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Cab\Controllers\ProfileDashboardController.cs" />
+    <Compile Include="Areas\Cab\Controllers\SectionController.cs" />
+    <Compile Include="Areas\Cab\Models\Section\SectionEditModel.cs" />
+    <Compile Include="Areas\Cab\Models\Section\SectionViewModel.cs" />
     <Compile Include="Areas\Cab\Models\SettingsApp\BaseAppSettingsModel.cs" />
     <Compile Include="Areas\Cab\Models\ProfileSettingsModel.cs" />
     <Compile Include="Areas\Cab\Models\SectionsSettingsModel.cs" />
@@ -5560,6 +5563,7 @@
     </Compile>
     <Compile Include="Helpers\CurrentUrlHelper.cs" />
     <Compile Include="Helpers\UserNameHelper.cs" />
+    <Compile Include="Infrastructure\Attributes\CustomAuthAttribute.cs" />
     <Compile Include="Infrastructure\FileTools\Additional\FileResult.cs" />
     <Compile Include="Infrastructure\FileTools\Additional\ImageSaveData.cs" />
     <Compile Include="Infrastructure\FileTools\FileTools.cs" />
@@ -6018,6 +6022,7 @@
     <Content Include="Areas\Cab\Views\Dashboard\RssSettings.cshtml" />
     <Content Include="Areas\Cab\Views\Dashboard\MaterialSettings.cshtml" />
     <Content Include="Areas\Cab\Views\Dashboard\DefaultSection.cshtml" />
+    <Content Include="Areas\Cab\Views\Section\Edit.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

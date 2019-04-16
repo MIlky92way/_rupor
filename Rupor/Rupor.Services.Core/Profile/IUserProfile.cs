@@ -15,7 +15,7 @@ namespace Rupor.Services.Core.Profile
     {
         TEntity this[string email] { get; }
 
-        IEnumerable<TEntity> Get(Model model, Expression<Func<bool, TEntity>> predicate);
+        IEnumerable<TEntity> Get(BaseModel model, Expression<Func<bool, TEntity>> predicate);
 
         void UpdatePictue(PictureModel model);
     }

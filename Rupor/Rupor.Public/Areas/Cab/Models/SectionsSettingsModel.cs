@@ -31,7 +31,7 @@ namespace Rupor.Public.Areas.Cab.Models
     }
 
 
-    public class DefaultSectionModel: BaseModel
+    public class DefaultSectionModel: BaseAppModel
     {
         public DefaultSectionModel()
         {

@@ -57,8 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/Content/_internal_template/assets/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="~/Content/_internal_template/assets/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/_internal_template/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
-
-
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"  type="text/css"/>
 
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -151,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             <a href="@Url.Action("SectionSettings", "Dashboard")" class="nav-link ">
                                                                 <i class="fa fa-bookmark"></i> Разделы
                                                             </a>
-                                                        </li>                                                       
+                                                        </li>
                                                         <li aria-haspopup="true" class=" ">
                                                             <a href="@Url.Action("ArticleSettings", "Dashboard")" class="nav-link ">
                                                                 <i class="fa fa-book"></i>  Статья
@@ -179,9 +178,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </ul>
                                     </li>
                                     <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown  ">
-                                        <a href="javascript:;">
-                                            Контент
-                                            <span class="arrow"></span>
+                                        <a href="@Url.Action("Index","Section",new { area="Cab"})">
+                                            Разделы
+                                            @*<span class="arrow"></span>*@
                                         </a>
                                     </li>
                                 </ul>
@@ -285,27 +284,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Content/_internal_template/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <script src="~/Content/_internal_template/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
     <script src="~/Content/_internal_template/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!-- END CORE PLUGINS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="~/Content/_internal_template/assets/global/plugins/moment.min.js" type="text/javascript"></script>
     <script src="~/Content/_internal_template/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
     <script src="~/Content/_internal_template/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-    <script src="~/Content/_internal_template/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="~/Content/_internal_template/assets/global/scripts/app.min.js" type="text/javascript"></script>
@@ -320,6 +302,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Content/_internal_template/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
     <script src="~/Content/_internal_template/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.10.19/js/jquery.dataTables.min.js" integrity="sha256-t5ZQTZsbQi8NxszC10CseKjJ5QeMw5NINtOXQrESGSU=" crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function () {
             $('#clickmewow').click(function () {

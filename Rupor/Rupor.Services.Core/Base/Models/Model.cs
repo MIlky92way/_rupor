@@ -6,28 +6,29 @@ using System.Threading.Tasks;
 
 namespace Rupor.Services.Core.Base.Models
 {
-    public class Model
+    public class BaseModel
     {
 
-        public Model()
+        public BaseModel()
         {
-            Pages = 10;
+            CountOnPage = 15;
             Page = 1;
         }
 
-        public int Pages { get; set; }
+        public int CountOnPage { get; set; }
         public int Items { get; set; }//total elements from  data
-        public int Page { get; set; } //pages
+        public int Page { get; set; } //curr page
+
         public int Total
         {
-            get { return (int)Math.Ceiling((decimal)Items / Pages); }
+            get { return (int)Math.Ceiling((decimal)Items / CountOnPage); }
         }
 
         public int[] CountOnPageArray
         {
             get
             {
-                return new int[] { 10, 30, 50, 70 };
+                return new int[] { 15, 30, 50, 70 };
             }
         }
     }

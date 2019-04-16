@@ -85,7 +85,7 @@ namespace Rupor.Logik.Profile
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ProfileEntity> Get(Model model, Expression<Func<bool, ProfileEntity>> predicate)
+        public IEnumerable<ProfileEntity> Get(BaseModel model, Expression<Func<bool, ProfileEntity>> predicate)
         {
             throw new NotImplementedException();
         }
