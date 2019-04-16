@@ -32,7 +32,7 @@ namespace Rupor.UnitTest
         public void TestParser()
         {
             var reader = new FeedReader();
-            var feed = reader.Read("tass.ru/rss/v2.xml");
+            var feed = reader.ReadFeed("tass.ru/rss/v2.xml");
         }
     }
 }

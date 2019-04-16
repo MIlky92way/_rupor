@@ -2,6 +2,8 @@
 using System;
 using System.Xml.Linq;
 using Rupor.Feed.Feeds.Versions;
+using Rupor.Tools.Extend;
+using Rupor.Feed.Feeds.Versions.RSS2;
 
 namespace Rupor.Feed.Core.Parsers.Versions
 {
@@ -10,8 +12,8 @@ namespace Rupor.Feed.Core.Parsers.Versions
         
         public override RSS2Feed Parse(XDocument xDoc)
         {
-            RSS2Feed feed = new RSS2Feed(xDoc);
-                        
+            var channel = xDoc.Root.GetElement("channel");
+            RSS2Feed feed = new RSS2Feed(channel);                        
             return feed;
         }
     }

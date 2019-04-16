@@ -12,20 +12,14 @@ namespace Rupor.Feed.Feeds
     {
         public string Title { get; set; }
         public string Link { get; set; }
-        
-        public ICollection<FeedItem>  ItemsFeed { get; set; }
-        
-        public BaseFeed()
-        {
-            ItemsFeed = new List<FeedItem>();
-        }
+                      
+        public BaseFeed(){}
 
         public BaseFeed(XElement channel):this()
         {
             //TODO BaseFeed init props!
             Title = channel.GetValue("title");
-            Link = channel.GetValue("link");
-
+            Link = channel.GetValue("link");            
         }
 
 
