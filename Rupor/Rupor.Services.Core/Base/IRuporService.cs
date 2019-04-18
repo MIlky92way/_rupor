@@ -10,8 +10,8 @@ namespace Rupor.Services.Core.Base
         where TEntity : class
     {
         TEntity this[int id] { get; }
-        IEnumerable<TEntity> Get();
+        //IEnumerable<TEntity> Get();
         TEntity Edit(TEntity editedInstance);
-        void Remove(TEntity entry);
+        //void Remove(TEntity entry);
     }
 }

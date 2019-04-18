@@ -5545,8 +5545,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Cab\CabAreaRegistration.cs" />
     <Compile Include="Areas\Cab\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Cab\Controllers\FeedController.cs" />
     <Compile Include="Areas\Cab\Controllers\ProfileDashboardController.cs" />
     <Compile Include="Areas\Cab\Controllers\SectionController.cs" />
+    <Compile Include="Areas\Cab\Models\Feed\FeedEditViewModel.cs" />
     <Compile Include="Areas\Cab\Models\Section\SectionEditModel.cs" />
     <Compile Include="Areas\Cab\Models\Section\SectionViewModel.cs" />
     <Compile Include="Areas\Cab\Models\SettingsApp\BaseAppSettingsModel.cs" />
@@ -5554,6 +5556,7 @@
     <Compile Include="Areas\Cab\Models\SectionsSettingsModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PicController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -6023,6 +6026,9 @@
     <Content Include="Areas\Cab\Views\Dashboard\MaterialSettings.cshtml" />
     <Content Include="Areas\Cab\Views\Dashboard\DefaultSection.cshtml" />
     <Content Include="Areas\Cab\Views\Section\Edit.cshtml" />
+    <Content Include="Areas\Cab\Views\Section\Index.cshtml" />
+    <Content Include="Areas\Cab\Views\Feed\Index.cshtml" />
+    <Content Include="Areas\Cab\Views\Feed\Create.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -6053,6 +6059,7 @@
     <Folder Include="Content\_internal_template\assets\apps\img\" />
     <Folder Include="Content\_internal_template\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Common\" />
     <Folder Include="Views\Pic\" />
     <Folder Include="Views\UserPhoto\" />
   </ItemGroup>
@@ -6072,6 +6079,10 @@
     <ProjectReference Include="..\Rupor.Logik\Rupor.Services.csproj">
       <Project>{B5B22AE6-F84D-4996-8D0F-EC24D835F0CB}</Project>
       <Name>Rupor.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Rss\Rupor.Feed.csproj">
+      <Project>{97D4E499-2CC2-4363-B42E-F8EC9629E855}</Project>
+      <Name>Rupor.Feed</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rupor.Services.Core\Rupor.Services.Core.csproj">
       <Project>{E581077B-EFEE-440B-BD57-7FBBCCF459C4}</Project>

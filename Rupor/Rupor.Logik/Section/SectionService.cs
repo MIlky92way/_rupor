@@ -2,11 +2,10 @@
 using Rupor.Domain.Entities.Section;
 using Rupor.Services.Core.Base.Models;
 using Rupor.Services.Core.Section;
-using Rupor.Services.Core.Section.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Linq.Dynamic;
 namespace Rupor.Logik.Section
 {
     public class SectionService : ISectionService
@@ -47,10 +46,13 @@ namespace Rupor.Logik.Section
             {
                 if (expr != null)
                 {
-                    sections = context.Sections.Where(expr)
+                    sections = context.Sections
+                        .Where(s => !s.IsDefault)
+                        .Where(expr)
                         .ToList();
                 }
-                sections = context.Sections.Where(s => !s.IsDefault && s.IsActive).ToList();
+                sections = context.Sections
+                    .Where(s => !s.IsDefault).ToList();
             }
 
             return sections;
@@ -61,15 +63,38 @@ namespace Rupor.Logik.Section
             throw new NotImplementedException();
         }
 
-     
 
-        public IEnumerable<SectionEntity> Get(BaseModel filterModel, Func<SectionEntity, bool> expr)
+
+        public IEnumerable<SectionEntity> Get(BaseModel filterModel, Func<SectionEntity, bool> expr = null)
         {
             IEnumerable<SectionEntity> sections = null;
 
             using (var context = new RuporDbContext())
             {
+                var query = context.Sections
+                    .AsNoTracking()
+                    .AsQueryable();
 
+                filterModel.Total = query.Count();
+
+                if (expr != null)
+                {
+                    query = query
+                        .Where(expr)
+                        .AsQueryable();
+                }
+                query = query
+                      .Where(s => !s.IsDefault);
+
+                if (!filterModel.IsAscending)
+                    query = query.OrderBy(filterModel.FieldOrderBy + " DESC ");
+                else
+                    query = query.OrderBy(filterModel.FieldOrderBy + " ASC ");
+
+                sections = query
+                    .Skip((filterModel.Page - 1) * filterModel.CountOnPage)
+                    .Take(filterModel.CountOnPage)
+                    .ToList();
             }
 
             return sections;
@@ -80,8 +105,6 @@ namespace Rupor.Logik.Section
             throw new NotImplementedException();
         }
 
-
-
         private SectionEntity Get(int id)
         {
             SectionEntity entity = null;
@@ -90,7 +113,7 @@ namespace Rupor.Logik.Section
             {
                 using (var context = new RuporDbContext())
                 {
-                    entity = context.Sections.FirstOrDefault(x => x.Id == id);
+                    entity = context.Sections.FirstOrDefault(x => x.Id == id && !x.IsDefault);
                 }
             }
 

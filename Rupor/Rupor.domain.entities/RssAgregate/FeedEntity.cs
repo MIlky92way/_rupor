@@ -12,7 +12,7 @@ using Rupor.Domain.Entities.Article;
 namespace Rupor.Domain.Entities.RssAgregate
 {
     [Table("RssFeed")]
-    public class RssFeedEntity : BaseEntity
+    public class FeedEntity : BaseEntity
     {
         [MaxLength(255)]
         public string Title { get; set; }
@@ -23,7 +23,7 @@ namespace Rupor.Domain.Entities.RssAgregate
         public string Category { get; set; }
         public int? ChannelId { get; set; }
         [ForeignKey("ChannelId")]
-        public RssChannelEntity Channel { get; set; }
+        public virtual FeedChannelEntity Channel { get; set; }
         public ICollection<TagEntity> Tags { get;set; }   
     }
 }

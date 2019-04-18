@@ -1,0 +1,152 @@
+﻿@model Rupor.Public.Areas.Cab.Models.Section.SectionViewModel
+@{
+    ViewBag.Title = "Разделы";
+    var tableId = "gridSection";
+}
+@section  breadcrumps{
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="@Url.Action("Index","Dashboard",new{area="cab"})">
+                <i class="icon-home"></i>
+            </a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>@ViewBag.Title</span>
+        </li>
+    </ul>
+}
+<div class="container">
+
+    <div class="alert alert-info margin-bottom-10">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+        <i class="fa fa-info fa-lg"></i> Отображаются разделы кроме стандартных для разогрева приложения!
+    </div>
+
+    <div class="portlet light">
+
+        <div class="portlet-title">
+            <div class="caption">
+                <label class="caption-subject font-blue sbold uppercase">Фильтрация</label>
+            </div>
+        </div>
+
+        <div class="portlet-body">
+
+        </div>
+
+    </div>
+
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <label class="caption-subject font-blue sbold uppercase">Разделы</label>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="">
+                <table class="table table-hover table-light" id="@tableId">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Наименование</th>
+                            <th>Дата создания</th>
+                            <th>Активен</th>
+                            <th>Помечен на удаление</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>                
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+        //в конечном варианте все скрипты необходимо вытащить из кусков разметки, сделать отдельными минимизированными файлами.
+        $(document).ready(function () {
+            var dataTable = $('#@tableId').DataTable({
+                'order': [[0, "desc"]],
+                'iDisplayLength': 25,
+                'responsive':true,
+                'processing': true,
+                'serverSide': true,
+                //scrollX: true,
+                'bFilter':false,
+                'ajax': {
+                    'url': '/cab/Section/GetSections',
+                    'data': {
+                    },
+                },
+                "language": {
+                       "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
+                },
+                "columns": [
+                        { "data": "Id", "autoWidth": true,},
+                        { "data": "Name", "autoWidth": true },
+                        { "data": "DateCreate", "autoWidth": true },
+                    {
+                        "data": "IsActive", "autoWidth": true
+                    },
+                    {
+                       "data": "IsDelete", "autoWidth": true
+                    },
+                        { "data": "Id", "autoWidth": true },
+                    ]
+            });
+
+            $('#@tableId').on('draw.dt', function () {
+                InitEditBtnForTable(dataTable);
+            });
+
+            function InitEditBtnForTable(dataTable) {
+                $('#@tableId tbody tr').each(function (i) {
+                    var id = $(this).children('td:nth-child(1)').text();
+                    let isActive = $(this).children('td:nth-child(4)').text();
+                    let isDelete = $(this).children('td:nth-child(5)').text();
+                    let iconCheck = "<div class=''><i class='fa fa-check'></i></div>";
+                    let iconMinus = "<div class=''><i class='fa fa-minus'></i></div>";
+
+                    var btnEdit =
+                        '<a href="/cab/Section/Edit/' + id + '">' +
+                        '<button class="btn btn-circle btn-default"><i class="fa fa-pencil"></i></button>' +
+                        '</a>';
+
+                    var btnDisable =
+                        '<form action="/cab/Section/Disable/" method="POST" style="display:inline-block;" class="ml-10">' +
+                        '<input type="hidden" name="id" value="' + id + '"/>' +
+                        '<button type="submit" class="btn btn-circle btn-default">' +
+                        '<span class="fa fa-eye-slash"></span>' +
+                        '</button>' +
+                        '</form>';
+                    console.log(isActive);
+                    console.log(isDelete);
+
+                    if (isActive)
+                        $(this).children('td:nth-child(4)').html(iconCheck);
+                    else
+                        $(this).children('td:nth-child(4)').html(iconMinus);
+
+                    if (isDelete)
+                        $(this).children('td:nth-child(5)').html(iconCheck);
+                    else
+                        $(this).children('td:nth-child(5)').html(iconMinus);
+
+                    $(this).children('td:nth-child(6)').html(btnEdit);
+
+                });
+
+                isGet = false;
+            }
+
+            function toDateFromJson(src) {
+                return new Date(parseInt(src.substr(6)));
+            }
+
+        });
+    </script>
+}

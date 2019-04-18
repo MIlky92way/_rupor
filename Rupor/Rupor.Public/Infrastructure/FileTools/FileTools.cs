@@ -141,14 +141,14 @@ namespace Rupor.Public.Infrastructure.FileTools
         }
         protected bool InitialDirs(string path)
         {
-            bool check = true;
+            //bool check = true;
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            return check;
+            return true;
         }
 
     }

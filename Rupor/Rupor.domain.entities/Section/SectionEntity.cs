@@ -39,7 +39,7 @@ namespace Rupor.Domain.Entities.Section
         public FileEntity Image { get; set; }
 
         public virtual ICollection<ArticleEntity> Articles { get; set; }
-        public virtual  ICollection<RssFeedEntity> RssFeeds { get; set; }
+        public virtual  ICollection<FeedEntity> RssFeeds { get; set; }
 
     }
 }

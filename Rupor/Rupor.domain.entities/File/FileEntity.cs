@@ -25,7 +25,8 @@ namespace Rupor.Domain.Entities.File
     {
         Profile,
         Article,
-        Section
+        Section,
+        FeedChannel
     }
 
 

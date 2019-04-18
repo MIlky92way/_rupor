@@ -6,6 +6,7 @@ using Rupor.Public.Infrastructure.Attributes;
 using Rupor.Public.Models.Additional;
 using Rupor.Services.Core.Section;
 using Rupor.Tools.Consts;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Rupor.Public.Areas.Cab.Controllers
@@ -19,10 +20,11 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             this.sectionService = sectionService;
         }
+
+
         // GET: Cab/Section
         public ActionResult Index(SectionViewModel model)
         {
-
             return View(model);
         }
 
@@ -46,9 +48,11 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             SectionEntity res = null;
             if (ModelState.IsValid)
-            {
-               var imageId = ImageTools.SaveImage(model.SectionImage, FileArea.Section);
-                model.ImageId = imageId;
+            {   
+                if (model.SectionImage  !=null && model.SectionImage.ContentLength > 0)
+                {
+                    model.ImageId = ImageTools.SaveImage(model.SectionImage, FileArea.Section);
+                }   
                 res = sectionService.Edit(model.MapFrom(model));
             }
                 
@@ -61,8 +65,20 @@ namespace Rupor.Public.Areas.Cab.Controllers
             return View(model);
         }
 
+        public JsonResult GetSections(SectionViewModel model)
+        {            
+            var sections = sectionService.Get(model)
+               .Select(s => new
+               {
+                   s.Id,
+                   s.Name,
+                   DateCreate = s.DateCreate.ToShortDateString(),                
+                   s.IsActive,
+                   s.IsDelete
+               });
 
-
+            return Json(new { data = sections, model.draw, recordsTotal = model.Total, recordsFiltered = model.Total }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

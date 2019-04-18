@@ -57,7 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/Content/_internal_template/assets/layouts/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="~/Content/_internal_template/assets/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/_internal_template/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"  type="text/css"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -220,17 +220,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="page-content">
                             <div class="container">
                                 <!-- BEGIN PAGE BREADCRUMBS -->
-                                <ul class="page-breadcrumb breadcrumb">
-                                    <li>
-                                        <a href="@Url.Action("Index","Dashboard",new{area="cab"})">
-                                            <i class="icon-home"></i>
-                                        </a>
-                                        <i class="fa fa-circle"></i>
-                                    </li>
-                                    <li>
-                                        <span>Dashboard</span>
-                                    </li>
-                                </ul>
+                                @RenderSection("breadcrumps", false)
                                 <!-- END PAGE BREADCRUMBS -->
                                 <!-- BEGIN PAGE CONTENT INNER -->
                                 <div class="page-content-inner">

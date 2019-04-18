@@ -1,9 +1,9 @@
 ﻿@using Rupor.Public.Models.Additional
-@model Rupor.Public.Areas.Cab.Models.Section.SectionEditModel
+@model Rupor.Public.Areas.Cab.Models.Feed.FeedEditViewModel
 @{
     var name = string.Empty;
-    name = string.IsNullOrEmpty(Model.Name) ? "Добавление раздела" : "Редактирование раздела: " + Model.Name;
-    ViewBag.Title = name;
+
+    ViewBag.Title = "Добавление источника новостей";
 }
 
 <div class="col-md-9" style="float:none; margin:0 auto;">
@@ -24,15 +24,20 @@
             @using (Html.BeginForm("Edit", "Section", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(x => x.Id)
                 @Html.HiddenFor(x => x.ImageId)
                 <div class="form-body">
-                    @if (Model.ImageId > 0)
-                    {
-                        <div class="form-group">
-                            <img class="img-responsive" src="@Url.Action("GetSectionImage", "Pic", new {area = "", id = Model.ImageId})" />
-                        </div>
-                    }
+                    <div class="form-group">
+                        @if (Model.ImageId > 0)
+                        {
+                            <img class="img-responsive" src="@Url.Action("GetFeedChannelImage", "Pic", new {area = "", id = Model.ImageId})" />
+                        }
+                        else
+                        {
+                            <div id="channelImage">
+
+                            </div>
+                        }
+                    </div>
                     <div class="form-group">
                         <div class="fileinput fileinput-new" data-provides="fileinput" style="padding: 15px;">
                             <div class="input-group input-large">
@@ -43,11 +48,24 @@
                                 <span class="input-group-addon btn default btn-file">
                                     <span class="fileinput-new"> Выбрать файл </span>
                                     <span class="fileinput-exists"> Изменить </span>
-                                    @Html.TextBoxFor(m => m.SectionImage, new { type = "file" })
+                                    @*@Html.TextBoxFor(m => m.SectionImage, new { type = "file" })*@
                                 </span>
                                 <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Удалить </a>
                             </div>
                         </div>
+                    </div>
+                    <label class="control-label">Url источника</label>
+                    <div class="form-group input-group input-group-sm">
+                        <div class="input-group-control">
+                            @Html.TextBoxFor(m => m.TargetUrl, new { @class = "form-control input-sm", placeholder = "Укажите наименование раздела" })
+                        </div>
+                        <div class="input-group-btn btn-right">
+                            <button type="button" id="btnLoadChannel" class="btn btn-default mt-ladda-btn ladda-button">
+                                <span class="ladda-label">Загрузить</span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label class="control-label">Наименование</label>
@@ -60,12 +78,13 @@
                         <label class="control-label">Описание</label>
                         <div class="input-icon">
                             <i class="fa fa-book"></i>
-                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
                         </div>
-                    </div>                                               
+                    </div>
                 </div>
                 <div class="form-actions right">
-                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Save))">Добавить</button>                   
+                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Apply))">Примиенть</button>
+                    <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
                 </div>
             }
 
@@ -73,4 +92,31 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        //TODO Add script for render channel info
 
+        $("#btnLoadChannel").click(function (e) {
+            loadChannel($("#TargetUrl").val());
+        });
+
+        var loadChannel = function (url) {
+            let _url = url;
+            $.ajax({
+                url: "/common/getfeedchannel",
+                type: "GET",
+                data: {
+                    url: _url
+                },
+                success: function (d) {
+                    console.log(d);
+                    $("#Name").val(d.Title);
+                    var container = $("#channelImage");
+                    let img = new Image();
+                    img.src = d.ImageUrl;
+                    $(container).html(img);
+                }
+            });
+        }
+    </script>
+}

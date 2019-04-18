@@ -59,6 +59,6 @@ namespace Rupor.Domain.Entities.User
         /// </summary>
         public string SocialFb { get; set; }
 
-        public  virtual  ICollection<RssChannelEntity> SubscribersOnChannels { get; set; }
+        public  virtual  ICollection<FeedChannelEntity> SubscribersOnChannels { get; set; }
     }
 }

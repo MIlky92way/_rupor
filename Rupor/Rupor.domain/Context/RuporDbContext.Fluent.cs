@@ -26,7 +26,7 @@ namespace Rupor.Domain.Context
                     e.ToTable("ArticleTag");
                 });
 
-            builder.Entity<RssFeedEntity>()
+            builder.Entity<FeedEntity>()
                 .HasMany<TagEntity>(x => x.Tags)
                 .WithMany(x => x.RssFeeds)
                 .Map(e =>

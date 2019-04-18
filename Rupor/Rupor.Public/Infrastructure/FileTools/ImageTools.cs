@@ -24,6 +24,7 @@ namespace Rupor.Public.Infrastructure.FileTools
         public readonly string _PicPathProfile = $"{_RootDir}/protected/profile/";
         private readonly string _PicPathArticle = $"{_RootDir}/protected/article/";
         private readonly string _PicPathSection = $"{_RootDir}/protected/section/";
+        private readonly string _PicPathFeedChannel = $"{_RootDir}/protected/feed";
         private string fileName;
         private string fileExtension;
         public readonly string _PicPathMinDefaultProfile = $"~/pub/min/";
@@ -79,6 +80,12 @@ namespace Rupor.Public.Infrastructure.FileTools
                     if (InitialDirs(Server.MapPath(path)))
                         path = Server.MapPath($"{path}/{fileName}");
 
+                    break;
+
+                case FileArea.FeedChannel:
+                    path = Server.MapPath(_PicPathFeedChannel);
+                    if (InitialDirs(path))
+                        path = Server.MapPath($"{path}/{fileName}");
                     break;
                 case FileArea.Profile:
                 default:
@@ -180,7 +187,6 @@ namespace Rupor.Public.Infrastructure.FileTools
         }
 
 
-
         private FileEntity SaveFileEntity(FileArea area, string fileName, bool crop, bool isDefault, string contentType, FileEntity entity = null)
         {
             entity = entity ?? new FileEntity();
@@ -245,6 +251,9 @@ namespace Rupor.Public.Infrastructure.FileTools
                     break;
                 case FileArea.Section:
                     path = Server.MapPath($"{_PicPathSection}/{file.Name}");
+                    break;
+                case FileArea.FeedChannel:
+                    path = Server.MapPath($"{_PicPathFeedChannel}/{file.Name}");
                     break;
                 case FileArea.Profile:
                 default:

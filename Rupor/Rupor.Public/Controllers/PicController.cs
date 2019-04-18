@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Rupor.Domain.Entities.File;
 using System.Web.Mvc;
-using Rupor.Domain.Entities.File;
 
 namespace Rupor.Public.Controllers
 {
@@ -17,17 +13,29 @@ namespace Rupor.Public.Controllers
 
 
         //Pic/GetDefaultProfileImage
-        public FileStreamResult GetProfileImage()
+        public FileStreamResult GetProfileImage(int id = 0, bool isDefault = false)
         {
+            if (isDefault)
+                return ImageTools.GetDefaultImage(FileArea.Profile);
+            else if (id > 0)
+                return ImageTools.GetDefaultImage(FileArea.Profile, id);
+
             return ImageTools.GetDefaultImage(FileArea.Profile);
         }
 
-        public FileStreamResult GetSectionImage(int id = 0,bool isDefault = false)
+        public FileStreamResult GetSectionImage(int id = 0, bool isDefault = false)
         {
             if (isDefault)
                 return ImageTools.GetDefaultImage(FileArea.Section, id);
-            else
+            else if (id > 0)
                 return ImageTools.GetImage(FileArea.Section, id);
+
+            return ImageTools.GetDefaultImage(FileArea.Section);
+        }
+
+        public FileStreamResult GetFeedChannelImage(int id = 0)
+        {
+            return ImageTools.GetImage(FileArea.FeedChannel, id);
         }
     }
 }

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Base\IRuporService.cs" />
     <Compile Include="Base\Models\Model.cs" />
+    <Compile Include="Feed\IFeedChannelService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="Profile\IUserProfile.cs" />
     <Compile Include="Profile\Models\PictureModel.cs" />
@@ -65,6 +67,9 @@
       <Project>{97CEE56C-CC6F-4661-AA72-5A93C81B74A8}</Project>
       <Name>Rupor.Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Feed\Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

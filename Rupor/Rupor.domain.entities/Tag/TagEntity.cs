@@ -16,6 +16,6 @@ namespace Rupor.Domain.Entities.Tag
         [MaxLength(50)]
         public string Alias { get; set; }
         public ICollection<ArticleEntity> Articles { get; set; }
-        public ICollection<RssFeedEntity> RssFeeds { get; set; }
+        public ICollection<FeedEntity> RssFeeds { get; set; }
     }
 }

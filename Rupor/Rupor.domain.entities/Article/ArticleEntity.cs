@@ -31,9 +31,9 @@ namespace Rupor.Domain.Entities.Article
         [ForeignKey("AuthorId")]
         public ProfileEntity Author { get; set; }
 
-        public ICollection<TagEntity> Tags { get; set; }
-        public ICollection<SectionEntity> Sections { get; set; }
-        public ICollection<FileEntity> AttachedFiles { get; set; }
+        public virtual ICollection<TagEntity> Tags { get; set; }
+        public virtual ICollection<SectionEntity> Sections { get; set; }
+        public virtual ICollection<FileEntity> AttachedFiles { get; set; }
                 
     }
 }
