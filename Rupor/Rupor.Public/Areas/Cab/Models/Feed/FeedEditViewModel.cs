@@ -10,11 +10,13 @@ namespace Rupor.Public.Areas.Cab.Models.Feed
         public string TargetUrl { get; set; }
         public string Description { get; set; }
         public int? ImageId { get; set; }
+        public int CountFeeds { get; set; }
         public ICollection<string> Categories { get; set; }
+        public bool SuccessSave { get; set; }
 
         public FeedEditViewModel()
         {
-            Categories = new HashSet<string>();
+            Categories = new HashSet<string>();            
         }
 
         public FeedEditViewModel(FeedChannelEntity entity)
@@ -23,6 +25,7 @@ namespace Rupor.Public.Areas.Cab.Models.Feed
             TargetUrl = entity.TargetUrl;
             Description = entity.Description;
             ImageId = entity.ChannelPictureId;
+            CountFeeds = entity.CountFeeds;
         }
 
         public FeedChannelEntity MapFrom()
@@ -32,9 +35,14 @@ namespace Rupor.Public.Areas.Cab.Models.Feed
             entity.TargetUrl = TargetUrl;
             entity.ChannelPictureId = ImageId;
             entity.Description = Description;
+            entity.CountFeeds = CountFeeds;
             return entity;
         }
 
+        public void InitializerDefaulValues()
+        {
+            CountFeeds = 1;
+        }
 
     }
 }

@@ -1,0 +1,28 @@
+﻿@using Rupor.Public.Models.Component
+@using Rupor.Public.Models.Dto
+@model CategoryViewModel
+
+<ul class="leftmenu">
+    <li class="leftmenu-item"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></li>
+    @foreach (var category in Model.Categories ?? new List<CategoryDto>())
+    {
+        <li class="leftmenu-item">
+            <a href="login.html" class="leftmenu-item__link">
+                @category.Name
+            </a>
+        </li>
+    }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <li class="leftmenu-item">
+            <a href="@Url.Action("Login","Account")" class="leftmenu-item__link">
+                Вход
+            </a>
+        </li>
+        <li class="leftmenu-item">
+            <a href="@Url.Action("Register","Account")" class="leftmenu-item__link">
+                Регитсрация
+            </a>
+        </li>
+    }
+</ul>

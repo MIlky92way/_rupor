@@ -21,6 +21,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
         {
             SectionSettingsService = sectionSettingsService;
         }
+        [Authorize(Roles = Role._ROOT)]
         public ActionResult Index()
         {
             return View();

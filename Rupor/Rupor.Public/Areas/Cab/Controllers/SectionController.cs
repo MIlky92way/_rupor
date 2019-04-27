@@ -1,5 +1,6 @@
 ﻿using Rupor.Domain.Entities.File;
 using Rupor.Domain.Entities.Section;
+using Rupor.Protected.UserExtend;
 using Rupor.Public.Areas.Cab.Models.Section;
 using Rupor.Public.Controllers;
 using Rupor.Public.Infrastructure.Attributes;
@@ -8,7 +9,6 @@ using Rupor.Services.Core.Section;
 using Rupor.Tools.Consts;
 using System.Linq;
 using System.Web.Mvc;
-
 namespace Rupor.Public.Areas.Cab.Controllers
 {
     [CustomAuth(roles: new[] { Role._ROOT, Role._ADMINISTRATOR })]
@@ -31,6 +31,12 @@ namespace Rupor.Public.Areas.Cab.Controllers
         public ActionResult Edit(int id = 0)
         {
             SectionEditModel model = null;
+
+            if (!CurrentUser.IdentityUser.CanEditSections())
+            {
+
+            }
+
             if (id > 0)
             {
                 var entry = sectionService[id];
@@ -47,15 +53,16 @@ namespace Rupor.Public.Areas.Cab.Controllers
         public ActionResult Edit(SectionEditModel model, string action = nameof(ExperienceForSubmit.Save))
         {
             SectionEntity res = null;
+
             if (ModelState.IsValid)
-            {   
-                if (model.SectionImage  !=null && model.SectionImage.ContentLength > 0)
+            {
+                if (model.SectionImage != null && model.SectionImage.ContentLength > 0)
                 {
                     model.ImageId = ImageTools.SaveImage(model.SectionImage, FileArea.Section);
-                }   
+                }
                 res = sectionService.Edit(model.MapFrom(model));
             }
-                
+
             if (res != null && res.Id > 0)
                 if (action == nameof(ExperienceForSubmit.Apply))
                     return RedirectToAction("Edit", new { id = res.Id });
@@ -66,13 +73,13 @@ namespace Rupor.Public.Areas.Cab.Controllers
         }
 
         public JsonResult GetSections(SectionViewModel model)
-        {            
+        {
             var sections = sectionService.Get(model)
                .Select(s => new
                {
                    s.Id,
                    s.Name,
-                   DateCreate = s.DateCreate.ToShortDateString(),                
+                   DateCreate = s.DateCreate.ToShortDateString(),
                    s.IsActive,
                    s.IsDelete
                });

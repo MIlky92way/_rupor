@@ -7,15 +7,13 @@
 }
 
 <div class="col-md-9" style="float:none; margin:0 auto;">
-    <div class="portlet light">
-        <div class="portlet-title">
+    <div class="portlet light">            
+        <div class="portlet-title">         
             <div class="caption">
                 <i class="fa fa-bookmark"></i>
                 @ViewBag.Title
             </div>
-            <div class="actions">
-                @*<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
-                    <a href="javascript:;" class="reload" data-original-title="" title=""> </a>*@
+            <div class="actions">                
                 <a href="@Url.Action("Index")" class="btn btn-circle btn-default">Назад</a>
             </div>
         </div>
@@ -25,6 +23,7 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.ImageId)
+                @Html.HiddenFor(x => x.ImageUrl)
                 <div class="form-body">
                     <div class="form-group">
                         @if (Model.ImageId > 0)
@@ -111,10 +110,13 @@
                 success: function (d) {
                     console.log(d);
                     $("#Name").val(d.Title);
+                    $("#ImageUrl").val(d.ImageUrl);
+
                     var container = $("#channelImage");
                     let img = new Image();
                     img.src = d.ImageUrl;
                     $(container).html(img);
+                    console.log(d.Categories);
                 }
             });
         }

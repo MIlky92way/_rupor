@@ -11,7 +11,6 @@ namespace Rupor.Public.Controllers
             return View();
         }
 
-
         //Pic/GetDefaultProfileImage
         public FileStreamResult GetProfileImage(int id = 0, bool isDefault = false)
         {

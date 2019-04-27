@@ -59,11 +59,10 @@ namespace Rupor.Public.Controllers
             }
 
             RuporUser model = new RuporUser();
-            string userEmail = User.Identity.Name;
-            var profile = ProfileService[userEmail];
+            string userEmail = User.Identity.Name;    
             var current = UserManager.FindByName(userEmail);
             
-            ProfileWeb profileWeb = new ProfileWeb(profile, ImageTools);
+            ProfileWeb profileWeb = new ProfileWeb(ProfileService, current, ImageTools);
             
             return profileWeb;
         }

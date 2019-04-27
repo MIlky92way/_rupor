@@ -96,6 +96,6 @@ namespace Rupor.Logik.Feed
             }
 
             return result;
-        }
+        }    
     }
 }

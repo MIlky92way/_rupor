@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Rupor.Public
@@ -12,6 +8,17 @@ namespace Rupor.Public
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            //routes.MapRoute(
+            //    name: "without_index",
+            //    url: "{controller}/{id}",
+            //    defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
+            //);
+            //routes.MapRoute(
+            //name: "pictures",
+            //url: "pic/{action}/{id}",
+            //defaults: new { controller = "Pic", action = "Index", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "Default",

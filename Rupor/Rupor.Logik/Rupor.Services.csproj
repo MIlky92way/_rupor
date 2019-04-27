@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\EFBaseService.cs" />
+    <Compile Include="Common\ServiceCore.cs" />
     <Compile Include="Feed\FeedChannelService.cs" />
     <Compile Include="File\FileService.cs" />
     <Compile Include="Profile\UserProfileService.cs" />
@@ -91,5 +92,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

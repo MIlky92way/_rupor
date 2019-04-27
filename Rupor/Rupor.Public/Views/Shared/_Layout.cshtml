@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="header-top">
                     <div class="header-top__item">
-                        <a class="logo" href="@Url.Action("Index","Home")">
+                        <a class="logo" href="@Url.Action("Index","Home",new { area=""})">
                         </a>
                     </div>
                     <div class="header-top__item">
@@ -25,47 +25,7 @@
             </div>
         </div>
         <nav class="navigation">
-            <div class="app-container">
-                <div class="container-fluid">
-                    <div class="navigation-toggle">
-                        <a href="javascript:void(0);" class="toggle-button" id="toggle_button">
-                            <i class="fa fa-bars" aria-hidden="true" id="toggle_icon"></i>
-                        </a>
-                    </div>
-                    <ul class="col-lg-8 col-md-12 col-xs-12 navigation-menu" id="navigation_menu">
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner" href="section.html">
-                                горячие новости
-                            </a>
-                        </li>
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner" href="section.html">
-                                проишествия
-                            </a>
-                        </li>
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner active" href="section.html">
-                                общество
-                            </a>
-                        </li>
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner" href="section.html">
-                                политика
-                            </a>
-                        </li>
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner" href="section.html">
-                                россия
-                            </a>
-                        </li>
-                        <li class="navigation-menu__item">
-                            <a class="navigation-menu__inner" href="section.html">
-                                спорт
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @Html.Action("HeaderCategories", "Component")
         </nav>
     </header>
     <!--END header-->
@@ -73,40 +33,8 @@
     <div class="app-container">
         <div class="container-fluid">
             <div class="row">
-                <aside class="col-md-2 app-leftmenu">
-                    <ul class="leftmenu">
-                        <li class="leftmenu-item"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></li>
-                        <li class="leftmenu-item">
-                            <a href="section.html" class="leftmenu-item__link info">
-                                Рассказать о проблеме!
-                            </a>
-                        </li>
-                        <li class="leftmenu-item">
-                            <a href="section.html" class="leftmenu-item__link">
-                                Экономика
-                            </a>
-                        </li>
-                        <li class="leftmenu-item">
-                            <a href="section.html" class="leftmenu-item__link">
-                                Культура
-                            </a>
-                        </li>
-                        <li class="leftmenu-item">
-                            <a href="section.html" class="leftmenu-item__link">
-                                Новости России
-                            </a>
-                        </li>
-                        <li class="leftmenu-item">
-                            <a href="login.html" class="leftmenu-item__link">
-                                Вход
-                            </a>
-                        </li>
-                        <li class="leftmenu-item">
-                            <a href="login.html" class="leftmenu-item__link">
-                                Регитсрация
-                            </a>
-                        </li>
-                    </ul>
+                <aside class="col-md-2 app-leftmenu">                   
+                    @Html.Action("SideCategories", "Component")
                 </aside>
                 <div class="col-lg-8 col-md-8 col-xs-12 app-content">
                     <article class="app-content__inner">

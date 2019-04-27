@@ -5556,10 +5556,12 @@
     <Compile Include="Areas\Cab\Models\SectionsSettingsModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ComponentController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PicController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\UserPhotoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5572,9 +5574,13 @@
     <Compile Include="Infrastructure\FileTools\FileTools.cs" />
     <Compile Include="Infrastructure\FileTools\ImageTools.cs" />
     <Compile Include="Infrastructure\ProfileTools\ProfileWeb.cs" />
+    <Compile Include="Infrastructure\View\RuporViewPage.cs" />
     <Compile Include="Models\Account\AccountModel.cs" />
     <Compile Include="Models\Additional\AddittionalTools.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Category\CategoryViewModel.cs" />
+    <Compile Include="Models\Component\CategoryViewModel.cs" />
+    <Compile Include="Models\Dto\CategoryDto.cs" />
     <Compile Include="Models\Profile\AuthUserWidgetModel.cs" />
     <Compile Include="Models\Profile\ProfileViewModel.cs" />
     <Compile Include="Models\UserPhoto\CropModel.cs" />
@@ -6045,6 +6051,9 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\AuthUserWidget.cshtml" />
+    <Content Include="Views\Component\HeaderCategories.cshtml" />
+    <Content Include="Views\Component\SideCategories.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -6079,6 +6088,10 @@
     <ProjectReference Include="..\Rupor.Logik\Rupor.Services.csproj">
       <Project>{B5B22AE6-F84D-4996-8D0F-EC24D835F0CB}</Project>
       <Name>Rupor.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rupor.Protected\Rupor.Protected.csproj">
+      <Project>{da9a2b47-e34f-4b28-a7e9-3589494b4ee2}</Project>
+      <Name>Rupor.Protected</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rupor.Rss\Rupor.Feed.csproj">
       <Project>{97D4E499-2CC2-4363-B42E-F8EC9629E855}</Project>

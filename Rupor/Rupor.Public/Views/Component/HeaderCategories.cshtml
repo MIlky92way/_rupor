@@ -1,0 +1,27 @@
+﻿@using Rupor.Public.Models.Component
+@using Rupor.Public.Models.Dto
+@model CategoryViewModel
+<div class="app-container">
+    <div class="container-fluid">
+        <div class="navigation-toggle">
+            <a href="javascript:void(0);" class="toggle-button" id="toggle_button">
+                <i class="fa fa-bars" aria-hidden="true" id="toggle_icon"></i>
+            </a>
+        </div>
+        <ul class="col-lg-8 col-md-12 col-xs-12 navigation-menu" id="navigation_menu">           
+            <li class="navigation-menu__item">
+                <a class="navigation-menu__inner" href="@Url.Action("","",new { hot=true})">
+                    <div class="icon-fire">горячие новости</div>
+                </a>
+            </li>
+            @foreach (var category in Model.Categories ?? new List<CategoryDto>())
+            {
+                <li class="navigation-menu__item">
+                    <a class="navigation-menu__inner" href="@Url.Action("index","category",new {id=category.Id})">
+                        @category.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

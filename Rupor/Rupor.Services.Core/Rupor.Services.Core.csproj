@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseService.cs" />
     <Compile Include="Base\IRuporService.cs" />
     <Compile Include="Base\Models\Model.cs" />
+    <Compile Include="Common\IServiceCore.cs" />
     <Compile Include="Feed\IFeedChannelService.cs" />
     <Compile Include="File\IFileService.cs" />
     <Compile Include="Profile\IUserProfile.cs" />
@@ -70,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Feed\Models\" />
+    <Folder Include="RuporService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

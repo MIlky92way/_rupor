@@ -1,0 +1,27 @@
+﻿@using Rupor.Public.Models.Dto
+@using Rupor.Public.Models.Category
+@model CategoryIndexViewModel
+@{
+    ViewBag.Title = Model.Category.Name;
+    var imageUrl = Model.Category.ImageId > 0 ? Url.Action("GetSectionImage", "Pic", new { id = Model.Category.ImageId }) :
+        Url.Action("GetSectionImage", "Pic");
+}
+
+<div class="rupor-cards">
+    <section class="rupor-section__title" style="background-image: url('@imageUrl')">
+        <div class="rupor-section__title--content">
+            <div class="inner">
+                <div class="item">
+                    <a href="section.html" class="rupor-tag">
+                        <span class="rupor-tag__section">
+                            <span class="rupor-tag__cnt">@Model.Category.Name</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="item">
+                    <span class="label"> n/a</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

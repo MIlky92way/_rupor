@@ -4255,7 +4255,17 @@ readers do not read off random characters that represent icons */
   vertical-align: middle;
   margin-right: 10px;
   background-position: 0px; }
-
+.icon-fire::before {
+    content: "";
+    display: inline-block;
+    background-image: url("../img/title-icon.png");
+    width: 33.2px;
+    height: 29.5px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-position: 0px;
+}
 .title-info {
   font: 1em 'Raleway';
   font-weight: 900;

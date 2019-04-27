@@ -2,6 +2,7 @@
 using Rupor.Domain.Entities.User;
 using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.FileTools;
+using Rupor.Services.Core.Profile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,14 +19,17 @@ namespace Rupor.Public.Infrastructure.ProfileTools
         public string GivenName { get; set; }
         public string FamilyName { get; set; }
         public IEnumerable<RoleEntity> Roles { get; set; }
-             
+        private readonly IUserProfileService<ProfileEntity> ProfileService;
+        public UserEntity IdentityUser { get; private set; }
         private string path;
 
-        public ProfileWeb(ProfileEntity profile, ImageTools imgTools)
+        public ProfileWeb(IUserProfileService<ProfileEntity> profileService, UserEntity user, ImageTools imgTools)
         {
-            Profile = profile ?? throw new ArgumentNullException("profile");
+
+            ProfileService = profileService ?? throw new ArgumentNullException("profileService");
+            Profile = profileService[user.Email] ?? throw new NullReferenceException("profile");
             ImageTools = imgTools ?? throw new ArgumentNullException("imgTools");
-            
+            IdentityUser = user ?? throw new ArgumentNullException("user");
             GivenName = Profile.GivenName;
             FamilyName = Profile.FamilyName;
         }

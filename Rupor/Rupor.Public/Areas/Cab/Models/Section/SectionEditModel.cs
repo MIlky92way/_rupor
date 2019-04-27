@@ -13,7 +13,7 @@ namespace Rupor.Public.Areas.Cab.Models.Section
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
         public HttpPostedFileBase SectionImage { get; set; }
-        public int ImageId { get; set; }
+        public int? ImageId { get; set; }
 
         public SectionEditModel()
         {

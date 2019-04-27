@@ -1,4 +1,5 @@
 ﻿using Rupor.Feed.Core.Readers;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Rupor.Public.Controllers
@@ -21,7 +22,11 @@ namespace Rupor.Public.Controllers
                 feed.Description,
                 feed.ImageUrl,
                 feed.Title,
-                feed.Link
+                feed.Link,
+                Categories =feed.Items?
+                .SelectMany(f=>f.Categories)
+                .Distinct()
+                .ToArray()
             };
             return Json(channelInfo, JsonRequestBehavior.AllowGet);
         }

@@ -24,7 +24,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
         public ActionResult Create()
         {
             FeedEditViewModel model = new FeedEditViewModel();
-
+            model.InitializerDefaulValues();
             return View(model);
         }
 

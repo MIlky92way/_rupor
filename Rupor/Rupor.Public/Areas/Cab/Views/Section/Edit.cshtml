@@ -62,11 +62,33 @@
                             <i class="fa fa-book"></i>
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
                         </div>
-                    </div>                                               
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Расположен в шапке</label>
+                        <div class="input-icon">
+                            <i class=""></i>
+                            @Html.CheckBoxFor(m => m.OnTop, new { })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Активен</label>
+                        <div class="">
+                            @Html.CheckBoxFor(m => m.IsActive, new { })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Пометка на удаление</label>
+                        <div class="">
+                            @Html.CheckBoxFor(m => m.IsDelete, new { })
+                        </div>
+                    </div>
                 </div>
                 <div class="form-actions right">
-                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Save))">Добавить</button>                   
+                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Apply))">Применить</button>
+                    <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
+
                 </div>
+                
             }
 
             <!-- END FORM-->

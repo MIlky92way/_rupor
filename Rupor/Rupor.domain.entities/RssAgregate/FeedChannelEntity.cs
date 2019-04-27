@@ -1,14 +1,11 @@
 ﻿using Rupor.Domain.Entities.Base;
+using Rupor.Domain.Entities.File;
+using Rupor.Domain.Entities.Section;
+using Rupor.Domain.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rupor.Domain.Entities.File;
-using Rupor.Domain.Entities.User;
-using Rupor.Domain.Entities.Section;
 
 namespace Rupor.Domain.Entities.RssAgregate
 {
@@ -32,15 +29,15 @@ namespace Rupor.Domain.Entities.RssAgregate
 
         [MaxLength(520)]
         public string Description { get; set; }
-        
-        public int? ChannelPictureId { get; set; }
 
+        public int? ChannelPictureId { get; set; }
+        public int CountFeeds { get; set; }
         [ForeignKey("ChannelPictureId")]
         public virtual FileEntity ChannelPicture { get; set; }
 
         public virtual ICollection<FeedEntity> RssFeeds { get; set; }
 
-        public virtual  ICollection<ProfileEntity> Subscribers { get; set; }
+        public virtual ICollection<ProfileEntity> Subscribers { get; set; }
 
         public virtual ICollection<SectionEntity> Categories { get; set; }
     }

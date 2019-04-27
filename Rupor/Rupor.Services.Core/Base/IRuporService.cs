@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rupor.Domain.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Rupor.Services.Core.Base
         //IEnumerable<TEntity> Get();
         TEntity Edit(TEntity editedInstance);
         //void Remove(TEntity entry);
+        
     }
 }
