@@ -41,7 +41,7 @@ namespace Rupor.Auth.Manager
             };
             var tokenProvider = new DpapiDataProtectionProvider("therupor");
             usermgr.UserTokenProvider = new DataProtectorTokenProvider<UserEntity>(tokenProvider.Create("EmailConfirmation"));
-        
+            
             return usermgr;
         }
     }

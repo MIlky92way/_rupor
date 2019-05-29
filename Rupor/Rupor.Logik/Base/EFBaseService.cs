@@ -1,19 +1,15 @@
 ﻿using Rupor.Domain.Context;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rupor.Logik.Base
 {
-    internal class EFBaseService
+    public class EFBaseService : IDisposable
     {
-        protected RuporDbContext DbContext => CreateContext();
+        protected RuporDbContext DbContext { get; private set; }
 
         public EFBaseService()
         {
-            
+            DbContext = CreateContext();
         }
 
 
@@ -22,5 +18,9 @@ namespace Rupor.Logik.Base
             return new RuporDbContext();
         }
 
+        public void Dispose()
+        {
+
+        }
     }
 }

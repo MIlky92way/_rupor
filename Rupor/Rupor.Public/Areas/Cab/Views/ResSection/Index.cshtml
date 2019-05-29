@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Разделы ресурсов приложения";
+}
+
+<h3>@ViewBag.Title</h3>
+@model Rupor.Public.Areas.Cab.Models.ResSection.ResSectionIndexViewModel
+    <div class="container">
+        <div class="alert alert-info margin-bottom-10">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            <i class="fa fa-info fa-lg"></i>
+            Разделы ресурсов приложения служат для категоризации ресурсов.
+        </div>
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <label class="caption-subject font-blue sbold uppercase">Фильтрация</label>
+                </div>
+            </div>
+            <div class="portlet-body">
+            </div>
+        </div>
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <label class="caption-subject font-blue sbold uppercase">Список</label>
+                </div>
+                <div class="actions">
+                    <a href="@Url.Action("Edit","ResSection",new { area = "cab"})" class="btn btn-circle blue-hoki">Добавить</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="">
+                    @Html.Action("GetResSections")
+                </div>
+            </div>
+        </div>
+    </div>

@@ -8,20 +8,37 @@
                 <i class="fa fa-bars" aria-hidden="true" id="toggle_icon"></i>
             </a>
         </div>
-        <ul class="col-lg-8 col-md-12 col-xs-12 navigation-menu" id="navigation_menu">           
+        <ul class="col-lg-8 col-md-12 col-xs-12 navigation-menu" id="navigation_menu">
+
+            @*@foreach (var category in Model.Categories ?? new List<CategoryDto>())
+        {
             <li class="navigation-menu__item">
-                <a class="navigation-menu__inner" href="@Url.Action("","",new { hot=true})">
-                    <div class="icon-fire">горячие новости</div>
+                <a class="navigation-menu__inner" href="@Url.Action("index","category",new {id=category.Id})">
+                    @category.Name
                 </a>
             </li>
-            @foreach (var category in Model.Categories ?? new List<CategoryDto>())
-            {
-                <li class="navigation-menu__item">
-                    <a class="navigation-menu__inner" href="@Url.Action("index","category",new {id=category.Id})">
-                        @category.Name
-                    </a>
-                </li>
-            }
+        }*@
+            <li class="navigation-menu__item">
+                <a class="navigation-menu__inner" href="@Url.Action("","")">
+                    <i class="icon feed"></i> лента
+                </a>
+            </li>
+            <li class="navigation-menu__item">
+                <a class="navigation-menu__inner" href="@Url.Action("","",new { hot=true})">
+                    <i class="icon hot"></i> горячее
+                </a>
+            </li>
+            <li class="navigation-menu__item">
+                <a class="navigation-menu__inner" href="@Url.Action("all","category")">
+                    <i class="icon info"></i> Рубрикатор
+                </a>
+            </li>
+            <li class="navigation-menu__item">
+                <a class="navigation-menu__inner" href="@Url.Action("all","category")">
+                    <i class="icon top-users"></i> Топ авторов
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

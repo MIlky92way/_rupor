@@ -43,13 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\IAppResource.cs" />
+    <Compile Include="App\Model\IAppResourceModel.cs" />
+    <Compile Include="App\Model\IAppResourceSectionModel.cs" />
+    <Compile Include="Article\IArticleService.cs" />
+    <Compile Include="Article\Model\IArticleModel.cs" />
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="Base\IRuporService.cs" />
     <Compile Include="Base\Models\Model.cs" />
     <Compile Include="Common\IServiceCore.cs" />
     <Compile Include="Feed\IFeedChannelService.cs" />
     <Compile Include="File\IFileService.cs" />
+    <Compile Include="Profile\IProfileSettngs.cs" />
     <Compile Include="Profile\IUserProfile.cs" />
+    <Compile Include="Profile\Models\IProfileSettingsModel.cs" />
     <Compile Include="Profile\Models\PictureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Section\ISectionService.cs" />

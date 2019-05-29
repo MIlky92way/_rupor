@@ -4231,14 +4231,12 @@ readers do not read off random characters that represent icons */
   padding-bottom: 200px; }
   .app-content .app-content__inner {
     position: relative;
-    padding: .7em;
-    background: #fff;
+    padding: 0.7em;
     border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: -2px -2px 15px 1px rgba(0, 0, 0, 0.01), 4px 3px 20px rgba(0, 0, 0, 0.02); }
+    border-bottom-right-radius: 15px; }
 
 .title-fire {
-  font: 1em 'Raleway';
+  font: 0.9em "Raleway";
   font-weight: 900;
   text-transform: uppercase;
   color: #081f73;
@@ -4248,26 +4246,17 @@ readers do not read off random characters that represent icons */
 .title-fire::before {
   content: "";
   display: inline-block;
+  width: 25.2px;
+  height: 22.5px;
   background-image: url("../img/title-icon.png");
-  width: 35.2px;
-  height: 29.5px;
+  background-size: cover;
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
   background-position: 0px; }
-.icon-fire::before {
-    content: "";
-    display: inline-block;
-    background-image: url("../img/title-icon.png");
-    width: 33.2px;
-    height: 29.5px;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    margin-right: 10px;
-    background-position: 0px;
-}
+
 .title-info {
-  font: 1em 'Raleway';
+  font: 0.9em "Raleway";
   font-weight: 900;
   text-transform: uppercase;
   color: #081f73;
@@ -4277,16 +4266,17 @@ readers do not read off random characters that represent icons */
 .title-info::before {
   content: "";
   display: inline-block;
+  width: 25.2px;
+  height: 22.5px;
   background-image: url("../img/title-icon.png");
-  width: 35.2px;
-  height: 29.5px;
+  background-size: cover;
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
-  background-position: -34px 0; }
+  background-position: -27px 0; }
 
 .title-latest {
-  font: 1em 'Raleway';
+  font: 0.9em "Raleway";
   font-weight: 900;
   text-transform: uppercase;
   color: #081f73;
@@ -4296,13 +4286,57 @@ readers do not read off random characters that represent icons */
 .title-latest::before {
   content: "";
   display: inline-block;
+  width: 25.2px;
+  height: 22.5px;
   background-image: url("../img/title-icon.png");
-  width: 35.2px;
-  height: 29.5px;
+  background-size: cover;
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
-  background-position: -68px 0; }
+  background-position: -50px 0; }
+
+.icon {
+  display: inline-block; }
+  .icon.top-users::before {
+    content: " ";
+    display: inline-block;
+    background-image: url("../img/icon_new.png");
+    width: 35.2px;
+    height: 29.5px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-position: -102px -2px; }
+  .icon.feed::before {
+    content: " ";
+    display: inline-block;
+    background-image: url("../img/icon_new.png");
+    width: 35.2px;
+    height: 29.5px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-position: -133px -2px; }
+  .icon.hot::before {
+    content: " ";
+    display: inline-block;
+    background-image: url("../img/icon_new.png");
+    width: 35.2px;
+    height: 29.5px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-position: 0px -2px; }
+  .icon.info::before {
+    content: " ";
+    display: inline-block;
+    background-image: url("../img/icon_new.png");
+    width: 35.2px;
+    height: 29.5px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-position: -34px -2px; }
 
 .rupor-section__title {
   width: 90%;
@@ -4311,6 +4345,7 @@ readers do not read off random characters that represent icons */
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: center;
+  background-position-x: center;
   border-radius: 15.5px; }
   .rupor-section__title .rupor-section__title--content {
     position: relative;
@@ -4319,7 +4354,6 @@ readers do not read off random characters that represent icons */
     height: 100%;
     border-radius: inherit; }
     .rupor-section__title .rupor-section__title--content .inner {
-      width: 250px;
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
@@ -4328,14 +4362,102 @@ readers do not read off random characters that represent icons */
       top: 40%; }
       .rupor-section__title .rupor-section__title--content .inner .item .rupor-tag {
         display: block;
-        width: 90%;
-        margin: 0 auto; }
+        text-align: center; }
       .rupor-section__title .rupor-section__title--content .inner .item .label {
         display: block;
         text-align: center;
         font-weight: 400;
         color: #fff;
         text-shadow: 6px 3px 2px rgba(0, 0, 0, 0.59); }
+
+.profile-header_wrapper {
+  height: 355px; }
+  .profile-header_wrapper .profile-header {
+    position: absolute;
+    width: 95%;
+    height: 315px;
+    margin: 1.2em auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    border-radius: 15.5px;
+    overflow: hidden;
+    background-color: #8a8a8a; }
+    .profile-header_wrapper .profile-header .profile-header__background {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(5.2px); }
+    .profile-header_wrapper .profile-header .profile-header__content {
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+      .profile-header_wrapper .profile-header .profile-header__content .inner {
+        margin-top: 10px;
+        padding: 0.7em; }
+      .profile-header_wrapper .profile-header .profile-header__content .profile-avatar {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .profile-avatar__layer {
+          background: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          width: 120px;
+          height: 120px;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          opacity: 0;
+          border-radius: 50%;
+          -webkit-transition: all 0.1s ease-in-out 0s;
+          -moz-transition: all 0.1s ease-in-out 0s;
+          transition: all 0.1s ease-in-out 0s; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .profile-image {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .profile-avatar__overlay {
+          display: none; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .profile-avatar__overlay--item {
+          position: absolute;
+          width: 100%;
+          top: 45px; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .avatar-upload {
+          text-align: center;
+          font-size: 22px;
+          color: #fff; }
+          .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .avatar-upload:hover {
+            color: #f9fafd; }
+          .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .avatar-upload input[type="file"] {
+            position: absolute;
+            width: 0.1px;
+            height: 0.1px;
+            overflow: hidden;
+            opacity: 0; }
+            .profile-header_wrapper .profile-header .profile-header__content .profile-avatar .avatar-upload input[type="file"] + label {
+              display: block;
+              cursor: pointer; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar:hover .profile-avatar__layer {
+          opacity: 1; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-avatar:hover .profile-avatar__overlay {
+          display: block;
+          cursor: pointer; }
+      .profile-header_wrapper .profile-header .profile-header__content .profile-info {
+        display: flex; }
+        .profile-header_wrapper .profile-header .profile-header__content .profile-info .profile-name {
+          display: block;
+          width: 100%;
+          color: #fffdf2;
+          text-align: center;
+          font-size: 22px;
+          text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); }
 
 @media (max-width: 768px) {
   .rupor-section__title {
@@ -4351,12 +4473,18 @@ readers do not read off random characters that represent icons */
   .col-md-2.rupor-latest_news {
     position: sticky; }
 
+.col-md-2 {
+  position: unset; }
+  .col-md-2.app-leftmenu {
+    position: sticky;
+    top: 0; }
+
 .rupor-latest_news {
   position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
-  padding: .7em;
+  padding: 0.7em;
   margin-top: 15px;
   border-radius: 15px;
   height: 650px; }
@@ -4381,9 +4509,9 @@ readers do not read off random characters that represent icons */
       border-radius: 7px; }
       .rupor-latest_news .rupor-latest_news__inner .rupor-latest_news__item .date {
         font-weight: 700;
-        padding: .2em .5em; }
+        padding: 0.2em 0.5em; }
       .rupor-latest_news .rupor-latest_news__inner .rupor-latest_news__item .content {
-        padding: .1em .5em;
+        padding: 0.1em 0.5em;
         height: 147px;
         overflow: hidden; }
 
@@ -4404,7 +4532,7 @@ readers do not read off random characters that represent icons */
     width: 320px;
     margin: auto; }
     .rupor-login .login-form .login-form__fieldset {
-      padding: .1em; }
+      padding: 0.1em; }
       .rupor-login .login-form .login-form__fieldset .login-form__field {
         padding-top: 5.5px;
         padding-bottom: 5.7px; }
@@ -4413,9 +4541,9 @@ readers do not read off random characters that represent icons */
         .rupor-login .login-form .login-form__fieldset .login-form__field label {
           display: block;
           color: #f9fafd; }
-        .rupor-login .login-form .login-form__fieldset .login-form__field input[type='email'],
-        .rupor-login .login-form .login-form__fieldset .login-form__field input[type='text'],
-        .rupor-login .login-form .login-form__fieldset .login-form__field input[type='password'] {
+        .rupor-login .login-form .login-form__fieldset .login-form__field input[type="email"],
+        .rupor-login .login-form .login-form__fieldset .login-form__field input[type="text"],
+        .rupor-login .login-form .login-form__fieldset .login-form__field input[type="password"] {
           display: block;
           width: 100%;
           border: none;
@@ -4461,7 +4589,7 @@ readers do not read off random characters that represent icons */
 .rupor-article {
   background-color: #fff;
   position: relative;
-  padding: .7em;
+  padding: 0.7em;
   background: #fff;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -4506,7 +4634,7 @@ readers do not read off random characters that represent icons */
           .rupor-article .rupor-article__inner .rupor-article__title .rupor-article__title--content .user-block .lbl {
             display: block;
             text-align: center;
-            padding: .5em;
+            padding: 0.5em;
             text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); }
           .rupor-article .rupor-article__inner .rupor-article__title .rupor-article__title--content .user-block .img-author {
             display: block;
@@ -4528,7 +4656,7 @@ readers do not read off random characters that represent icons */
           .rupor-article .rupor-article__inner .rupor-article__title .rupor-article__title--content .tags > .rupor-tag {
             margin: 10px; } }
     .rupor-article .rupor-article__inner .rupor-article__content {
-      padding-top: .2em;
+      padding-top: 0.2em;
       text-align: justify;
       font-size: 18px; }
       .rupor-article .rupor-article__inner .rupor-article__content .first-letter {
@@ -4556,7 +4684,7 @@ readers do not read off random characters that represent icons */
       position: relative;
       width: 95%;
       margin: 0 auto;
-      padding: .2em; }
+      padding: 0.2em; }
       .rupor-article .rupor-article__inner .rupor-article__footer .rupor-article__footer--user {
         width: 45%;
         height: 210px;
@@ -4619,11 +4747,11 @@ readers do not read off random characters that represent icons */
           width: 100%; }
         .rupor-article .rupor-article__inner .rupor-article__footer .rupor-article__footer--info {
           width: 100%;
-          padding-top: .25em;
-          padding-bottom: .25em; } }
+          padding-top: 0.25em;
+          padding-bottom: 0.25em; } }
       @media (min-width: 1200px) {
         .rupor-article .rupor-article__inner .rupor-article__footer .rupor-article__footer--info {
-          padding: .4em; } }
+          padding: 0.4em; } }
 
 .rupor-comments {
   width: 80%;
@@ -4633,7 +4761,7 @@ readers do not read off random characters that represent icons */
   box-shadow: -2px -2px 15px 1px rgba(0, 0, 0, 0.01), 4px 3px 20px rgba(0, 0, 0, 0.02);
   margin-bottom: 2em; }
   .rupor-comments .rupor-comments__title {
-    padding: .7em;
+    padding: 0.7em;
     font-size: 18px;
     color: #bbbbbb;
     font-weight: 700; }
@@ -4645,7 +4773,7 @@ readers do not read off random characters that represent icons */
     .rupor-comments .rupor-comments__inner .date-devider {
       position: sticky;
       top: 0;
-      padding: .1em;
+      padding: 0.1em;
       margin-bottom: 5px;
       background-color: #edf7fd;
       border-radius: 10px;
@@ -4658,7 +4786,7 @@ readers do not read off random characters that represent icons */
       display: flex;
       flex-direction: row;
       width: 85%;
-      padding: .55em;
+      padding: 0.55em;
       margin: 0 auto; }
       .rupor-comments .rupor-comments__inner .comment .comment-image {
         margin-right: 15px;
@@ -4699,7 +4827,7 @@ readers do not read off random characters that represent icons */
     border-top: 1px solid #eaedf3; }
     .rupor-comments .rupor-comments__footer .comment-post {
       width: 600px;
-      padding: .5em;
+      padding: 0.5em;
       margin: 0 auto; }
       .rupor-comments .rupor-comments__footer .comment-post .comment-post__item {
         display: inline-block; }
@@ -4709,7 +4837,7 @@ readers do not read off random characters that represent icons */
         display: block;
         width: 470px;
         margin: 0 auto;
-        padding: .2em;
+        padding: 0.2em;
         border-radius: 10px;
         border: 1px solid #eaedf3; }
       .rupor-comments .rupor-comments__footer .comment-post .commentator {
@@ -4770,6 +4898,12 @@ readers do not read off random characters that represent icons */
       width: 600px; }
       .rupor-comments .rupor-comments__footer .comment-post .editable-comment {
         width: 450px; } }
+
+.layer {
+  padding: .9em;
+  background-color: #fff;
+  border: 1px solid #ecf2fd;
+  border-radius: 5px; }
 
 /*!
  * Bootstrap v4.2.1 (https://getbootstrap.com/)
@@ -11736,7 +11870,7 @@ a.text-dark:hover, a.text-dark:focus {
   position: relative;
   z-index: 999; }
   .header .header-inner {
-    padding-top: 3.3em; }
+    padding-top: .9em; }
   @media (max-width: 768px) {
     .header .header-inner {
       padding-top: .3em; } }
@@ -11754,8 +11888,8 @@ a.text-dark:hover, a.text-dark:focus {
         z-index: 222;
         margin-bottom: -3px;
         background-image: url(../img/logo/logo_default.png);
-        width: 207px;
-        height: 69px;
+        width: 161px;
+        height: 47px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position-y: bottom; }
@@ -11774,11 +11908,10 @@ a.text-dark:hover, a.text-dark:focus {
     border-top: 3px solid #f02e3e;
     display: -webkit-box;
     /* Android 4.3-, Safari */
-    -webkit-box-pack: justify;
     display: flex;
     justify-content: space-between;
     text-align: justify;
-    text-align-last: justify;
+    -webkit-box-pack: justify;
     box-shadow: 3px 6px 12px 1px rgba(0, 0, 0, 0.1), -1px 6px 15px rgba(0, 0, 0, 0.08); }
     .header .navigation .navigation-menu {
       padding: 0;
@@ -11787,17 +11920,18 @@ a.text-dark:hover, a.text-dark:focus {
       display: inline-block;
       padding: .5em;
       font-family: 'Raleway';
-      font-weight: 100; }
+      font-weight: 700;
+      font-size: 14px; }
     .header .navigation .navigation-menu__inner {
       text-transform: uppercase;
       text-align: center;
-      color: #fbfcfe;
+      color: #c4dce8;
       text-decoration: none;
       transition: color .1s ease-in-out; }
       .header .navigation .navigation-menu__inner.active {
         color: #ff7581; }
     .header .navigation .navigation-menu__inner:hover {
-      color: #d6ddee;
+      color: #c6ebff;
       border: none; }
     .header .navigation .navigation-toggle {
       display: none; }
@@ -11823,9 +11957,7 @@ a.text-dark:hover, a.text-dark:focus {
       text-align-last: left; } }
 
 .app-leftmenu {
-  width: 95%;
-  margin: 0;
-  padding: 0; }
+  height: 440px; }
   .app-leftmenu .leftmenu {
     margin: 0;
     list-style: none;
@@ -11839,7 +11971,7 @@ a.text-dark:hover, a.text-dark:focus {
       .app-leftmenu .leftmenu .leftmenu-item .leftmenu-item__link {
         text-decoration: none;
         border: none;
-        transition: all .09s ease-in-out;
+        transition: all 0.09s ease-in-out;
         color: #00104a; }
       .app-leftmenu .leftmenu .leftmenu-item .leftmenu-item__link:hover {
         color: #0038a1; }
@@ -12000,12 +12132,12 @@ a.text-dark:hover, a.text-dark:focus {
     border-radius: 10px;
     background: #fff;
     box-shadow: -2px -2px 15px 1px rgba(0, 0, 0, 0), 4px 3px 20px rgba(0, 0, 0, 0.09);
-    transition: all .09s ease-in-out;
+    transition: all 0.09s ease-in-out;
     cursor: pointer; }
     .rupor-cards .rupor-card:hover {
       box-shadow: 6px 3px 16px 1px rgba(0, 0, 0, 0.06), 5px 5px 20px rgba(0, 0, 0, 0.13); }
     .rupor-cards .rupor-card .date-post {
-      font: .9rem 'Raleway';
+      font: 0.9rem "Raleway";
       padding: 15px;
       font-weight: 700;
       color: #f9fafd; }
@@ -12040,7 +12172,7 @@ a.text-dark:hover, a.text-dark:focus {
         width: 100%;
         height: 100%;
         border-radius: inherit;
-        font: 1em 'Raleway';
+        font: 1em "Raleway";
         font-weight: 400;
         color: #f9fafd;
         text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25); }
@@ -12054,7 +12186,7 @@ a.text-dark:hover, a.text-dark:focus {
           text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.44); }
     .rupor-cards .rupor-card.rupor-card__horizontal {
       margin: 0 auto;
-      background-color: #fbfcfe;
+      background-color: #fff;
       border-radius: 15px;
       box-shadow: 5px 6px 3rem 1px rgba(0, 0, 0, 0.07);
       margin: 15px auto 57px auto;
@@ -12080,7 +12212,7 @@ a.text-dark:hover, a.text-dark:focus {
           display: flex;
           flex-direction: column;
           align-content: center;
-          padding: .4em; }
+          padding: 0.4em; }
           .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--preview .tags > a.rupor-tag:last-child {
             padding: 0 0 1.5em 2.2em; }
           .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--preview .tags > a.rupor-tag:first-child {
@@ -12091,7 +12223,7 @@ a.text-dark:hover, a.text-dark:focus {
         .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .title {
           width: 100%;
           height: 50.5px;
-          font: 19px 'Raleway';
+          font: 19px "Raleway";
           font-weight: 900;
           padding: 3px;
           overflow: hidden;
@@ -12106,18 +12238,16 @@ a.text-dark:hover, a.text-dark:focus {
           height: 90px;
           overflow: hidden; }
           .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .inner-cnt::after {
-            content: '';
+            content: "";
             position: absolute;
             width: 100%;
             height: 100%;
             bottom: 0%; }
         .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .user-block {
           background: transparent; }
-          .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .user-block .user-block__inner {
-            background: linear-gradient(to top, #fbfcfe, rgba(251, 252, 254, 0.95)); }
         .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .user-block {
           width: 100%;
-          padding: .2em;
+          padding: 0.2em;
           position: relative;
           bottom: 0;
           right: 0; }
@@ -12126,7 +12256,7 @@ a.text-dark:hover, a.text-dark:focus {
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
-            font: 14px 'Raleway';
+            font: 14px "Raleway";
             font-weight: 700;
             color: #00104a; }
             .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--content .user-block .user-block__inner .user-block__item {
@@ -12162,14 +12292,14 @@ a.text-dark:hover, a.text-dark:focus {
           display: flex;
           flex-direction: column;
           align-content: center;
-          padding: .4em; }
+          padding: 0.4em; }
           .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .tags > a.rupor-tag:last-child {
             padding: 0 0 0 2.2em; }
           .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .tags > a.rupor-tag:first-child {
             padding: 0.7em 0 0 2.2em; }
         .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .user-block {
           width: 100%;
-          padding: .2em;
+          padding: 0.2em;
           position: absolute;
           bottom: 0;
           right: 0; }
@@ -12178,7 +12308,7 @@ a.text-dark:hover, a.text-dark:focus {
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
-            font: 14px 'Raleway';
+            font: 14px "Raleway";
             font-weight: 700;
             color: #f9fafd; }
             .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .user-block .user-block__inner .user-block__item {
@@ -12189,9 +12319,9 @@ a.text-dark:hover, a.text-dark:focus {
                 height: 47.7px;
                 border-radius: 50%; }
       .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--content {
-        padding: 1em .4em 1em .4em; }
+        padding: 1em 0.4em 1em 0.4em; }
         .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--content.title {
-          font: 1rem 'Raleway';
+          font: 1rem "Raleway";
           font-weight: 800; }
       .rupor-cards .rupor-card.rupor-card__middle:hover {
         box-shadow: 6px 4px 2rem 1px rgba(0, 0, 0, 0.12); }
@@ -12238,13 +12368,13 @@ a.text-dark:hover, a.text-dark:focus {
         width: 187px;
         vertical-align: middle;
         text-align: left;
-        padding: .4em;
-        font-size: .9rem; }
+        padding: 0.4em;
+        font-size: 0.9rem; }
         .rupor-cards .rupor-card.rupor-card__min .rupor-card__min--content .title {
           display: block;
-          font: 1.02rem 'Raleway';
+          font: 1.02rem "Raleway";
           font-weight: 700;
-          padding-bottom: .3em;
+          padding-bottom: 0.3em;
           color: #00104a;
           text-decoration: none; }
     .rupor-cards .rupor-card.rupor-card__article {
@@ -12263,7 +12393,7 @@ a.text-dark:hover, a.text-dark:focus {
         .rupor-cards .rupor-card.rupor-card__article .rupor-card__article--preview {
           height: 200px; } }
       .rupor-cards .rupor-card.rupor-card__article .title {
-        font: 19.5px 'Raleway';
+        font: 19.5px "Raleway";
         font-weight: 800;
         padding: 15px 0 7px 0; }
       .rupor-cards .rupor-card.rupor-card__article .user-block {
@@ -12273,7 +12403,7 @@ a.text-dark:hover, a.text-dark:focus {
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
-          font: 14px 'Raleway';
+          font: 14px "Raleway";
           font-weight: 700;
           color: #8598b1; }
           .rupor-cards .rupor-card.rupor-card__article .user-block .user-block__inner .user-block__item {
@@ -12340,6 +12470,45 @@ a.text-dark:hover, a.text-dark:focus {
         width: 35.324342%; }
       .rupor-cards .rupor-card .rupor-card__horizontal--content {
         width: 62.33333%; } }
+
+.action-card {
+  position: relative;
+  width: 195px;
+  height: 180px;
+  border-radius: 15px;
+  margin: 12px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 4px 5px 1em rgba(0, 0, 0, 0.21); }
+  .action-card .action-card__action {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    position: absolute;
+    z-index: 9999;
+    top: 140px;
+    left: 170px; }
+  .action-card .overlay {
+    background-color: rgba(2, 1, 1, 0.384);
+    width: 195px;
+    height: 180px;
+    border-radius: 15px; }
+    .action-card .overlay .tag {
+      display: block;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+      top: 56.3px;
+      left: 15px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 900; }
+  .action-card:hover {
+    transform: translateY(-2px); }
 
 @media (max-width: 1200px) {
   .rupor-cards {
@@ -12452,6 +12621,79 @@ body {
       margin: 0 auto; }
     body .rupor-section__title {
       width: 100%; } }
+  body .app-btn {
+    display: inline-block;
+    padding: 0.7em 0.9em;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out; }
+    body .app-btn.app-btn__default {
+      background-color: #7fb2e4;
+      color: #fff; }
+      body .app-btn.app-btn__default:hover {
+        background-color: #97badd; }
+      body .app-btn.app-btn__default:active {
+        background-color: #7fb2e4; }
+    body .app-btn.app-btn__blackblue {
+      background-color: #00104a;
+      color: #fff; }
+      body .app-btn.app-btn__blackblue:hover {
+        background-color: #0038a1; }
+      body .app-btn.app-btn__blackblue:active {
+        background-color: #00104a; }
+    body .app-btn.app-btn__red {
+      background-color: #f02e3e;
+      color: #fff; }
+      body .app-btn.app-btn__red:hover {
+        background-color: #e75662; }
+      body .app-btn.app-btn__red:active {
+        background-color: #f02e3e; }
+    body .app-btn.like {
+      background-color: transparent;
+      color: #f02e3e;
+      font-size: 1.5rem; }
+      body .app-btn.like:hover {
+        color: #e75662; }
+    body .app-btn.liked {
+      background-color: transparent;
+      color: #f02e3e;
+      font-size: 1.5rem; }
+      body .app-btn.liked:hover {
+        color: #e75662; }
+    body .app-btn.app-btn__subscribe {
+      height: 45px;
+      width: 45px;
+      padding: 5px;
+      background: #00104a;
+      font-size: 1.5em;
+      color: #f9fafd;
+      border-radius: 50%;
+      box-shadow: 5px 9px 1rem 0px rgba(0, 0, 0, 0.21); }
+      body .app-btn.app-btn__subscribe:hover {
+        background: #0038a1; }
+    body .app-btn.app-btn__unsubscribe {
+      height: 45px;
+      width: 45px;
+      padding: 5px;
+      background: #f02e3e;
+      font-size: 1.3em;
+      color: #f9fafd;
+      border-radius: 50%;
+      box-shadow: 5px 9px 1rem 0px rgba(0, 0, 0, 0.21); }
+      body .app-btn.app-btn__unsubscribe:hover {
+        background: #e75662; }
+  body .list-group {
+    cursor: pointer; }
+    body .list-group .list-group-item {
+      margin-top: 3px;
+      background-color: #dfedff;
+      border: 1px solid #cce4f5a1; }
+      body .list-group .list-group-item.active {
+        background-color: #5c95e0;
+        border: 1px solid #5c95e0; }
   @media (max-width: 1440px) {
     body .col-lg-8 {
       padding-right: 0;

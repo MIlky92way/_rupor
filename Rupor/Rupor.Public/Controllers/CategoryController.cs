@@ -16,5 +16,12 @@ namespace Rupor.Public.Controllers
         {                       
             return View(new CategoryIndexViewModel(ruporService, id));
         }
+
+
+        public ActionResult All()
+        {
+            var model = new AllViewModel(ruporService);
+            return View(model);
+        }
     }
 }

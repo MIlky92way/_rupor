@@ -97,6 +97,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
             if (settings != null)
             {
                 model.MaxAllowedSections = settings.MaxAllowedSections;
+                model.MaxAllowedSectionsOnTop = settings.MaxAllowedSectionsOnTop;
                 model.DefaultPictureId = settings.DefaultPictureId.HasValue ? settings.DefaultPictureId.Value : 0;
 
                 model.Sections = SectionSettingsService
@@ -122,6 +123,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
 
             serviceModel.SettingsArea = SectionSettingArea.Settings;
             serviceModel.MaxAllowedSections = model.MaxAllowedSections;
+            serviceModel.MaxAllowedSectionsOnTop = model.MaxAllowedSectionsOnTop;
 
             try
             {
@@ -161,6 +163,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
             var countDefauleSections = SectionSettingsService.DefaultSections.Count();
             model.IsEmptySetting = settings == null;
             model.MaxAllowedSections = settings.MaxAllowedSections;
+            model.MaxAllowedSectionsOnTop = settings.MaxAllowedSectionsOnTop;
             model.OverflowSections = countDefauleSections > model.MaxAllowedSections;
 
             if (id > 0)

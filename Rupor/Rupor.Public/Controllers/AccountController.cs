@@ -55,19 +55,16 @@ namespace Rupor.Public.Controllers
                 }
                 else
                 {
-                    ClaimsIdentity clIdent = UserManager.CreateIdentity(authUser, DefaultAuthenticationTypes.ApplicationCookie);
-
+                    ClaimsIdentity clIdent = UserManager.CreateIdentity(authUser, DefaultAuthenticationTypes.ApplicationCookie);                    
                     AuthManager.SignOut();
-                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe, AllowRefresh = true }, clIdent);
-
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe, AllowRefresh = true }, clIdent);                    
+                    ProfileService.UpdateLastAuth(authUser.Id);
                     return RedirectToAction("Index", "Home");
                 }
             }
 
             return View(model);
         }
-
-
 
         public ActionResult Register()
         {
@@ -98,15 +95,8 @@ namespace Rupor.Public.Controllers
                     {
                         
                         #region profile
-
-                        var profile = new ProfileEntity();
-
-                        profile.Email = user.Email;
-                        profile.OwnerId = user.Id;
-                        profile.LastAuth = DateTime.Now;
-                        profile.GivenName = model.GivenName;
-
-                        var result = ProfileService.Edit(profile);
+                                                                        
+                        var result = ProfileService.Create(user.Id,user.Email,model.GivenName);
 
                         if (result != null && result.Id > 0)
                         {
@@ -133,6 +123,13 @@ namespace Rupor.Public.Controllers
             return View(model);
         }
 
+
+        public ActionResult LogOut()
+        {
+            AuthManager.SignOut();
+
+            return RedirectToAction("Index", "Home");
+        }
 
         [NonAction]
         private void AddErrorsFromResult(IdentityResult result)

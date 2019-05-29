@@ -66,14 +66,14 @@ namespace Rupor.Logik.Section
         }
 
         public void RemoveDefaultSection(int id)
-        {            
+        {
             if (id > 0)
             {
                 using (var ctx = new RuporDbContext())
                 {
-                   var section = ctx.Sections.FirstOrDefault(s => s.Id == id && s.IsDefault);
-                   ctx.Sections.Remove(section);
-                   ctx.SaveChanges();
+                    var section = ctx.Sections.FirstOrDefault(s => s.Id == id && s.IsDefault);
+                    ctx.Sections.Remove(section);
+                    ctx.SaveChanges();
                 }
             }
         }
@@ -86,6 +86,7 @@ namespace Rupor.Logik.Section
             if (model.SectionId > 0)
             {
                 section = context.Sections.FirstOrDefault(s => s.Id == model.SectionId);
+
                 if (section == null)
                 {
                     AttachSection(context, section);
@@ -112,7 +113,7 @@ namespace Rupor.Logik.Section
             section.Name = model.Name;
             section.Description = model.Description;
             section.OnTop = model.OnTop;
-
+            
             bool CheckCount(int max)
             {
                 var count = context.Sections
@@ -147,6 +148,7 @@ namespace Rupor.Logik.Section
 
             settingsEntity.DefaultPictureId = model.DefaultPictureId;
             settingsEntity.MaxAllowedSections = model.MaxAllowedSections;
+            settingsEntity.MaxAllowedSectionsOnTop = model.MaxAllowedSectionsOnTop;
         }
 
 
@@ -190,6 +192,7 @@ namespace Rupor.Logik.Section
 
                 model.DefaultPictureId = settings.DefaultPictureId;
                 model.MaxAllowedSections = settings.MaxAllowedSections;
+                model.MaxAllowedSectionsOnTop = settings.MaxAllowedSectionsOnTop;
             }
 
             return model;

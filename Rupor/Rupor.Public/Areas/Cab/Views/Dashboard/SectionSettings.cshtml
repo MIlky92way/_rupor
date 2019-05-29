@@ -63,6 +63,10 @@
                             @Html.TextBoxFor(m => m.MaxAllowedSections, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
+                            <label>Максимальное кол-во разделов в шапке</label>
+                            @Html.TextBoxFor(m => m.MaxAllowedSectionsOnTop, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
                             @if (!Model.IsEmptyDefaultPicture)
                             {
                                 <p class="control-label text-muted">

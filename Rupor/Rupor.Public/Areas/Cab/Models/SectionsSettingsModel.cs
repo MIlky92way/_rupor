@@ -21,7 +21,7 @@ namespace Rupor.Public.Areas.Cab.Models
 
         public int DefaultPictureId { get; set; }
         public int MaxAllowedSections { get; set; }
-
+        public int MaxAllowedSectionsOnTop { get; set; }
         public HttpPostedFileBase SectionImage { get; set; }
                   
         public FileArea FileArea { get; private set; }
@@ -50,5 +50,6 @@ namespace Rupor.Public.Areas.Cab.Models
 
         public int MaxAllowedSections { get; set; }
         public bool OverflowSections { get; set; }
+        public int MaxAllowedSectionsOnTop { get; internal set; }
     }
 }

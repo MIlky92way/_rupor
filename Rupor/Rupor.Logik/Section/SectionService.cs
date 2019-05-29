@@ -1,5 +1,5 @@
-﻿using Rupor.Domain.Context;
-using Rupor.Domain.Entities.Section;
+﻿using Rupor.Domain.Entities.Section;
+using Rupor.Logik.Base;
 using Rupor.Services.Core.Base.Models;
 using Rupor.Services.Core.Section;
 using System;
@@ -10,14 +10,13 @@ using System.Linq;
 using System.Linq.Dynamic;
 namespace Rupor.Logik.Section
 {
-    public class SectionService : ISectionService
+    public class SectionService : EFBaseService, ISectionService
     {
         public SectionEntity this[int id] => Get(id);
-        private RuporDbContext DbContext { get; }
+
         private DbSet<SectionEntity> Sections { get; set; }
         public SectionService()
         {
-            DbContext = new RuporDbContext();
             Sections = DbContext.Set<SectionEntity>();
         }
         public SectionEntity Edit(SectionEntity editedInstance)
@@ -109,17 +108,18 @@ namespace Rupor.Logik.Section
         public IEnumerable<SectionEntity> GetDefaults() => Sections.Where(c => c.IsDefault);
 
 
-       
+
         public void Remove(int id)
         {
             if (id > 0)
             {
                 var section = Sections.FirstOrDefault(s => s.Id == id);
                 Sections.Remove(section);
+                DbContext.SaveChanges();
             }
 
         }
-      
+
         public IEnumerator<SectionEntity> GetEnumerator()
         {
             return Sections.AsEnumerable().GetEnumerator();
@@ -128,6 +128,37 @@ namespace Rupor.Logik.Section
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public void ChangeActiveState(int id, bool? isActive)
+        {
+            if (id > 0)
+            {
+                var section = Sections.FirstOrDefault(s => s.Id == id);
+                if (section != null)
+                {
+                    section.IsActive = isActive.Value;
+                    DbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void ChangeDeleteState(int id, bool? IsDelete)
+        {
+            if (id > 0)
+            {
+                var section = Sections.FirstOrDefault(s => s.Id == id);
+                if (section != null)
+                {
+                    section.IsDelete = IsDelete.Value;
+                    DbContext.SaveChanges();
+                }
+            }
+        }
+
+        public SectionEntity Find(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

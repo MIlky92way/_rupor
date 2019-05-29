@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Rupor.Services.Core.Base
 {
     public interface IRuporService<TEntity>
-        where TEntity : class
+        where TEntity:class
     {
         TEntity this[int id] { get; }
-        //IEnumerable<TEntity> Get();
+
         TEntity Edit(TEntity editedInstance);
-        //void Remove(TEntity entry);
-        
+
+        TEntity Find(int id);        
     }
 }

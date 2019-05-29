@@ -12,5 +12,7 @@ namespace Rupor.Services.Core.Section
         IEnumerable<SectionEntity> Get(Func<SectionEntity, bool> expr = null);
         IEnumerable<SectionEntity> GetDefaults();
         void Remove(int id);
+        void ChangeActiveState(int id, bool? isActive);
+        void ChangeDeleteState(int id, bool? isDelete);
     }
 }

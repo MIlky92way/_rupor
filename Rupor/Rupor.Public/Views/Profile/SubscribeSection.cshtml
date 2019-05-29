@@ -1,0 +1,64 @@
+﻿@using Rupor.Domain.Entities.Section
+@model Rupor.Public.Models.Profile.SubscribeSectionModel
+<div class="row">
+    @foreach (var item in Model.Sections ?? new List<SectionEntity>())
+    {
+        if (Model.SelectedSectionIds?.Any(selected => selected == item.Id) ?? false)
+        {
+            <div class="col-md-3">
+                <div class="action-card" style="background-image: url('@Url.Action("GetSectionImage","Pic",new { id=item.ImageId})')">
+                    <form action="@Url.Action("UnsubscribeSection")" method="post" class="overlay">
+                        <div class="tag">
+                            <span> @item.Name</span>
+                            @*<div class="">
+                                    <i class="fa fa-eye"></i> 298
+                                </div>*@
+                        </div>
+                        <div class="action-card__action">
+                            <input type="hidden" name="@nameof(Model.SelectedSectionIds)" value="@item.Id" />
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.ProfileId)
+                            <button class="app-btn app-btn__unsubscribe" 
+                                    data-toggle="tooltip" 
+                                    data-placement="top" 
+                                    title="Отписаться от раздела">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <div class="action-card" style="background-image: url('@Url.Action("GetSectionImage","Pic",new { id=item.ImageId})')">
+                    <form action="@Url.Action("SubscribeSection")" method="post" class="overlay">
+                        <div class="tag">
+                            <span> @item.Name</span>
+                            @*<div class="">
+                                    <i class="fa fa-eye"></i> 298
+                                </div>*@
+                        </div>
+                        <div class="action-card__action">
+                            <input type="hidden" name="@nameof(Model.SelectedSectionIds)" value="@item.Id" />
+
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.ProfileId)
+                            <button class="app-btn app-btn__subscribe" 
+                                    data-toggle="tooltip" 
+                                    data-placement="top" 
+                                    title="Подписаться на раздел">
+                                <i class="fa fa-check-circle"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+
+
+    }
+</div>
+
+

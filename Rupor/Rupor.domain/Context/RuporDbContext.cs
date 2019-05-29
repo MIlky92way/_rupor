@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Rupor.Domain.Entities;
 using Rupor.Domain.Entities.Article;
 using Rupor.Domain.Entities.File;
+using Rupor.Domain.Entities.Resources;
 using Rupor.Domain.Entities.RssAgregate;
 using Rupor.Domain.Entities.Section;
+using Rupor.Domain.Entities.Sys;
 using Rupor.Domain.Entities.Tag;
 using Rupor.Domain.Entities.User;
 using System.Data.Entity;
@@ -27,8 +30,12 @@ namespace Rupor.Domain.Context
         public DbSet<FeedChannelEntity> FeedChannel { get; set; }
         public DbSet<FeedEntity> RssFeed { get; set; }
         public DbSet<ProfileEntity> UserProfile { get; set; }
+        public DbSet<ProfileSettingsEntity> ProfileSettings { get; set; }
         public DbSet<SectionSettingsEntity> SectionSettings { get; set; }
         public DbSet<SectionEntity> Sections { get; set; }
         public DbSet<FileEntity> Files { get; set; }
+        public DbSet<AppResourceSectionEntity> AppResousrceSection { get; set; }
+        public DbSet<AppResourceEntity> AppResource { get; set; }  
+        public DbSet<InitialData> InitialData { get; set; }
     }
 }

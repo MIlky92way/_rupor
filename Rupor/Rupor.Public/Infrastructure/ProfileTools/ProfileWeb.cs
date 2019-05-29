@@ -16,22 +16,41 @@ namespace Rupor.Public.Infrastructure.ProfileTools
     {
         private readonly ProfileEntity Profile;
         private ImageTools ImageTools;
+        public int Id { get; set; }
         public string GivenName { get; set; }
         public string FamilyName { get; set; }
+        public DateTime? BirthDate { get; set; }        
         public IEnumerable<RoleEntity> Roles { get; set; }
+        public int MinImageId { get; set; }
+        public int OriginalImageId { get; set; }
         private readonly IUserProfileService<ProfileEntity> ProfileService;
         public UserEntity IdentityUser { get; private set; }
         private string path;
+        public bool IsGuest { get; set; }
+        public ProfileWeb()
+        {
+            GivenName = "guest";
+            IsGuest = true;
+        }
 
         public ProfileWeb(IUserProfileService<ProfileEntity> profileService, UserEntity user, ImageTools imgTools)
         {
-
             ProfileService = profileService ?? throw new ArgumentNullException("profileService");
-            Profile = profileService[user.Email] ?? throw new NullReferenceException("profile");
+            Profile = profileService.Get(user.Id) ?? throw new NullReferenceException("profile");
             ImageTools = imgTools ?? throw new ArgumentNullException("imgTools");
             IdentityUser = user ?? throw new ArgumentNullException("user");
             GivenName = Profile.GivenName;
             FamilyName = Profile.FamilyName;
+            BirthDate = Profile.BirthDate;
+            Id = Profile.Id;
+            MinImageId = Profile.MinPictureId.GetValueOrDefault();
+            OriginalImageId = Profile.OriginalPictureId.GetValueOrDefault();
+            
+        }
+
+        public void UpdateLastAuth()
+        {
+            ProfileService.UpdateLastAuth(IdentityUser.Id);
         }
 
         /// <summary>

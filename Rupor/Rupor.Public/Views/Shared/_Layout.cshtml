@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="header-top__item">
-                       @Html.Action("AuthUserWidget","Profile")
+                        @Html.Action("AuthUserWidget", "Profile")
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     <div class="app-container">
         <div class="container-fluid">
             <div class="row">
-                <aside class="col-md-2 app-leftmenu">                   
+                <aside class="col-md-2 app-leftmenu">
                     @Html.Action("SideCategories", "Component")
                 </aside>
                 <div class="col-lg-8 col-md-8 col-xs-12 app-content">
@@ -86,9 +86,19 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="~/Content/_public_template/js/bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
-    <script src="~/Content/glob/js/wrapper.validate.js"></script>
-    @RenderSection("scripts",false)
+    @*<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+
+        <script src="~/Content/glob/js/wrapper.validate.js"></script>*@
+    <script>
+        $(function () {
+            $("#uploadPicture").change(function (e) {
+                $(this).submit();
+            });
+        });
+    </script>
+    @RenderSection("scripts", false)
+
 </body>
 </html>

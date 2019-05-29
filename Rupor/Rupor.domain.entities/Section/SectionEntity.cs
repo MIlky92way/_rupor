@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Rupor.Domain.Entities.Article;
 using Rupor.Domain.Entities.RssAgregate;
+using Rupor.Domain.Entities.User;
 
 namespace Rupor.Domain.Entities.Section
 {
@@ -40,6 +41,7 @@ namespace Rupor.Domain.Entities.Section
 
         public virtual ICollection<ArticleEntity> Articles { get; set; }
         public virtual  ICollection<FeedEntity> RssFeeds { get; set; }
+        public virtual ICollection<ProfileSettingsEntity> ProfileSettings { get; set; }
 
     }
 }

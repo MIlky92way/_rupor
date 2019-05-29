@@ -13,5 +13,8 @@ namespace Rupor.Public.Models.Dto
         public bool IsDefault { get; set; }
         public string Alias { get; set; }
         public int? ImageId { get; internal set; }
+
+        //TODO: CategoryDto -> Articles 
+        //TODO: CategoryDto -> Authors
     }
 }

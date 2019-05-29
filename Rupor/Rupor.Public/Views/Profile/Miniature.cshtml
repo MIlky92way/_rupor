@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Редактировать миниатюру";
+}
+@* TODO перенести в модальное окно *@
+@Html.Action("CropPhoto", "UserPhoto")
+@* Стили и скрипты для миниатюры фото *@
+@section styles{
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.1/dist/cropper.min.css" integrity="sha256-SyWqODkStAbrafgJ9K8twjULP7yL6yTRZKoFGjDYybI=" crossorigin="anonymous">
+    <style>
+        img {
+            max-width: 100%; /* This rule is very important, please do not ignore this! */
+        }
+
+        .miniature-preview {
+            overflow: hidden;
+            border-radius: 50%;
+        }
+    </style>
+}
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.1/dist/cropper.min.js" integrity="sha256-+PQmsBomnsT/06XEdk7ibt/9We4DX+VKzJsw/+DCzc0=" crossorigin="anonymous"></script>
+    <script>
+        var doc = document;
+        let image = doc.getElementById("profilePic");
+        let x = doc.getElementById("X");
+        let y = doc.getElementById("Y");
+        let w = doc.getElementById("Width");
+        let h = doc.getElementById("Height");
+
+        const cropper = new Cropper(image, {
+            aspectRatio: 1 / 1,
+            preview: '#preview',
+            crop(e) {
+                console.log(e);
+                
+                $("#X").val(Math.round(e.detail.x));
+                $("#Y").val(Math.round(e.detail.y));
+                $("#Width").val(e.detail.width);
+                $("#Height").val(e.detail.height);
+            }
+        });
+    </script>
+}
+

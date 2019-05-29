@@ -1,0 +1,12 @@
+﻿@model Rupor.Public.Models.Profile.FeedSettingsModel
+@{
+    ViewBag.Title = "Настройка ленты";
+}
+<div class="layer">
+    @Html.Action("UserInfo", new { userId = Model.ProfileId })
+</div>
+<div class="">
+    @Html.Action("SubscribeSection", new { settingsId = Model.Id })
+</div>
+
+

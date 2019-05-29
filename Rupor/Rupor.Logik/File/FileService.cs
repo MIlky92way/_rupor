@@ -49,6 +49,11 @@ namespace Rupor.Logik.File
             return entity;
         }
 
+        public FileEntity Find(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<FileEntity> Get(Expression<Func<FileEntity, bool>> expr)
         {
             ICollection<FileEntity> files = new List<FileEntity>();

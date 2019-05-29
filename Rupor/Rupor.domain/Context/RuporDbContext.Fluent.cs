@@ -1,8 +1,9 @@
-﻿using System;
-using Rupor.Domain.Entities.Article;
-using Rupor.Domain.Entities.Tag;
-using System.Data.Entity;
+﻿using Rupor.Domain.Entities.Article;
 using Rupor.Domain.Entities.RssAgregate;
+using Rupor.Domain.Entities.Section;
+using Rupor.Domain.Entities.Tag;
+using Rupor.Domain.Entities.User;
+using System.Data.Entity;
 
 namespace Rupor.Domain.Context
 {
@@ -35,9 +36,19 @@ namespace Rupor.Domain.Context
                     e.MapRightKey("TagId");
                     e.ToTable("RssFeedTag");
                 });
+
+            builder.Entity<ProfileSettingsEntity>()
+                .HasMany<SectionEntity>(x => x.SubscribeOnSections)
+                .WithMany(x => x.ProfileSettings)
+                .Map(e =>
+                {
+                    e.MapLeftKey("SettingsId");
+                    e.MapRightKey("SectionId");
+                    e.ToTable("ProfileSettingsSection");
+                });
         }
 
-        public static  RuporDbContext GetInstance()
+        public static RuporDbContext GetInstance()
         {
             return new RuporDbContext();
         }

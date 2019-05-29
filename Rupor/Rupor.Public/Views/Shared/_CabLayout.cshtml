@@ -177,7 +177,29 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </li>
                                         </ul>
                                     </li>
-                                    <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown  ">
+                                    @if (User.IsInRole(Role._ROOT) || User.IsInRole(Role._ADMINISTRATOR))
+                                    {
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown @(controller =="Res" || controller =="ResSection"?"active":"")">
+                                            <a href="javascript:void(0);">
+                                                Ресурсы
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href=" @Url.Action("Index", "Res",new { area="cab"})" class="nav-link ">
+                                                        <i class="fa fa-bookmark"></i> Список
+                                                    </a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="@Url.Action("Index", "ResSection",new { area="cab"})" class="nav-link ">
+                                                        <i class="fa fa-bookmark"></i> Разделы
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    }
+
+                                    <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown  @(controller =="Section"?"active":"")">
                                         <a href="@Url.Action("Index","Section",new { area="Cab"})">
                                             Разделы
                                             @*<span class="arrow"></span>*@

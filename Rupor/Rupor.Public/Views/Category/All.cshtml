@@ -1,0 +1,33 @@
+﻿@using Rupor.Public.Models.Dto
+@model Rupor.Public.Models.Category.AllViewModel
+@{
+    ViewBag.Title = "Рубрикатор";
+}
+<div class="row">
+    @foreach (var item in Model.Categories ?? new List<CategoryDto>())
+    {
+        var imageUrl = item.ImageId > 0 ? Url.Action("GetSectionImage", "Pic", new { id = item.ImageId }) :
+              Url.Action("GetSectionImage", "Pic");
+        <div class="col-md-4">
+            <div class="rupor-cards">
+                <section class="rupor-section__title" style="background-image: url('@imageUrl')">
+                    <div class="rupor-section__title--content">
+                        <div class="inner">
+                            <div class="item">
+                                <a href="@Url.Action("Index",new{ id=item.Id})" class="rupor-tag">
+                                    <span class="rupor-tag__section">
+                                        <span class="rupor-tag__cnt">@item.Name</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="item">
+                                <span class="label">n/a</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    }
+</div>
+

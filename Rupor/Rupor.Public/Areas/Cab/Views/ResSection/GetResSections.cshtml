@@ -1,0 +1,68 @@
+﻿@using Rupor.Public.Areas.Cab.Models.ResSection
+@model IEnumerable<ResSectionDto>
+<table class="table table-hover table-light">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Наименование
+            </th>
+            <th>
+                Дата создания
+            </th>
+
+            @if (User.IsInRole(Role._ROOT))
+            {
+                <th>
+                    Активен
+                </th>
+
+                <th>
+                    Пометка на удаление
+                </th>
+
+                <th>
+                    
+                </th>
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model ?? new List<ResSectionDto>())
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.DateCreate
+                </td>
+                @if (User.IsInRole(Role._ROOT))
+                {
+                    <td>
+                        @item.IsActive.ToString()
+                    </td>
+
+                    <td>
+                        @item.IsDelete.ToString()
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit",new { id= item.Id})" class="btn btn-circle blue-hoki">
+                            <i class="fa fa-pencil">
+                            </i>
+                        </a>
+                    </td>
+                    
+                }
+                
+            </tr>
+
+        }
+    </tbody>
+</table>

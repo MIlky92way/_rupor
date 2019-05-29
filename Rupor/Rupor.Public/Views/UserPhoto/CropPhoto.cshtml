@@ -1,0 +1,29 @@
+﻿@model Rupor.Public.Models.UserPhoto.CropModel
+@{
+    var urlOriginalPic = Model.OrigPicId > 0
+       ? Url.Action("GetProfileImage", "Pic", new { id = Model.OrigPicId }) : Url.Action("GetProfileImage", "Pic");
+}
+
+<form action="@Url.Action("CropPhoto","UserPhoto")" method="post" enctype="multipart/form-data" id="">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.X)
+    @Html.HiddenFor(m => m.Y)
+    @Html.HiddenFor(m => m.Width)
+    @Html.HiddenFor(m => m.Height)
+    @Html.HiddenFor(m => m.OrigPicId)
+    <div class="container row">
+        <div class="col-md-7">
+            <div>
+                <img src="@urlOriginalPic" alt="@Model.UserFullName" id="profilePic" />
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+        </div>
+        <div class="col-md-2">
+            <div id="preview" class="miniature-preview">
+                <img src="@urlOriginalPic" alt="" />
+            </div>
+        </div>
+    </div>
+</form>

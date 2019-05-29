@@ -1,10 +1,8 @@
 ﻿using Rupor.Domain.Entities.File;
-using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.FileTools;
+using Rupor.Public.Infrastructure.FileTools.Additional;
 using Rupor.Public.Models.UserPhoto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Rupor.Services.Core.Common;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,8 +11,10 @@ namespace Rupor.Public.Controllers
     [Authorize]
     public class UserPhotoController : BaseController
     {
-        public UserPhotoController()
+        private IServiceCore service;
+        public UserPhotoController(IServiceCore service)
         {
+            this.service = service;
         }
 
         [AllowAnonymous]
@@ -50,30 +50,40 @@ namespace Rupor.Public.Controllers
 
             return result;
         }
-       
+
         public ActionResult SavePhoto(HttpPostedFileBase file)
         {
             ImageTools.SaveImage(file, FileArea.Profile);
 
             return View();
         }
-        
-        public ActionResult CropPhoto()
+
+        public PartialViewResult CropPhoto()
         {
-            var model = new CropModel();
+            var model = new CropModel(CurrentUser);
             return PartialView(model);
         }
-      
+
         [HttpPost]
-        public ActionResult CropPhoto(CropModel model)
+        [ValidateAntiForgeryToken]
+        public JsonResult CropPhoto(CropModel model)
         {
-            return Json(model);
+            var cropData =
+                new ImageSaveData { Height = model.Height, Width = model.Width, X = model.X, Y = model.Y };
+
+            var stream = ImageTools.GetImage(FileArea.Profile, model.OrigPicId)?.FileStream;
+
+            var minPictureId = ImageTools.SaveImageFromStream(stream, model.OrigPicId, FileArea.Profile, crop: true, saveData: cropData);
+
+            service.ProfileService.UpdateMiniaturePicture(CurrentUser.Id, minPictureId);
+
+            return Json(new { minPictureId }, JsonRequestBehavior.DenyGet);
         }
 
         public ActionResult DeletePhoto()
         {
-
             return View();
         }
+
     }
 }

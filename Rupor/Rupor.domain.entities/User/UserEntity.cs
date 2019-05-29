@@ -8,6 +8,8 @@ namespace Rupor.Domain.Entities.User
 {
     public class UserEntity : IdentityUser
     {
+        public DateTime? LastAuth { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> userManager)
         {
             var userIdentity =

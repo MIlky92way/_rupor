@@ -14,6 +14,7 @@ namespace Rupor.Public.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.Title = CurrentUser.IsGuest ? CurrentUser.GivenName : CurrentUser.ToString();
             return View();
         }
     }

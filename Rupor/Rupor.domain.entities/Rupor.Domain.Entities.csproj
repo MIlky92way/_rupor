@@ -55,17 +55,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article\ArticleEntity.cs" />
+    <Compile Include="Article\ArticleStatus.cs" />
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="File\FileEntity.cs" />
+    <Compile Include="Sys\InitialData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reference\ReferenceEntity.cs" />
-    <Compile Include="Reference\ReferenceSection.cs" />
+    <Compile Include="Resources\AppResourceEntity.cs" />
+    <Compile Include="Resources\AppResourceSectionEntity.cs" />
+    <Compile Include="Resources\SectionResource.cs" />
     <Compile Include="RssAgregate\FeedChannelEntity.cs" />
     <Compile Include="RssAgregate\FeedEntity.cs" />
     <Compile Include="Section\SectionEntity.cs" />
     <Compile Include="Section\SectionSettingsEntity.cs" />
     <Compile Include="Tag\TagEntity.cs" />
     <Compile Include="User\ProfileEntity.cs" />
+    <Compile Include="User\ProfileSettings.cs" />
     <Compile Include="User\RoleEntity.cs" />
     <Compile Include="User\UserEntity.cs" />
   </ItemGroup>
@@ -73,5 +77,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

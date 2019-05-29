@@ -1,8 +1,50 @@
-﻿
+﻿@model Rupor.Public.Models.Profile.ProfileIndexViewModel
 @{
-    ViewBag.Title = "Профиль";
+    ViewBag.Title = "Rupor kam " + Model.FullName;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var urlOriginalPic = !Model.IsDefaultPicture.GetValueOrDefault()
+    //    ? Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId }) : Url.Action("GetProfileImage", "Pic");
+
+    //var urlMinPic = Model.MinImageId > 0
+    //    ? Url.Action("GetProfileImage", "Pic", new { id = Model.MinImageId }) :
+    //    Model.OriginalImageId > 0 ? Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId }) : Url.Action("GetProfileImage", "Pic");
 }
-
-
-
+@section styles{
+    <style>
+        img {
+            display: block;
+            width: 100%;
+        }
+    </style>
+}   
+<div class="layer">
+    @Html.Action("UserInfo")
+    <a href="@Url.Action("FeedSettings",new { id=Model.FeedSettingsId})" class="btn btn-default">Настроить ленту</a>
+    <a href="@Url.Action("Posts")" class="btn btn-default">Мои статьи</a>
+</div>
+<div class="layer mt-5">
+    <h5 class="title-info">Избранные рубрики</h5>
+    <div class="row">
+        @foreach (var item in Model.FavoriteCategories)
+        {
+            <div class="col-md-3">
+                <div class="action-card" style="background-image: url('@Url.Action("GetSectionImage","Pic",new { id=item.ImageId})')">
+                    <div class="overlay">
+                        <div class="tag">
+                            <a href="@Url.Action("index","category",new { id=item.Id})" style="color:#ffffff;">
+                                @item.Name
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="layer mt-5">
+    <h5 class="title-info">Подписки </h5>
+    <div class="row">
+        <!--authors-->
+    </div>
+</div>

@@ -1,98 +1,155 @@
-﻿@using Rupor.Public.Models.Additional
-@model Rupor.Public.Areas.Cab.Models.Section.SectionEditModel
+﻿@model Rupor.Public.Areas.Cab.Models.Section.SectionEditModel
 @{
+    /**/
+
     var name = string.Empty;
     name = string.IsNullOrEmpty(Model.Name) ? "Добавление раздела" : "Редактирование раздела: " + Model.Name;
     ViewBag.Title = name;
 }
 
-<div class="col-md-9" style="float:none; margin:0 auto;">
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-bookmark"></i>
-                @ViewBag.Title
+@if (Model.Id == 0 && Model.Overflow)
+{
+    <div class="alert alert-danger margin-bottom-10">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+        <i class="fa fa-warning fa-lg"></i> На данный момент активных разделов более чем задано.
+        Чтобы продолжить удалите или деактивируете ненужные разделы из списка.
+    </div>
+}
+else
+{
+
+    <div class="note note-warning">
+        <p>
+            Для описания наименование раздела старайтесь уложиться в два слова, <br />
+            не стоит использовать очень длинные наименования.
+        </p>
+    </div>
+    @Html.ValidationSummary()
+    <div class="col-md-9">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-bookmark"></i>
+                    @ViewBag.Title
+                </div>
+                <div class="actions">
+                    <a href="@Url.Action("Index")" class="btn btn-circle btn-default">Назад</a>
+                </div>
             </div>
-            <div class="actions">
-                @*<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
-                    <a href="javascript:;" class="reload" data-original-title="" title=""> </a>*@
-                <a href="@Url.Action("Index")" class="btn btn-circle btn-default">Назад</a>
-            </div>
-        </div>
-        <div class="portlet-body form">
-            <!-- BEGIN FORM-->
-            @using (Html.BeginForm("Edit", "Section", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(x => x.Id)
-                @Html.HiddenFor(x => x.ImageId)
-                <div class="form-body">
-                    @if (Model.ImageId > 0)
-                    {
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("Edit", "Section", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.ImageId)
+                    @Html.HiddenFor(x => x.OverflowOnTop)
+                    @Html.HiddenFor(x => x.Overflow)
+                    <div class="form-body">
+                        @if (Model.ImageId > 0)
+                        {
+                            <div class="form-group imgbg-editor-wrapper">
+                                <img class="img-responsive" src="@Url.Action("GetSectionImage", "Pic", new {area = "", id = Model.ImageId})" />
+                            </div>
+                        }
                         <div class="form-group">
-                            <img class="img-responsive" src="@Url.Action("GetSectionImage", "Pic", new {area = "", id = Model.ImageId})" />
-                        </div>
-                    }
-                    <div class="form-group">
-                        <div class="fileinput fileinput-new" data-provides="fileinput" style="padding: 15px;">
-                            <div class="input-group input-large">
-                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
-                                    <span class="fileinput-filename"></span>
+                            <div class="fileinput fileinput-new" data-provides="fileinput" style="padding: 15px;">
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Выбрать файл </span>
+                                        <span class="fileinput-exists"> Изменить </span>
+                                        @Html.TextBoxFor(m => m.SectionImage, new { type = "file" })
+                                    </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Удалить </a>
                                 </div>
-                                <span class="input-group-addon btn default btn-file">
-                                    <span class="fileinput-new"> Выбрать файл </span>
-                                    <span class="fileinput-exists"> Изменить </span>
-                                    @Html.TextBoxFor(m => m.SectionImage, new { type = "file" })
-                                </span>
-                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Удалить </a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Наименование</label>
+                            <div class="input-icon">
+                                <i class="fa fa-book"></i>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Описание</label>
+                            <div class="input-icon">
+                                <i class="fa fa-book"></i>
+                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="mt-checkbox-list">
+                                <label class="mt-checkbox">
+                                    Расположен в шапке
+                                    @Html.CheckBoxFor(m => m.OnTop, new { })
+                                    <span></span>
+                                </label>
+                                <label class="mt-checkbox">
+                                    Активен
+                                    @Html.CheckBoxFor(m => m.IsActive, new { })
+                                    <span></span>
+                                </label>
+                                <label class="mt-checkbox">
+                                    Пометка на удаление
+                                    @Html.CheckBoxFor(m => m.IsDelete, new { })
+                                    <span></span>
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Наименование</label>
-                        <div class="input-icon">
-                            <i class="fa fa-book"></i>
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
-                        </div>
+                    <div class="form-actions right">
+                        <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Apply))">Применить</button>
+                        <button type="submit" name="action" class="btn green-sharp" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Описание</label>
-                        <div class="input-icon">
-                            <i class="fa fa-book"></i>
-                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Укажите наименование раздела" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Расположен в шапке</label>
-                        <div class="input-icon">
-                            <i class=""></i>
-                            @Html.CheckBoxFor(m => m.OnTop, new { })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Активен</label>
-                        <div class="">
-                            @Html.CheckBoxFor(m => m.IsActive, new { })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Пометка на удаление</label>
-                        <div class="">
-                            @Html.CheckBoxFor(m => m.IsDelete, new { })
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions right">
-                    <button type="submit" name="action" class="btn green" value="@(nameof(ExperienceForSubmit.Apply))">Применить</button>
-                    <button type="submit" name="action" class="btn default" value="@(nameof(ExperienceForSubmit.Save))">Сохранить</button>
+                }
 
-                </div>
-                
-            }
-
-            <!-- END FORM-->
+                <!-- END FORM-->
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                Максимально допустимый предел
+                <span class="badge badge-danger"> @Model.AllowSections </span>
+            </li>
+            <li class="list-group-item">
+                Максимально допустимое кол-во в шапке
+                <span class="badge badge-success"> @Model.AllowOnTopSection </span>
+            </li>
+        </ul>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                Всего разделов
+                <span class="badge badge-info"> @Model.TotalAll </span>
+            </li>
+            <li class="list-group-item">
+                Разделов в шапке
+                <span class="badge badge-success"> @Model.TotalOnTop </span>
+            </li>
+            <li class="list-group-item">
+                Остальных разделов
+                <span class="badge badge-default"> @Model.TotalOther </span>
+            </li>
+        </ul>
+
+
+        @if (Model.Id > 0)
+        {
+            <a href="@Url.Action("Index","Category",new {area="", id=Model.Id})" class="btn blue-chambray btn-block" target="_blank">
+                Просмотр
+                <i class="fa fa-external-link-square"></i>
+            </a>
+        }
+    </div>
+
+}
+
 

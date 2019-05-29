@@ -15,7 +15,7 @@ namespace Rupor.Domain.Entities.Section
     public class SectionSettingsEntity:BaseEntity
     {
         public int MaxAllowedSections { get; set; }
-
+        public int MaxAllowedSectionsOnTop { get; set; }
         public int? DefaultPictureId { get; set; }
 
         [ForeignKey("DefaultPictureId")]

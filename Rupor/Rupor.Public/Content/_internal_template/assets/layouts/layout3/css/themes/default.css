@@ -482,6 +482,13 @@ Page Footer
         .page-header .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle:hover {
           background-color: #fff; } }
 
+.imgbg-editor-wrapper {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
 /****
  CSS3 Spinner Bar
 ****/

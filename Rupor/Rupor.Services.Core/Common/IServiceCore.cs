@@ -1,4 +1,5 @@
 ﻿using Rupor.Domain.Entities.User;
+using Rupor.Services.Core.App;
 using Rupor.Services.Core.Base;
 using Rupor.Services.Core.Feed;
 using Rupor.Services.Core.File;
@@ -18,6 +19,9 @@ namespace Rupor.Services.Core.Common
         IUserProfileService<ProfileEntity> ProfileService { get; }
         IFileService FileService { get; }
         ISectionService SectionService {get;}
-                                
+        ISectionSettingsService SectionSettingsService { get; }
+        IProfileSettngs ProfileSettings { get; }
+        IAppResourceService AppResourceService { get; }
+        IAppResourceSectionService AppResourceSectionService { get; }
     }
 }

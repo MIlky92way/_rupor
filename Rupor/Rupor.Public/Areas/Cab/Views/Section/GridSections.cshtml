@@ -1,0 +1,158 @@
+﻿@using Rupor.Public.Areas.Cab.Models.Section
+@model IEnumerable<SectionDto>
+<table class="table table-hover table-light">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Наименование</th>
+            <th>Дата создания</th>
+            <th>Расположен в шапке</th>
+            <th>Активен</th>
+            @if (User.IsInRole(Role._ROOT))
+            {
+                <th>Пометить на удаление</th>
+            }
+            else if (User.IsInRole(Role._ADMINISTRATOR))
+            {
+                <th>Пометка на удаление</th>
+            }
+            else
+            {
+                <th>Пометка на удаление</th>
+            }
+            <th></th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.DateCreate
+                    </td>
+                    <td>
+                        @if (item.OnTop)
+                        {
+                            <i class="fa fa-check"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-minus"></i>
+                        }
+                    </td>
+                    <td>
+                        @if (User.IsInRole(Role._ROOT) || User.IsInRole(Role._ADMINISTRATOR))
+                        {
+                            <form action="@Url.Action("ChangeState",new { id=item.Id,isActive = !item.IsActive })" method="post">
+                                <button class="btn btn-circle grey-mint">
+                                    @if (item.IsActive)
+                                    {
+                                        <i class="fa fa-eye-slash"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-eye"></i>
+                                    }
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            if (item.IsActive)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-minus"></i>
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        @if (User.IsInRole(Role._ROOT))
+                        {
+                            if (item.IsDelete)
+                            {
+                                <form action="@Url.Action("Delete", new {id=item.Id })" method="post">
+                                    <button type="submit" class="btn btn btn-circle red">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form action="@Url.Action("ChangeState", new {id=item.Id, isDelete = !item.IsDelete })" method="post">
+                                    <button type="submit" class="btn btn-circle grey-mint">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </form>
+                            }
+                        }
+                        else if (User.IsInRole(Role._ADMINISTRATOR))
+                        {
+                            <form action="@Url.Action("ChangeState", new { id=item.Id,isDelete = !item.IsDelete })" method="post">
+                                <button type="submit" class="btn btn-default">
+                                    @if (item.IsDelete)
+                                    {
+                                        <i class="fa fa-check"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-minus"></i>
+                                    }
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            if (item.IsDelete)
+                            {
+                                <i class="fa fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-minus"></i>
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit",new { id=item.Id})" class="btn btn-circle blue-hoki">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Index","Category",new {area="", id=item.Id})" target="_blank" class="btn btn-circle blue-hoki">
+                            <i class="fa fa-external-link-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    <span>Разделы не добавлены!</span>
+                </td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

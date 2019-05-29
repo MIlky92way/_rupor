@@ -1,13 +1,8 @@
 ﻿using Rupor.Domain.Entities.Base;
 using Rupor.Domain.Entities.File;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rupor.Domain.Entities.RssAgregate;
 
 namespace Rupor.Domain.Entities.User
 {
@@ -31,7 +26,7 @@ namespace Rupor.Domain.Entities.User
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public UserEntity Owner { get; set; }
-        
+
         public string FileNameOriginal { get; set; }
         public string FileNameMin { get; set; }
         public int? AccessLevelToImage { get; set; }
@@ -59,6 +54,11 @@ namespace Rupor.Domain.Entities.User
         /// </summary>
         public string SocialFb { get; set; }
 
-        public  virtual  ICollection<FeedChannelEntity> SubscribersOnChannels { get; set; }
+        public string SocialTwitter { get; set; }
+
+        public int? ProfileSettingsId { get; set; }
+
+        [ForeignKey("ProfileSettingsId")]
+        public virtual ProfileSettingsEntity ProfileSettings { get; set; }
     }
 }
