@@ -12,6 +12,7 @@ namespace Rupor.Domain.Entities.Section
     /// <summary>
     /// Общие Настройки разделов
     /// </summary>
+    [Table("SectionSettings")]
     public class SectionSettingsEntity:BaseEntity
     {
         public int MaxAllowedSections { get; set; }

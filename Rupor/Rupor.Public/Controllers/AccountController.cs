@@ -58,8 +58,7 @@ namespace Rupor.Public.Controllers
                     ClaimsIdentity clIdent = UserManager.CreateIdentity(authUser, DefaultAuthenticationTypes.ApplicationCookie);                    
                     AuthManager.SignOut();
                     AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe, AllowRefresh = true }, clIdent);                    
-                    ProfileService.UpdateLastAuth(authUser.Id);
-                    //TOTOTOTOTOTOTOOT
+                    ProfileService.UpdateLastAuth(authUser.Id);                  
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -101,6 +100,9 @@ namespace Rupor.Public.Controllers
 
                         if (result != null && result.Id > 0)
                         {
+                            ClaimsIdentity clIdent = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                            AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe, AllowRefresh = true }, clIdent);
+
                             return RedirectToAction("Index", "Home");
                         }
                         else

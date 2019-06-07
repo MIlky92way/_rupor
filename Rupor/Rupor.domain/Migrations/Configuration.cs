@@ -29,7 +29,6 @@ namespace Rupor.Domain.Migrations
             AppArticleStatusInitial(context);
             AppInitialSectionSettings(context);
             AppInitialSection(context);
-            base.Seed(context);
         }
 
         private void AppRoleInitial(RuporDbContext context)
@@ -94,7 +93,9 @@ namespace Rupor.Domain.Migrations
                     profile.IsActive = true;
                     profile.LastAuth = DateTime.Now;
                     context.UserProfile.Add(profile);
-                    context.Entry(profile).State = System.Data.Entity.EntityState.Added;                                       
+                    context.Entry(profile).State = System.Data.Entity.EntityState.Added;
+                    context.SaveChanges();
+
                 }
             }
             catch (Exception ex)
@@ -106,75 +107,75 @@ namespace Rupor.Domain.Migrations
         private void AppArticleStatusInitial(RuporDbContext context)
         {
             var initialName = "ArticleStatusInitial";
-                        
-                InitialData initialArticleStatus = context
-                    .InitialData
-                    .FirstOrDefault(d => d.InitialName == initialName);
-                if (initialArticleStatus?.Id > 0)
-                    return;
-                else
-                    initialArticleStatus = new InitialData();
+
+            InitialData initialArticleStatus = context
+                .InitialData
+                .FirstOrDefault(d => d.InitialName == initialName);
+            if (initialArticleStatus?.Id > 0)
+                return;
+            else
+                initialArticleStatus = new InitialData();
 
 
-                var section = new AppResourceSectionEntity();
+            var section = new AppResourceSectionEntity();
 
-                section.Key = SectionResource.ArticleStatus;
-                section.Name = nameof(SectionResource.ArticleStatus);
-                
-                context
-                    .Entry
-                    (section).State = System.Data.Entity.EntityState.Added;
+            section.Key = SectionResource.ArticleStatus;
+            section.Name = nameof(SectionResource.ArticleStatus);
 
-                var statusNew = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.New,
-                    Value = nameof(ArticleStatus.New)
-                };
+            context
+                .Entry
+                (section).State = System.Data.Entity.EntityState.Added;
 
-                var statusDraft = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Draft,
-                    Value = nameof(ArticleStatus.Draft)
-                };
+            var statusNew = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.New,
+                Value = nameof(ArticleStatus.New)
+            };
 
-                var statusCanceled = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Canceled,
-                    Value = nameof(ArticleStatus.Canceled)
-                };
+            var statusDraft = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Draft,
+                Value = nameof(ArticleStatus.Draft)
+            };
 
-                var statusModeration = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Moderation,
-                    Value = nameof(ArticleStatus.Moderation)
-                };
+            var statusCanceled = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Canceled,
+                Value = nameof(ArticleStatus.Canceled)
+            };
 
-                var statusApproved = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Approved,
-                    Value = nameof(ArticleStatus.Approved)
-                };
+            var statusModeration = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Moderation,
+                Value = nameof(ArticleStatus.Moderation)
+            };
 
-                var statusArchive = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Archive,
-                    Value = nameof(ArticleStatus.Archive)
-                };
+            var statusApproved = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Approved,
+                Value = nameof(ArticleStatus.Approved)
+            };
 
-                var statusPublicated = new AppResourceEntity()
-                {
-                    SectionId = section.Id,
-                    Key = (int)ArticleStatus.Publicated,
-                    Value = nameof(ArticleStatus.Publicated)
-                };
+            var statusArchive = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Archive,
+                Value = nameof(ArticleStatus.Archive)
+            };
 
-                context.AppResource.AddRange(new List<AppResourceEntity>() {
+            var statusPublicated = new AppResourceEntity()
+            {
+                SectionId = section.Id,
+                Key = (int)ArticleStatus.Publicated,
+                Value = nameof(ArticleStatus.Publicated)
+            };
+
+            context.AppResource.AddRange(new List<AppResourceEntity>() {
                     statusNew,
                     statusDraft,
                     statusCanceled,
@@ -184,26 +185,49 @@ namespace Rupor.Domain.Migrations
                     statusPublicated
                 });
 
-                initialArticleStatus.DateInitial = DateTime.Now;
-                initialArticleStatus.InitialName = initialName;
+            initialArticleStatus.DateInitial = DateTime.Now;
+            initialArticleStatus.InitialName = initialName;
 
-                context.InitialData.Add(initialArticleStatus);
-            
+            context.InitialData.Add(initialArticleStatus);
+
+            context.SaveChanges();
+
         }
 
         private void AppInitialSectionSettings(RuporDbContext context)
         {
+            var initialName = "AppInitialSectionSettings";
+
+
+            var initialData = context.InitialData.FirstOrDefault(i => i.InitialName == initialName);
+            if (initialData?.Id > 0)
+                return;
+
             var sectionSettings = new SectionSettingsEntity();
 
             sectionSettings.MaxAllowedSections = 25;
             sectionSettings.MaxAllowedSectionsOnTop = 10;
 
             context.SectionSettings.Add(sectionSettings);
+
+            initialData = new InitialData { InitialName = initialName, DateInitial = DateTime.Now };
+
+            context.InitialData.Add(initialData);
+
             context.SaveChanges();
+
         }
 
         private void AppInitialSection(RuporDbContext context)
         {
+            var initialName = "AppInitialSection";
+
+
+            var initialData = context.InitialData.FirstOrDefault(i => i.InitialName == initialName);
+
+            if (initialData?.Id > 0)
+                return;
+
             var sectionSocial = new SectionEntity
             {
                 IsActive = true,
@@ -260,7 +284,13 @@ namespace Rupor.Domain.Migrations
                 sectionPolitics,
                 sectionEconomic,
             });
-          
+
+            initialData = new InitialData { InitialName = initialName, DateInitial = DateTime.Now };
+
+            context.InitialData.Add(initialData);
+
+            context.SaveChanges();
+
         }
 
         private void AppInitialProfileSettings(RuporDbContext context)

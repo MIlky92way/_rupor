@@ -136,8 +136,8 @@ namespace Rupor.Public.Infrastructure.ProfileTools
 
         public override string ToString()
         {
-            var fullName = string.IsNullOrEmpty(GivenName) || string.IsNullOrEmpty(FamilyName) ?
-                Profile.Email : $"{GivenName} {FamilyName}";
+            var fullName = string.IsNullOrEmpty(GivenName) ?
+                Profile.Email : $"{GivenName}";
 
             return fullName;
         }
