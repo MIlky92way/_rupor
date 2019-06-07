@@ -23,5 +23,6 @@ namespace Rupor.Services.Core.Common
         IProfileSettngs ProfileSettings { get; }
         IAppResourceService AppResourceService { get; }
         IAppResourceSectionService AppResourceSectionService { get; }
+
     }
 }
