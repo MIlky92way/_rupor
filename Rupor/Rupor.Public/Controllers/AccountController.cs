@@ -59,6 +59,7 @@ namespace Rupor.Public.Controllers
                     AuthManager.SignOut();
                     AuthManager.SignIn(new AuthenticationProperties { IsPersistent = model.RememberMe, AllowRefresh = true }, clIdent);                    
                     ProfileService.UpdateLastAuth(authUser.Id);
+                    //TOTOTOTOTOTOTOOT
                     return RedirectToAction("Index", "Home");
                 }
             }
