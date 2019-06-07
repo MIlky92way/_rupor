@@ -29,7 +29,7 @@ namespace Rupor.Public.Models.Profile
             }
             else if(isAuth)
             {
-                Name = profile.GivenName;
+                Name = profile.ToString();
             }
             
             IsAuth = isAuth;

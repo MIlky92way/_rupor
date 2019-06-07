@@ -36,7 +36,7 @@ namespace Rupor.Logik.Section
             entity.IsActive = editedInstance.IsActive;
             entity.IsDelete = editedInstance.IsDelete;
             entity.Name = editedInstance.Name;
-            entity.OnTop = editedInstance.OnTop;
+            entity.OnAside = editedInstance.OnAside;
             entity.Description = editedInstance.Description;
             DbContext.SaveChanges();
 

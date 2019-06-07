@@ -30,7 +30,7 @@ namespace Rupor.Public.Helpers
                 profsrv = new UserProfileService();
                 var profile = profsrv[user.Identity.Name];
 
-                return profile.GivenName ?? throw new NullReferenceException("User is not found!");
+                return profile?.ToString() ?? throw new NullReferenceException("User is not found!");
             }
             else
             {

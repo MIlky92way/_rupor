@@ -106,7 +106,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
                     {
                         Id = s.Id,
                         Name = s.Name,
-                        OnTop = s.OnTop,
+                        OnTop = s.OnAside,
                         IsActive = s.IsActive
                     });
             }
@@ -171,7 +171,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
                 var section = SectionSettingsService.GetDefaultSection(id);
                 model.Name = section.Name;
                 model.IsActive = section.IsActive;
-                model.OnTop = section.OnTop;
+                model.OnTop = section.OnAside;
                 model.Id = section.Id;
             }
 

@@ -131,7 +131,7 @@ namespace Rupor.Public.Areas.Cab.Controllers
                 {
                     Id = s.Id,
                     DateCreate = s.DateCreate,
-                    OnTop = s.OnTop,
+                    OnTop = s.OnAside,
                     IsActive = s.IsActive,
                     IsDelete = s.IsDelete,
                     Name = s.Name

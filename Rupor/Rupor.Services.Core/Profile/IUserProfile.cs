@@ -10,7 +10,7 @@ namespace Rupor.Services.Core.Profile
     public interface IUserProfileService<TEntity> : IRuporService<TEntity>, IEnumerable<TEntity>
         where TEntity : class
     {
-        TEntity this[string email] { get; }
+        TEntity this[string ownerId] { get; }
         /// <summary>
         /// Создает новый профиль, используется только при регитсрраци нового пользователя
         /// </summary>

@@ -12,6 +12,7 @@ namespace Rupor.Domain.Entities.User
         public ProfileEntity()
         {
             //Files = new HashSet<FileEntity>();
+            DateCreate = DateTime.Now;
         }
 
         public DateTime LastAuth { get; set; }

@@ -112,7 +112,7 @@ namespace Rupor.Logik.Section
             section.IsDefault = true;
             section.Name = model.Name;
             section.Description = model.Description;
-            section.OnTop = model.OnTop;
+            section.OnAside = model.OnTop;
             
             bool CheckCount(int max)
             {
@@ -186,6 +186,7 @@ namespace Rupor.Logik.Section
                 {
                     return null;
                 }
+
                 model.DefaultSections = ctx.Sections
                     .Where(s => s.IsDefault)
                     .OrderByDescending(s => s.DateCreate).ToList();

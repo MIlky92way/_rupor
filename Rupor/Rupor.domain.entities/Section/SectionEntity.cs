@@ -33,7 +33,7 @@ namespace Rupor.Domain.Entities.Section
         /// <summary>
         /// Отображение на шапке сайта
         /// </summary>
-        public bool OnTop { get; set; }
+        public bool OnAside { get; set; }
         public int? ImageId { get; set; }
 
         [ForeignKey("ImageId")]

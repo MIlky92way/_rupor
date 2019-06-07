@@ -1,14 +1,15 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Rupor.Domain.Context;
-using Rupor.Domain.Entities.User;
-using System.Data.Entity.Migrations;
-using Rupor.Tools.Consts;
-using Rupor.Domain.Entities.Resources;
 using Rupor.Domain.Entities.Article;
-using System.Collections.Generic;
+using Rupor.Domain.Entities.Resources;
+using Rupor.Domain.Entities.Section;
 using Rupor.Domain.Entities.Sys;
+using Rupor.Domain.Entities.User;
+using Rupor.Tools.Consts;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace Rupor.Domain.Migrations
@@ -26,9 +27,10 @@ namespace Rupor.Domain.Migrations
             AppRoleInitial(context);
             AppUserInit(context);
             AppArticleStatusInitial(context);
+            AppInitialSectionSettings(context);
+            AppInitialSection(context);
             base.Seed(context);
         }
-
 
         private void AppRoleInitial(RuporDbContext context)
         {
@@ -69,22 +71,32 @@ namespace Rupor.Domain.Migrations
             catch (Exception ex) { }
         }
 
-
         private void AppUserInit(RuporDbContext context)
         {
             UserManager<UserEntity> manager =
                 new UserManager<UserEntity>(new UserStore<UserEntity>(context));
-
+            ProfileEntity profile;
             UserEntity user;
             string name = "rupor.adm@rupor.com";
             try
             {
+                profile = new ProfileEntity();
                 user = new UserEntity();
                 user.UserName = user.Email = name;
                 var res = manager.Create(user, "_Xz.23Az4kf-vdf-343fX+-__1");
+
                 if (res.Succeeded)
-                {   
+                {
                     manager.AddToRole(user.Id, Role._ROOT);
+
+                    profile.Email = user.Email;
+                    profile.OwnerId = user.Id;
+                    profile.IsActive = true;
+                    profile.LastAuth = DateTime.Now;
+                    context.UserProfile.Add(profile);
+                    context.Entry(profile).State = System.Data.Entity.EntityState.Added;
+                    
+                    context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -108,61 +120,60 @@ namespace Rupor.Domain.Migrations
                     initialArticleStatus = new InitialData();
 
 
-                    var section = new AppResourceSectionEntity
-                {
-                    Key = SectionResource.ArticleStatus,
-                    Name = nameof(SectionResource.ArticleStatus),
-                };
+                var section = new AppResourceSectionEntity();
 
+                section.Key = SectionResource.ArticleStatus;
+                section.Name = nameof(SectionResource.ArticleStatus);
+                
                 context
-                    .AppResousrceSection
-                    .Add(section);
+                    .Entry
+                    (section).State = System.Data.Entity.EntityState.Added;
 
                 context.SaveChanges();
 
-                var statusNew = new AppResourceEntity
+                var statusNew = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.New,
                     Value = nameof(ArticleStatus.New)
                 };
 
-                var statusDraft = new AppResourceEntity
+                var statusDraft = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Draft,
                     Value = nameof(ArticleStatus.Draft)
                 };
 
-                var statusCanceled = new AppResourceEntity
+                var statusCanceled = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Canceled,
                     Value = nameof(ArticleStatus.Canceled)
                 };
 
-                var statusModeration = new AppResourceEntity
+                var statusModeration = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Moderation,
                     Value = nameof(ArticleStatus.Moderation)
                 };
 
-                var statusApproved = new AppResourceEntity
+                var statusApproved = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Approved,
                     Value = nameof(ArticleStatus.Approved)
                 };
 
-                var statusArchive = new AppResourceEntity
+                var statusArchive = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Archive,
                     Value = nameof(ArticleStatus.Archive)
                 };
 
-                var statusPublicated = new AppResourceEntity
+                var statusPublicated = new AppResourceEntity()
                 {
                     SectionId = section.Id,
                     Key = (int)ArticleStatus.Publicated,
@@ -188,8 +199,84 @@ namespace Rupor.Domain.Migrations
 
                 transaction.Commit();
             }
+        }
 
-            
+        private void AppInitialSectionSettings(RuporDbContext context)
+        {
+            var sectionSettings = new SectionSettingsEntity();
+
+            sectionSettings.MaxAllowedSections = 25;
+            sectionSettings.MaxAllowedSectionsOnTop = 10;
+
+            context.SectionSettings.Add(sectionSettings);
+            context.SaveChanges();
+        }
+
+        private void AppInitialSection(RuporDbContext context)
+        {
+            var sectionSocial = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Общество",
+                OnAside = true,
+            };
+
+            var sectionIncident = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Проишествия",
+                OnAside = true,
+            };
+
+            var sectionSport = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Спорт",
+                OnAside = true,
+            };
+
+            var sectionCulture = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Культура",
+                OnAside = true,
+            };
+
+            var sectionPolitics = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Политика",
+                OnAside = true,
+            };
+
+            var sectionEconomic = new SectionEntity
+            {
+                IsActive = true,
+                IsDefault = true,
+                Name = "Экономика",
+                OnAside = true,
+            };
+
+            context.Sections.AddRange(new List<SectionEntity>(){
+                sectionSocial,
+                sectionIncident,
+                sectionSport,
+                sectionCulture,
+                sectionPolitics,
+                sectionEconomic,
+            });
+
+            context.SaveChanges();
+        }
+
+        private void AppInitialProfileSettings(RuporDbContext context)
+        {
+
         }
     }
 }

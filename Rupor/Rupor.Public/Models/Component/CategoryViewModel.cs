@@ -20,7 +20,7 @@ namespace Rupor.Public.Models.Component
             if (sectionService.Where(s => !s.IsDefault).Count() > 0)
             {
                 Categories = sectionService
-                    .Where(s => !s.IsDefault && s.OnTop == onTop && s.IsActive && !s.IsDelete)
+                    .Where(s => !s.IsDefault && s.OnAside == onTop && s.IsActive && !s.IsDelete)
                     .Select(s => MapFrom(s)).ToList();
             }
             else

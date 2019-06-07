@@ -23,16 +23,16 @@ namespace Rupor.Logik.Profile
             Users = DbContext.Set<ProfileEntity>();
         }
 
-        public ProfileEntity this[string email]
+        public ProfileEntity this[string ownerId]
         {
             get
             {
                 ProfileEntity entity = null;
 
-                if (!string.IsNullOrEmpty(email) || !string.IsNullOrWhiteSpace(email))
+                if (!string.IsNullOrEmpty(ownerId) || !string.IsNullOrWhiteSpace(ownerId))
                 {
                     entity = Users
-                    .FirstOrDefault(x => x.Email == email);
+                    .FirstOrDefault(x => x.OwnerId == ownerId);
                 }
 
                 return entity;

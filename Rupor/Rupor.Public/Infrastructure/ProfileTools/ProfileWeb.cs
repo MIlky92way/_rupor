@@ -1,13 +1,10 @@
 ﻿using Rupor.Domain.Entities.File;
 using Rupor.Domain.Entities.User;
-using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.FileTools;
 using Rupor.Services.Core.Profile;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Rupor.Public.Infrastructure.ProfileTools
@@ -19,7 +16,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
         public int Id { get; set; }
         public string GivenName { get; set; }
         public string FamilyName { get; set; }
-        public DateTime? BirthDate { get; set; }        
+        public DateTime? BirthDate { get; set; }
         public IEnumerable<RoleEntity> Roles { get; set; }
         public int MinImageId { get; set; }
         public int OriginalImageId { get; set; }
@@ -31,6 +28,11 @@ namespace Rupor.Public.Infrastructure.ProfileTools
         {
             GivenName = "guest";
             IsGuest = true;
+
+            Profile = new ProfileEntity
+            {
+                GivenName = GivenName
+            };
         }
 
         public ProfileWeb(IUserProfileService<ProfileEntity> profileService, UserEntity user, ImageTools imgTools)
@@ -45,7 +47,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
             Id = Profile.Id;
             MinImageId = Profile.MinPictureId.GetValueOrDefault();
             OriginalImageId = Profile.OriginalPictureId.GetValueOrDefault();
-            
+
         }
 
         public void UpdateLastAuth()
@@ -88,7 +90,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
             var contentType = string.Empty;
 
             if (Profile.OriginalPicture == null)
-            {                
+            {
                 var defaultPic = GetDefaultPhoto();
                 contentType = defaultPic.ContentType;
                 path = defaultPic.FileName;
@@ -104,7 +106,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
             return result;
         }
 
-        
+
 
         private DefaultPicture GetDefaultPhoto()
         {
@@ -134,7 +136,10 @@ namespace Rupor.Public.Infrastructure.ProfileTools
 
         public override string ToString()
         {
-            return $"{GivenName} {FamilyName}";
+            var fullName = string.IsNullOrEmpty(GivenName) || string.IsNullOrEmpty(FamilyName) ?
+                Profile.Email : $"{GivenName} {FamilyName}";
+
+            return fullName;
         }
 
         private class DefaultPicture

@@ -44,7 +44,7 @@ namespace Rupor.Public.Areas.Cab.Models.Section
                 .Count() >= settings.MaxAllowedSections;
             OverflowOnTop = service
                 .SectionService
-                .Where(x => x.IsActive && !x.IsDefault && !x.IsDelete && x.OnTop)
+                .Where(x => x.IsActive && !x.IsDefault && !x.IsDelete && x.OnAside)
                 .Count() >= settings.MaxAllowedSectionsOnTop;
 
             TotalAll = service.SectionService
@@ -52,11 +52,11 @@ namespace Rupor.Public.Areas.Cab.Models.Section
                 .Count();
 
             TotalOnTop = service.SectionService
-                .Where(s => s.IsActive && !s.IsDelete && !s.IsDefault && s.OnTop)
+                .Where(s => s.IsActive && !s.IsDelete && !s.IsDefault && s.OnAside)
                 .Count();
 
             TotalOther = service.SectionService
-                .Where(s => s.IsActive && !s.IsDelete && !s.IsDefault && !s.OnTop)
+                .Where(s => s.IsActive && !s.IsDelete && !s.IsDefault && !s.OnAside)
                 .Count();
 
             AllowSections = settings.MaxAllowedSections;
@@ -69,7 +69,7 @@ namespace Rupor.Public.Areas.Cab.Models.Section
                     Id = section.Id;
                     Name = section.Name;
                     Description = section.Description;
-                    OnTop = section.OnTop;
+                    OnTop = section.OnAside;
                     IsActive = section.IsActive;
                     IsDelete = section.IsDelete;
                     ImageId = section.ImageId;
@@ -87,7 +87,7 @@ namespace Rupor.Public.Areas.Cab.Models.Section
                 ImageId = model.ImageId,
                 IsDelete = model.IsDelete,
                 Name = model.Name,
-                OnTop = model.OnTop
+                OnAside = model.OnTop
             };
             return entity;
         }

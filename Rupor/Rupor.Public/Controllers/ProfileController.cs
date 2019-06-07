@@ -160,7 +160,5 @@ namespace Rupor.Public.Controllers
             return PartialView(model);
         }
 
-
-
     }
 }

@@ -9,6 +9,7 @@ namespace Rupor.Domain.Entities.Base
         {
             DateCreate = DateTime.Now;
         }
+
         public int Id { get; set; }
         public DateTime DateCreate { get; set; }
     }
