@@ -12,5 +12,12 @@
             </a>
         </li>
     }
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="leftmenu-item">
+            <hr />
+            <a href="@Url.Action("Logout","Account")" class="leftmenu-item__link">Выход</a>
+        </li>
 
+    }
 </ul>
