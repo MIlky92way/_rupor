@@ -5532,6 +5532,7 @@
     <Content Include="Content\_public_template\fonts\stylesheet.css" />
     <Content Include="Content\_public_template\img\icon-info.png" />
     <Content Include="Content\_public_template\img\icon-sprite.png" />
+    <Content Include="Content\_public_template\img\icon_new.png" />
     <Content Include="Content\_public_template\img\logo\logo_default.png" />
     <Content Include="Content\_public_template\img\logo\logo_negative.png" />
     <Content Include="Content\_public_template\img\title-icon.png" />
