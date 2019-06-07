@@ -81,12 +81,9 @@ namespace Rupor.Public.Controllers
         {
             return View();
         }
-
-
    
         public ActionResult Post(int id = 0)
         {
-
             return View();
         }
 

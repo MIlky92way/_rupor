@@ -94,9 +94,7 @@ namespace Rupor.Domain.Migrations
                     profile.IsActive = true;
                     profile.LastAuth = DateTime.Now;
                     context.UserProfile.Add(profile);
-                    context.Entry(profile).State = System.Data.Entity.EntityState.Added;
-                    
-                    context.SaveChanges();
+                    context.Entry(profile).State = System.Data.Entity.EntityState.Added;                                       
                 }
             }
             catch (Exception ex)
@@ -108,9 +106,7 @@ namespace Rupor.Domain.Migrations
         private void AppArticleStatusInitial(RuporDbContext context)
         {
             var initialName = "ArticleStatusInitial";
-
-            using (var transaction = context.Database.BeginTransaction())
-            {
+                        
                 InitialData initialArticleStatus = context
                     .InitialData
                     .FirstOrDefault(d => d.InitialName == initialName);
@@ -128,8 +124,6 @@ namespace Rupor.Domain.Migrations
                 context
                     .Entry
                     (section).State = System.Data.Entity.EntityState.Added;
-
-                context.SaveChanges();
 
                 var statusNew = new AppResourceEntity()
                 {
@@ -194,11 +188,7 @@ namespace Rupor.Domain.Migrations
                 initialArticleStatus.InitialName = initialName;
 
                 context.InitialData.Add(initialArticleStatus);
-
-                context.SaveChanges();
-
-                transaction.Commit();
-            }
+            
         }
 
         private void AppInitialSectionSettings(RuporDbContext context)
@@ -270,8 +260,7 @@ namespace Rupor.Domain.Migrations
                 sectionPolitics,
                 sectionEconomic,
             });
-
-            context.SaveChanges();
+          
         }
 
         private void AppInitialProfileSettings(RuporDbContext context)

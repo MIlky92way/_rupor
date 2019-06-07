@@ -3,13 +3,26 @@
 @{
     ViewBag.Title = "Рубрикатор";
 }
+@section styles{
+    <style>
+        .col-md-4 {
+            margin:0px;
+            padding:5px;
+        }
+        .rupor-section__title {
+            width: 100%;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    }
 <div class="row">
     @foreach (var item in Model.Categories ?? new List<CategoryDto>())
     {
         var imageUrl = item.ImageId > 0 ? Url.Action("GetSectionImage", "Pic", new { id = item.ImageId }) :
               Url.Action("GetSectionImage", "Pic");
         <div class="col-md-4">
-            <div class="rupor-cards">
+            <div class="">
                 <section class="rupor-section__title" style="background-image: url('@imageUrl')">
                     <div class="rupor-section__title--content">
                         <div class="inner">
