@@ -2,14 +2,18 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Rupor.Domain.Context;
 using Rupor.Domain.Entities.Article;
+using Rupor.Domain.Entities.File;
 using Rupor.Domain.Entities.Resources;
 using Rupor.Domain.Entities.Section;
 using Rupor.Domain.Entities.Sys;
 using Rupor.Domain.Entities.User;
+using Rupor.Domain.Resources;
 using Rupor.Tools.Consts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace Rupor.Domain.Migrations
@@ -296,6 +300,28 @@ namespace Rupor.Domain.Migrations
         private void AppInitialProfileSettings(RuporDbContext context)
         {
 
+        }
+
+
+        private int SaveFile(FileArea area)
+        {
+            Bitmap img = null;             
+            switch (area)
+            {
+                case FileArea.Profile:
+                    img = InitResource.super_mario;
+                    break;                
+                case FileArea.Section:                                    
+                default:
+                    img = InitResource.default_section;
+                    break;
+            }
+            //using (img)
+            //{
+            //    DirectoryInfo dirInfo = new DirectoryInfo("")
+            //    img.Save()
+            //}
+            return 0;
         }
     }
 }

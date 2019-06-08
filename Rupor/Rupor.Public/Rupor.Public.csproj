@@ -5538,6 +5538,7 @@
     <Content Include="Content\_public_template\img\logo\logo_negative.png" />
     <Content Include="Content\_public_template\img\title-icon.png" />
     <Content Include="Content\_public_template\js\bundle.js" />
+    <Content Include="Controllers\default-avatar.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />

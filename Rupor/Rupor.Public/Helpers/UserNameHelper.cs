@@ -1,4 +1,5 @@
-﻿using Rupor.Domain.Entities.User;
+﻿using Microsoft.AspNet.Identity;
+using Rupor.Domain.Entities.User;
 using Rupor.Logik.Profile;
 using Rupor.Public.Infrastructure.ProfileTools;
 using Rupor.Services.Core.Profile;
@@ -28,9 +29,9 @@ namespace Rupor.Public.Helpers
             if (user.Identity.IsAuthenticated)
             {
                 profsrv = new UserProfileService();
-                var profile = profsrv[user.Identity.Name];
+                var profile = profsrv[user.Identity.GetUserId()];
 
-                return profile?.ToString() ?? throw new NullReferenceException("User is not found!");
+                return profile?.GivenName ?? profile?.Email ?? "??";
             }
             else
             {
