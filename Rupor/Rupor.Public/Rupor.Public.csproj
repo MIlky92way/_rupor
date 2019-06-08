@@ -155,7 +155,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_LocalResources\images\section.jpg" />
+    <Content Include="App_LocalResources\default\default-avatar.png" />
+    <Content Include="App_LocalResources\default\default-section.jpg" />
+    <Content Include="App_LocalResources\default\super-mario.jpg" />
     <Content Include="Content\glob\js\wrapper.validate.js" />
     <Content Include="Content\glob\scss\custom.validate.css">
       <DependentUpon>custom.validate.scss</DependentUpon>
@@ -5538,7 +5540,6 @@
     <Content Include="Content\_public_template\img\logo\logo_negative.png" />
     <Content Include="Content\_public_template\img\title-icon.png" />
     <Content Include="Content\_public_template\js\bundle.js" />
-    <Content Include="Controllers\default-avatar.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />

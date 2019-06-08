@@ -37,7 +37,7 @@ namespace Rupor.Logik.File
                 entity.FileExtension = model.FileExtension;
                 entity.FileName = model.FileName;
                 entity.Name = model.Name;
-                entity.Picture = model.Picture;
+                entity.IsPicture = model.IsPicture;
                 entity.Alt = model.Alt;
                 entity.ContentType = model.ContentType;
                 entity.FileArea = model.FileArea;

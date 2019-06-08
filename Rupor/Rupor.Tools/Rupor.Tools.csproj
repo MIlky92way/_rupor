@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts\AppFilePath.cs" />
     <Compile Include="Consts\Role.cs" />
     <Compile Include="Extend\DateTimeExtend.cs" />
     <Compile Include="Extend\FileExtend.cs" />

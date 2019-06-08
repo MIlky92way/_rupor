@@ -7,12 +7,10 @@ using Rupor.Domain.Entities.Resources;
 using Rupor.Domain.Entities.Section;
 using Rupor.Domain.Entities.Sys;
 using Rupor.Domain.Entities.User;
-using Rupor.Domain.Resources;
 using Rupor.Tools.Consts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 
@@ -28,6 +26,8 @@ namespace Rupor.Domain.Migrations
 
         protected override void Seed(RuporDbContext context)
         {
+            AppInitialProfileDefaultAvatar(context);
+            AppInitialSectionDefaultImage(context);
             AppRoleInitial(context);
             AppUserInit(context);
             AppArticleStatusInitial(context);
@@ -96,6 +96,11 @@ namespace Rupor.Domain.Migrations
                     profile.OwnerId = user.Id;
                     profile.IsActive = true;
                     profile.LastAuth = DateTime.Now;
+
+                    profile.OriginalPictureId = context
+                        .Files
+                        .FirstOrDefault(x => x.IsDefault && x.FileArea == FileArea.Profile)?.Id ?? null;
+
                     context.UserProfile.Add(profile);
                     context.Entry(profile).State = System.Data.Entity.EntityState.Added;
                     context.SaveChanges();
@@ -212,6 +217,10 @@ namespace Rupor.Domain.Migrations
             sectionSettings.MaxAllowedSections = 25;
             sectionSettings.MaxAllowedSectionsOnTop = 10;
 
+            sectionSettings.DefaultPictureId = context
+                .Files
+                .FirstOrDefault(x => x.IsDefault && x.FileArea == FileArea.Section)?.Id ?? null;
+
             context.SectionSettings.Add(sectionSettings);
 
             initialData = new InitialData { InitialName = initialName, DateInitial = DateTime.Now };
@@ -297,31 +306,125 @@ namespace Rupor.Domain.Migrations
 
         }
 
-        private void AppInitialProfileSettings(RuporDbContext context)
+        private void AppInitialProfileDefaultAvatar(RuporDbContext context)
         {
+            var initialName = "AppInitialProfileDefaultAvatar";
 
+            var initialData = context.InitialData.FirstOrDefault(i => i.InitialName == initialName);
+
+            if (initialData?.Id > 0)
+                return;
+
+            var fileId = SaveFile(context, FileArea.Profile, FileType.Image);
+
+            if (fileId > 0)
+            {
+                initialData = new InitialData { InitialName = initialName, DateInitial = DateTime.Now };
+
+                context.InitialData.Add(initialData);
+
+                context.SaveChanges();
+            }
+        }
+
+        private void AppInitialSectionDefaultImage(RuporDbContext context)
+        {
+            var initialName = "AppInitialSectionDefaultImage";
+
+            var initialData = context.InitialData.FirstOrDefault(i => i.InitialName == initialName);
+
+            if (initialData?.Id > 0)
+                return;
+
+            var fileId = SaveFile(context, FileArea.Section, FileType.Image);
+
+            if (fileId > 0)
+            {
+                initialData = new InitialData { InitialName = initialName, DateInitial = DateTime.Now };
+
+                context.InitialData.Add(initialData);
+
+                context.SaveChanges();
+            }
         }
 
 
-        private int SaveFile(FileArea area)
+        private int SaveFile(RuporDbContext context, FileArea area, FileType fileType)
         {
-            Bitmap img = null;             
+            string fullPath = null;
+            string path = AppFilePath.DefaultPathImage;
+            string ext = "";
+            string fileName = "";
+            string contentType = "";
+            FileEntity file = new FileEntity();
+
             switch (area)
             {
                 case FileArea.Profile:
-                    img = InitResource.super_mario;
-                    break;                
-                case FileArea.Section:                                    
+                    fullPath = $"{AppFilePath.DefaultPathImage}{AppFilePath.DefautFileAvatar}";
+                    ext = Path.GetExtension(AppFilePath.DefautFileAvatar);
+                    fileName = Path.GetFileName(AppFilePath.DefautFileAvatar)?.Split('.')[0];
+                    break;
+                case FileArea.Section:
                 default:
-                    img = InitResource.default_section;
+                    fullPath = $"{AppFilePath.DefaultPathImage}{AppFilePath.DefautFileSection}";
+                    ext = Path.GetExtension(AppFilePath.DefautFileSection);
+                    fileName = Path.GetFileName(AppFilePath.DefautFileSection)?.Split('.')[0];
                     break;
             }
-            //using (img)
-            //{
-            //    DirectoryInfo dirInfo = new DirectoryInfo("")
-            //    img.Save()
-            //}
-            return 0;
+
+            switch (fileType)
+            {
+                case FileType.Document:
+                    setContentType(ext);
+                    break;
+                case FileType.Image:
+                    setContentType(ext);
+                    break;
+                case FileType.Archive:
+                    setContentType(ext);
+                    break;
+                default:
+                    break;
+            }
+
+            void setContentType(string extension)
+            {
+                switch (extension)
+                {
+                    case ".zip":
+                        contentType = "application/zip";
+                        break;
+                    case ".pdf":
+                        contentType = "application/pdf";
+                        break;
+                    case ".png":
+                        contentType = "image/png";
+                        break;
+                    case ".gif":
+                        contentType = "image/gif";
+                        break;
+                    case ".jpg":
+                    default:
+                        contentType = "image/jpg";
+                        break;
+                }
+            }
+
+            file.Alt = fileName;
+            file.FileArea = area;
+            file.FileExtension = ext;
+            file.IsDefault = true;
+            file.FileName = fileName;
+            file.FullPath = $"{path}/{file.FileName}{file.FileExtension}";
+            file.Name = $"{file.FileName}{file.FileExtension}";
+            file.FileType = fileType;
+            file.ContentType = contentType;
+            file = context.Files.Add(file);
+            
+            context.SaveChanges();
+
+            return file.Id;
         }
     }
 }

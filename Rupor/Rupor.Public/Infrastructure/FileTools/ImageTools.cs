@@ -1,6 +1,7 @@
 ﻿using Rupor.Domain.Entities.File;
 using Rupor.Logik.File;
 using Rupor.Public.Infrastructure.FileTools.Additional;
+using Rupor.Tools.Consts;
 using Rupor.Tools.Extend;
 using System;
 using System.Drawing;
@@ -24,10 +25,8 @@ namespace Rupor.Public.Infrastructure.FileTools
         private readonly string _PicPathSection = $"{_RootDir}/protected/section/";
         private readonly string _PicPathFeedChannel = $"{_RootDir}/protected/feed";
         private string fileName;
-        private string fileExtension;
-        public readonly string _PicPathMinDefaultProfile = $"~/pub/min/";
-        public readonly string _PicPathDefaultProfile = $"~/pub/orig/";
-        public readonly string _PicPathDefault = $"~/pub/orig/";
+        private string fileExtension;       
+       
         public ImageTools()
             : base(new FileService())
         {
@@ -35,6 +34,7 @@ namespace Rupor.Public.Infrastructure.FileTools
             //_PicPathProfile = Server.MapPath(_PicPathProfile);
             //_PicPathSection = Server.MapPath(_PicPathSection);
         }
+
         #region Save images
         /// <summary>
         /// Сохраняет изображение учитывая сохранение в иcточник.
@@ -216,7 +216,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                     entity.Alt = fileName;
 
                 entity.FileExtension = fileExtension;
-                entity.Picture = true;
+                entity.IsPicture = true;
                 entity.FileType = FileType.Image;
                 entity.FileArea = area;
                 entity.ContentType = contentType;
@@ -288,7 +288,7 @@ namespace Rupor.Public.Infrastructure.FileTools
             }
             else
             {
-                path = Server.MapPath($"{_PicPathDefault}/{file.Name}");
+                path = Server.MapPath($"{AppFilePath.DefaultPathImage}/{file.Name}");
             }
 
             return new FileStreamResult(GetFile(path), file.ContentType);
@@ -319,7 +319,6 @@ namespace Rupor.Public.Infrastructure.FileTools
         }
         #endregion
 
-
         private string InitialPath(FileArea imageArea, bool isDefault)
         {
             var path = string.Empty;
@@ -328,7 +327,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 case FileArea.Article:
 
                     if (isDefault)
-                        path = _PicPathDefault;
+                        path = AppFilePath.DefaultPathImage;
                     else
                         path = _PicPathArticle;
 
@@ -339,7 +338,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 case FileArea.Section:
 
                     if (isDefault)
-                        path = _PicPathDefault;
+                        path = AppFilePath.DefaultPathImage;
                     else
                         path = _PicPathSection;
 
@@ -357,7 +356,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                 default:
 
                     if (isDefault)
-                        path = _PicPathDefault;
+                        path = AppFilePath.DefaultPathImage;
                     else
                         path = _PicPathProfile;
 

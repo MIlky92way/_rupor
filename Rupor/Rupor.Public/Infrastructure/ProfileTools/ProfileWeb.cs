@@ -2,6 +2,7 @@
 using Rupor.Domain.Entities.User;
 using Rupor.Public.Infrastructure.FileTools;
 using Rupor.Services.Core.Profile;
+using Rupor.Tools.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,7 +122,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
                 .FirstOrDefault();
 
             var path = ImageTools.Server
-                .MapPath($"{ImageTools._PicPathDefaultProfile}/{file.Name}");
+                .MapPath($"{AppFilePath.DefaultPathImage}/{file.Name}");
 
             if (file == null)
             {

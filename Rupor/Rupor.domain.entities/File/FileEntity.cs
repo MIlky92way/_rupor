@@ -38,16 +38,27 @@ namespace Rupor.Domain.Entities.File
         /// Файлы отдающиеся как дефолтные (условия использования, нормативные документы, дефолтные картинки и т.д.) 
         /// </summary>
         public bool IsDefault { get; set; }
-        public bool Picture { get; set; }
+        /// <summary>
+        /// Является картинкой
+        /// </summary>
+        public bool IsPicture { get; set; }
         [MaxLength(25)]
         public string Alt { get; set; }
         public string FileExtension { get; set; }
-        [MaxLength(25)]
-        public string FileName { get; set; }
+        /// <summary>
+        ///Наименование файла
+        /// </summary>
+        [MaxLength(100)]
+        public string FileName { get; set; }        
+
+        /// <summary>
+        /// Абсолютный путь до файла
+        /// </summary>
+        public string FullPath { get; set; }
         /// <summary>
         /// Имя файла с его расширением
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
         [MaxLength(515)]
         public string Description { get; set; }
