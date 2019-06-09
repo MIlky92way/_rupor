@@ -25,8 +25,8 @@ namespace Rupor.Public.Infrastructure.FileTools
         private readonly string _PicPathSection = $"{_RootDir}/protected/section/";
         private readonly string _PicPathFeedChannel = $"{_RootDir}/protected/feed";
         private string fileName;
-        private string fileExtension;       
-       
+        private string fileExtension;
+
         public ImageTools()
             : base(new FileService())
         {
@@ -83,10 +83,10 @@ namespace Rupor.Public.Infrastructure.FileTools
 
         public int SaveImageFromStream(Stream stream, int fileId, FileArea imageArea, bool compressed = true, bool crop = false, bool isDefault = false, ImageSaveData saveData = null)
         {
-            if (stream == null)            
+            if (stream == null)
                 throw new ArgumentException("stream can't be null!");
-            
-            if (fileId == 0)            
+
+            if (fileId == 0)
                 throw new ArgumentException("fileId can't be zero!");
             FileEntity minFile = null;
             var path = string.Empty;
@@ -124,9 +124,9 @@ namespace Rupor.Public.Infrastructure.FileTools
         {
             ImageCodecInfo jpgEncoder = null;
             EncoderParameters encoderParams = null;
-            
+
             try
-            {               
+            {
                 using (stream)
                 {
                     using (Bitmap srcImg = new Bitmap(stream))
@@ -155,7 +155,7 @@ namespace Rupor.Public.Infrastructure.FileTools
                             }
                             Rectangle rect = new Rectangle(saveData.X, saveData.Y, saveData.Width, saveData.Height);
                             Bitmap cropImg = srcImg.Clone(rect, srcImg.PixelFormat);
-                             if (compressed)
+                            if (compressed)
                                 cropImg.Save(path, jpgEncoder, encoderParams);
                             else
                                 cropImg.Save(path);
@@ -171,15 +171,15 @@ namespace Rupor.Public.Infrastructure.FileTools
                         }
                     }
                 }
-             
+
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
-         
+
         }
 
 
@@ -188,7 +188,7 @@ namespace Rupor.Public.Infrastructure.FileTools
             using (Stream stream = file.InputStream)
             {
                 return SaveImageFromStream(stream, path, compressed, crop, saveData);
-            }            
+            }
         }
 
 
@@ -272,7 +272,8 @@ namespace Rupor.Public.Infrastructure.FileTools
         public FileStreamResult GetDefaultImage(FileArea area, int id = 0)
         {
             var path = string.Empty;
-
+            var defaultPath = string.Empty;
+            FileStreamResult result = null;
             var file = FileService.Get(f => f.FileArea == area && f.FileType == FileType.Image && f.IsDefault && id == 0 || f.Id == id)
                 .OrderByDescending(f => f.DateCreate)
                 .FirstOrDefault();
@@ -282,16 +283,27 @@ namespace Rupor.Public.Infrastructure.FileTools
                 return null;
             }
 
-            if (id > 0)
+            path = defaultPath = Server.MapPath($"{AppFilePath.DefaultPathImage}/{file.Name}");
+
+            try
             {
-                path = GetPathByArea(area, file);
+                if (id > 0)
+                {
+                    path = GetPathByArea(area, file);
+
+                    result = new FileStreamResult(GetFile(path), file.ContentType);
+                }
             }
-            else
+            catch (FileNotFoundException ex)
             {
-                path = Server.MapPath($"{AppFilePath.DefaultPathImage}/{file.Name}");
+                result = new FileStreamResult(GetFile(defaultPath), file.ContentType);
+            }
+            catch (Exception ex)
+            {
+                result = new FileStreamResult(GetFile(defaultPath), file.ContentType);
             }
 
-            return new FileStreamResult(GetFile(path), file.ContentType);
+            return result;
         }
 
         #endregion

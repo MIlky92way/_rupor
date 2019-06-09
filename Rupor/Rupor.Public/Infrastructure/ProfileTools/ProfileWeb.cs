@@ -1,4 +1,5 @@
-﻿using Rupor.Domain.Entities.File;
+﻿using Rupor.Auth.Manager;
+using Rupor.Domain.Entities.File;
 using Rupor.Domain.Entities.User;
 using Rupor.Public.Infrastructure.FileTools;
 using Rupor.Services.Core.Profile;
@@ -36,7 +37,7 @@ namespace Rupor.Public.Infrastructure.ProfileTools
             };
         }
 
-        public ProfileWeb(IUserProfileService<ProfileEntity> profileService, UserEntity user, ImageTools imgTools)
+        public ProfileWeb(IUserProfileService<ProfileEntity> profileService, AppRoleManager roleManager, UserEntity user, ImageTools imgTools)
         {
             ProfileService = profileService ?? throw new ArgumentNullException("profileService");
             Profile = profileService.Get(user.Id) ?? throw new NullReferenceException("profile");
@@ -49,6 +50,11 @@ namespace Rupor.Public.Infrastructure.ProfileTools
             MinImageId = Profile.MinPictureId.GetValueOrDefault();
             OriginalImageId = Profile.OriginalPictureId.GetValueOrDefault();
 
+            Roles = roleManager
+                .Roles                
+                .ToList()
+                .Select(r => new RoleEntity { Name = r.Name, Id = r.Id });
+                
         }
 
         public void UpdateLastAuth()

@@ -1,15 +1,26 @@
 ﻿using Rupor.Domain.Entities.Article;
 using Rupor.Services.Core.Article.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rupor.Services.Core.Article
 {
-    public interface IArticleService:IQueryable<ArticleEntity>
+    /// <summary>
+    /// Сервис по работе со статьями
+    /// </summary>
+    public interface IArticleService : IQueryable<ArticleEntity>
     {
+        /// <summary>
+        /// Получает статью по её идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ArticleEntity this[int id] { get; }       
         ArticleEntity Edit(IArticleModel model);
+        ArticleEntity Create(int authorId);
+        ArticleEntity CreateNew(IArticleNewModel model);
+        int Save();
+        void Remove(int id);
+
+        string GetDisplayStatus(ArticleStatus status);
     }
 }

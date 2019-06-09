@@ -1,4 +1,5 @@
-﻿using Rupor.Feed.Core.Readers;
+﻿using Rupor.Domain.Entities.File;
+using Rupor.Feed.Core.Readers;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -26,18 +27,21 @@ namespace Rupor.Public.Controllers
                 feed.ImageUrl,
                 feed.Title,
                 feed.Link,
-                Categories =feed.Items?
-                .SelectMany(f=>f.Categories)
+                Categories = feed.Items?
+                .SelectMany(f => f.Categories)
                 .Distinct()
                 .ToArray()
             };
             return Json(channelInfo, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult SaveArticleImage()
         {
-            return Json(null, JsonRequestBehavior.DenyGet);
+            var httpFile = Request.Files[0];
+            var id = ImageTools.SaveImage(httpFile, FileArea.Article);
+
+            return Json(new { imageId = id }, JsonRequestBehavior.DenyGet);
         }
-        
     }
 }

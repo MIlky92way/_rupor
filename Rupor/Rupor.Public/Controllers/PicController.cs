@@ -14,12 +14,19 @@ namespace Rupor.Public.Controllers
         //Pic/GetDefaultProfileImage
         public FileStreamResult GetProfileImage(int id = 0, bool isDefault = false)
         {
+            FileStreamResult result = null;
             if (isDefault)
-                return ImageTools.GetDefaultImage(FileArea.Profile);
+                result = ImageTools.GetDefaultImage(FileArea.Profile);
             else if (id > 0)
-                return ImageTools.GetDefaultImage(FileArea.Profile, id);
-
-            return ImageTools.GetDefaultImage(FileArea.Profile);
+            {
+                result = ImageTools.GetDefaultImage(FileArea.Profile, id) ??
+                   ImageTools.GetDefaultImage(FileArea.Profile);
+            }
+            else
+            {
+                result = ImageTools.GetDefaultImage(FileArea.Profile);
+            }
+            return result;
         }
 
         public FileStreamResult GetSectionImage(int id = 0, bool isDefault = false)
@@ -30,6 +37,19 @@ namespace Rupor.Public.Controllers
                 return ImageTools.GetImage(FileArea.Section, id);
 
             return ImageTools.GetDefaultImage(FileArea.Section);
+        }
+
+        public FileStreamResult GetArticleImage(int id = 0, bool isDefault = false)
+        {
+            FileStreamResult result = null;
+            if (isDefault)
+                result = ImageTools.GetDefaultImage(FileArea.Article);
+            else if (id > 0)
+            {
+                result = ImageTools.GetDefaultImage(FileArea.Article, id) ??
+                   ImageTools.GetDefaultImage(FileArea.Article);
+            }
+            return result;
         }
 
         public FileStreamResult GetFeedChannelImage(int id = 0)

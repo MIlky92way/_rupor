@@ -1,12 +1,88 @@
-﻿
+﻿@using Rupor.Public.Models.Profile
+@model PostsViewModel
 @{
     ViewBag.Title = "Статьи";
 }
 <div class="layer">
     @Html.Action("UserInfo")
-    <a href="@Url.Action("Post")" class="btn btn-default"> <i class="fa fa-pencil"></i> Написать</a>
+    <form action="@Url.Action("CreatePost",new { })" method="post">
+        @Html.AntiForgeryToken()
+        <button class="app-btn app-btn__default">
+            <i class="fa fa-pencil"></i> Написать
+        </button>
+    </form>
 </div>
+<div class="rupor-cards">
+    <div class="rupor-cards__inner">
+        @foreach (var article in Model.Articles ?? new List<ArticleModel>())
+        {
+            var articlePicture = Url.Action("", "", new { id = article.TitleImageId });
+            var imageUrl = Url.Action("GetProfileImage", "Pic", new { id = article.AuthorImageId });
 
+
+            <div class="rupor-card rupor-card__middle">
+                <div class="rupor-card__middle--preview" style="background-image: url('')">
+                    <div class="rupor-card__middle--preview cnt">
+                        <div class="date-post">
+                            <i class="icon-clock"></i>
+                            <span class="date-article">@article.DateCreate.ToShortDateString()</span>
+                        </div>
+                        <div class="rupor-card__middle--preview tags">
+                            @foreach (var item in article.Sections ?? new List<ArticleModel.SectionDto>())
+                            {
+                                <a href="@Url.Action("Index","Category",new { item.Id })" class="rupor-tag">
+                                    <span class="rupor-tag__default">
+                                        <span class="rupor-tag__cnt">@item.Name</span>
+                                    </span>
+                                </a>
+                            }
+                        </div>
+                        <div class="user-block">
+                            <div class="user-block__inner">
+                                <div class="user-block__item">
+                                    @article.AuthorName
+                                </div>
+                                <div class="user-block__item">
+                                    <img src="@imageUrl" alt="@article.AuthorName" class="user-block__item--img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rupor-card__middle--content">
+                    <div class="rupor-card__middle--content title">
+                        @if (Model.IsCurrent)
+                        {
+                            <a href="@Url.Action("Post",new { article.Id})">
+                                @if (string.IsNullOrEmpty(article.Title))//дописать, проверку на статус!
+                                {
+                                    <span>Заготовка статьи</span>
+                                }
+                                else
+                                {
+                                    <span>@article.Title</span>    
+                                }
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index","Article",new { article.Id})">
+                                @if (string.IsNullOrEmpty(article.Title))//дописать, проверку на статус!
+                                {
+                                    <span>Заготовка статьи</span>
+                                }
+                                else
+                                {
+                                    <span>@article.Title</span>
+                                }
+                            </a>  
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
 
 

@@ -1,38 +1,36 @@
 ﻿@model Rupor.Public.Models.Profile.UserInfoViewModel
-@{    
-    var urlOriginalPic = !Model.IsDefaultPicture.GetValueOrDefault()
-        ? Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId }) : Url.Action("GetProfileImage", "Pic");
+@{
 
-    var urlMinPic = Model.MinImageId > 0
-        ? Url.Action("GetProfileImage", "Pic", new { id = Model.MinImageId }) :
-        Model.OriginalImageId > 0 ? Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId }) : Url.Action("GetProfileImage", "Pic");
 }
 <div class="rupor-cards">
     <div class="profile-header_wrapper">
         <section class="profile-header">
-            <img src="@urlOriginalPic" alt="@Model.FullName" class="profile-header__background" />
+            <img src="@Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId })" alt="@Model.FullName" class="profile-header__background" />
             <div class="profile-header__content">
                 <div class="inner">
                     <div class="item">
                         <div class="profile-avatar">
                             <div class="profile-avatar__layer"></div>
-                            <img src="@urlOriginalPic" alt="@Model.FullName" class="profile-image" />
+                            <img src="@Url.Action("GetProfileImage", "Pic", new { id = Model.OriginalImageId })" alt="@Model.FullName" class="profile-image" />
                             <div class="profile-avatar__overlay">
-                                <div class="profile-avatar__overlay--item">
-                                    <form action="@Url.Action("SavePicture")" method="post" enctype="multipart/form-data" id="uploadPicture" class="avatar-upload">
-                                        @Html.TextBoxFor(x => x.Picture, new { type = "file" })
-                                        <label for="Picture"><i class="fa fa-camera-retro"></i></label>
-                                    </form>
-                                </div>
-                                <div class="profile-avatar__overlay--item">
-                                </div>
+                                @if (Model.IsCurrent)
+                                {
+                                    <div class="profile-avatar__overlay--item">
+                                        <form action="@Url.Action("SavePicture")" method="post" enctype="multipart/form-data" id="uploadPicture" class="avatar-upload">
+                                            @Html.TextBoxFor(x => x.Picture, new { type = "file" })
+                                            <label for="Picture"><i class="fa fa-camera-retro"></i></label>
+                                        </form>
+                                    </div>
+                                    <div class="profile-avatar__overlay--item">
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="profile-info">
-                            <h3 class="profile-name">                                 
-                                <a href="@Url.Action("Info")">@Model.FullName</a>                                 
+                            <h3 class="profile-name">
+                                <a href="@Url.Action("Info")">@Model.FullName</a>
                             </h3>
                             <div class="profile-counters">
 

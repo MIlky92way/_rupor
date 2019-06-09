@@ -72,8 +72,8 @@ namespace Rupor.Public.Controllers
                 identityUser = current;
             else
                 identityUser = UserManager.FindByName(userEmail);
-
-            profileWeb = new ProfileWeb(ProfileService, identityUser, ImageTools);
+            
+            profileWeb = new ProfileWeb(ProfileService,RoleManager, identityUser, ImageTools);
 
             return profileWeb;
         }

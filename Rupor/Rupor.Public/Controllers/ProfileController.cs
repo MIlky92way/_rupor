@@ -1,4 +1,6 @@
-﻿using Rupor.Public.Models.Profile;
+﻿using Rupor.Domain.Entities.Article;
+using Rupor.Domain.Entities.User;
+using Rupor.Public.Models.Profile;
 using Rupor.Services.Core.Common;
 using System.Web.Mvc;
 
@@ -76,27 +78,43 @@ namespace Rupor.Public.Controllers
 
             return PartialView(model);
         }
-        
-        public ActionResult Posts()
-        {
-            return View();
-        }
 
-        public ActionResult CreatePost()
+        public ActionResult Posts(int? profileId, ArticleStatus status = ArticleStatus.Approved)
         {
-            return RedirectToAction("Post", 0);
-        }
+            ProfileEntity viewedProfile = null;
 
-        public ActionResult Post(int id = 0)
-        {
-            return View();
+            if (profileId > 0)
+            {
+                viewedProfile = service.ProfileService[profileId.Value];
+            }
+
+            return View(new PostsViewModel(service.ArticleService, CurrentUser, viewedProfile, status));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Post()
+        public ActionResult CreatePost()
         {
-            return View();
+            var articleId = service
+                .ArticleService
+                .Create(CurrentUser.Id)?.Id ?? 0;
+
+            return RedirectToAction("Post", new { id = articleId });
+        }
+
+        public ActionResult Post(int id)
+        {
+            var article = service.ArticleService[id];
+
+            return View(new PostModel(article, service.ArticleService));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Post(PostModel model)
+        {
+            return View(model);
         }
 
         public ViewResult Miniature()

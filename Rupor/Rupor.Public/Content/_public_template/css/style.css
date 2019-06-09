@@ -12212,7 +12212,8 @@ a.text-dark:hover, a.text-dark:focus {
           display: flex;
           flex-direction: column;
           align-content: center;
-          padding: 0.4em; }
+          padding: 0.4em;
+          height: 55px; }
           .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--preview .tags > a.rupor-tag:last-child {
             padding: 0 0 1.5em 2.2em; }
           .rupor-cards .rupor-card.rupor-card__horizontal .rupor-card__horizontal--preview .tags > a.rupor-tag:first-child {
@@ -12292,7 +12293,8 @@ a.text-dark:hover, a.text-dark:focus {
           display: flex;
           flex-direction: column;
           align-content: center;
-          padding: 0.4em; }
+          padding: 0.4em;
+          height: 55px; }
           .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .tags > a.rupor-tag:last-child {
             padding: 0 0 0 2.2em; }
           .rupor-cards .rupor-card.rupor-card__middle .rupor-card__middle--preview .tags > a.rupor-tag:first-child {

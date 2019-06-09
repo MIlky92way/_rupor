@@ -5723,6 +5723,8 @@
     <Compile Include="Models\Profile\AuthUserWidgetModel.cs" />
     <Compile Include="Models\Profile\FeedSettingsViewModel.cs" />
     <Compile Include="Models\Profile\InfoViewModel.cs" />
+    <Compile Include="Models\Profile\PostModel.cs" />
+    <Compile Include="Models\Profile\PostsViewModel.cs" />
     <Compile Include="Models\Profile\ProfileViewModel.cs" />
     <Compile Include="Models\UserPhoto\CropModel.cs" />
     <Compile Include="Models\User\RuporUser.cs" />

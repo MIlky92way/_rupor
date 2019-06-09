@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="App\AppResourceSectionService.cs" />
     <Compile Include="App\AppResourceService.cs" />
+    <Compile Include="Article\ArticleService.cs" />
     <Compile Include="Base\EFBaseService.cs" />
     <Compile Include="Common\ServiceCore.cs" />
     <Compile Include="Feed\FeedChannelService.cs" />

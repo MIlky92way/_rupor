@@ -1,4 +1,4 @@
-﻿
+﻿@model Rupor.Public.Models.Profile.PostModel
 @{
     ViewBag.Title = "Post";
 }
@@ -17,14 +17,21 @@
         }
     </style>
 }
+@Model.Status
 <button id="btnSaveDraft" class="app-btn app-btn__default" type="button"> в черновик</button>
 <button id="btnSave" class="app-btn app-btn__blackblue" type="button"> сохранить</button>
 <div class="editor-wrapper">
+    <img id="titleImage" src="" data-image="" />
+    <input type="file" id="uploadFile" />
     <h2 contenteditable="true">Заголовок...</h2>
     <button id="showEditor" class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
     <div id="editor">
 
     </div>
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.TitleImageId)
+    @Html.HiddenFor(x => x.AuthorId)
+    @Html.AntiForgeryToken()
 </div>
 
 @section scripts{
@@ -43,10 +50,10 @@
             ['image'],
             ['clean']                                         // remove formatting button
         ];
+
         let imageHandler = () => {
 
         }
-
         let quill = new Quill('#editor', {
             theme: 'bubble',
             placeholder: 'Текст статьи',
@@ -73,25 +80,65 @@
             quill.theme.tooltip.show();
         });
 
+        $("#uploadFile").change((e) => {
+
+            console.log(e.target.files);
+            let data = new FormData();
+            for (var i = 0; i < e.target.files.length; i++) {
+                data.append(`file${i}`, e.target.files[i]);
+            }
+            saveImage(data);
+
+        });
+
         $("#btnSave").click(() => {
             savePost(false);
         });
         $("#btnSaveDraft").click(() => {
             savePost(true);
         });
+
+        let saveImage = function (data) {
+            let id = 0;
+
+            $.ajax({
+                type: "POST",
+                url: "/Common/SaveArticleImage",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: (d) => {                    
+                    updateImage(`/Pic/GetArticleImage/${d.imageId}`,d.imageId);
+                },
+                error: () => {
+                    console.log("error upload file");
+                }
+            });
+        }
+        let updateImage = function (url, id) {
+            $("#titleImage").prop("src", url);
+            console.log(id);
+            $("#TitleImageId").val(id);
+        }
         let savePost = function (isDraft) {
             let title = $(".editor-wrapper h2").text();
-            
             let contentPost = $("#editor .ql-editor").html();
-
+            let id = $("#Id").val();
+            let titleImageId = $("#TitleImageId").val();
+            let token = $('input[name="__RequestVerificationToken"]').val();
+            console.log(token);
             console.log(title);
             console.log(contentPost);
-           
-            $.post("profile/post", {
-                title: title,
-                content: contentPost,
+            $.post("", {
+                Title: title,
+                Content: contentPost,
+                IsDraft: isDraft,
+                Id: id,
+                TitleImageId: titleImageId,
+                __RequestVerificationToken: token
             });
         }
     </script>
 }
+
 

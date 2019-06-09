@@ -21,11 +21,11 @@ namespace Rupor.Domain.Entities.Article
         public string Content { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
-        public int TitleImageId { get; set; }
+        public int? TitleImageId { get; set; }
         public int AuthorId { get; set; }
         public int? EditorId { get; set; }
         public int StatusId { get; set; }
-        public DateTime? LastModify { get; set; } 
+        public DateTime? LastModify { get; set; }
 
         [ForeignKey(nameof(TitleImageId))]
         public FileEntity TitleImage { get; set; }
@@ -42,6 +42,15 @@ namespace Rupor.Domain.Entities.Article
         public virtual ICollection<TagEntity> Tags { get; set; }
         public virtual ICollection<SectionEntity> Sections { get; set; }
         public virtual ICollection<FileEntity> AttachedFiles { get; set; }
+
+        /// <summary>
+        /// Текущий статус. Выражен Enum
+        /// </summary>
+        [NotMapped]
+        public ArticleStatus CurrentModerationStatus
+        {
+            get; set;
+        }
 
     }
 }
