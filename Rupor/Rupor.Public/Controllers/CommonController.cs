@@ -4,6 +4,9 @@ using System.Web.Mvc;
 
 namespace Rupor.Public.Controllers
 {
+    /// <summary>
+    /// Хранит общие доп. методы (поучение информации о канале, сохранение изорбажений статьи)
+    /// </summary>
     public class CommonController : BaseController
     {
         /// <summary>
@@ -30,5 +33,11 @@ namespace Rupor.Public.Controllers
             };
             return Json(channelInfo, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SaveArticleImage()
+        {
+            return Json(null, JsonRequestBehavior.DenyGet);
+        }
+        
     }
 }
