@@ -10,21 +10,88 @@
             display: block;
             width: 100%;
         }
+
+        .ql-container {
+            font-size: 14pt;
+            font-family: Raleway, Arial, sans-serif;
+        }
     </style>
 }
+<button id="btnSaveDraft" class="app-btn app-btn__default" type="button"> в черновик</button>
+<button id="btnSave" class="app-btn app-btn__blackblue" type="button"> сохранить</button>
+<div class="editor-wrapper">
+    <h2 contenteditable="true">Заголовок...</h2>
+    <button id="showEditor" class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+    <div id="editor">
 
-<h2>@ViewBag.Title</h2>
-
-<div id="editor">
-    введи текст
+    </div>
 </div>
 
 @section scripts{
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        var quill = new Quill('#editor', {
-            theme: 'bubble'
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote'],
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'align': [] }],
+            ['image'],
+            ['clean']                                         // remove formatting button
+        ];
+        let imageHandler = () => {
+
+        }
+
+        let quill = new Quill('#editor', {
+            theme: 'bubble',
+            placeholder: 'Текст статьи',
+
+            modules: {
+                toolbar: {
+                    container:
+                        toolbarOptions,
+                    handlers: {
+                        images: imageHandler
+                    }
+                }
+            }
         });
+
+        $(document).on('contextmenu', "#editor", (e) => {
+            e.preventDefault();
+            quill.theme.tooltip.edit();
+            quill.theme.tooltip.show();
+            return false;
+        });
+        $("#showEditor").click(() => {
+            quill.theme.tooltip.edit();
+            quill.theme.tooltip.show();
+        });
+
+        $("#btnSave").click(() => {
+            savePost(false);
+        });
+        $("#btnSaveDraft").click(() => {
+            savePost(true);
+        });
+        let savePost = function (isDraft) {
+            let title = $(".editor-wrapper h2").text();
+            
+            let contentPost = $("#editor .ql-editor").html();
+
+            console.log(title);
+            console.log(contentPost);
+           
+            $.post("profile/post", {
+                title: title,
+                content: contentPost,
+            });
+        }
     </script>
 }
 

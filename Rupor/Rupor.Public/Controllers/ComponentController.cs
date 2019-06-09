@@ -24,7 +24,7 @@ namespace Rupor.Public.Controllers
 
         public PartialViewResult SideCategories()
         {
-            return PartialView(new CategoryViewModel(ruporService.SectionService, false));
+            return PartialView(new CategoryViewModel(ruporService.SectionService));
         }
     }
 }

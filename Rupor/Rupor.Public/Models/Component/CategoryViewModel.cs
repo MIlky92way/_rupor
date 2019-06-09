@@ -15,12 +15,12 @@ namespace Rupor.Public.Models.Component
 
         }
 
-        public CategoryViewModel(ISectionService sectionService, bool onTop = true)
+        public CategoryViewModel(ISectionService sectionService, bool onAside = true)
         {
             if (sectionService.Where(s => !s.IsDefault).Count() > 0)
             {
                 Categories = sectionService
-                    .Where(s => !s.IsDefault && s.OnAside == onTop && s.IsActive && !s.IsDelete)
+                    .Where(s => !s.IsDefault && s.OnAside == onAside && s.IsActive && !s.IsDelete)
                     .Select(s => MapFrom(s)).ToList();
             }
             else
