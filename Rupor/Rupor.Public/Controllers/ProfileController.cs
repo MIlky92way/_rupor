@@ -106,7 +106,7 @@ namespace Rupor.Public.Controllers
         {
             var article = service.ArticleService[id];
 
-            return View(new PostModel(article, service.ArticleService));
+            return View(new PostModel(article, service));
         }
 
         [HttpPost]
@@ -114,7 +114,16 @@ namespace Rupor.Public.Controllers
         [ValidateInput(false)]
         public ActionResult Post(PostModel model)
         {
-            return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.ArticleStatus = model.IsDraft ? ArticleStatus.Draft : ArticleStatus.New;
+            model.AuthorId = CurrentUser.Id;
+            var article = service.ArticleService.Edit(model);
+
+            return RedirectToAction("Index","Article",new { article.Id});
         }
 
         public ViewResult Miniature()

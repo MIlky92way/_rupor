@@ -31,12 +31,19 @@ namespace Rupor.Public.Controllers
 
         public FileStreamResult GetSectionImage(int id = 0, bool isDefault = false)
         {
+            FileStreamResult result = null;
             if (isDefault)
-                return ImageTools.GetDefaultImage(FileArea.Section, id);
+                result = ImageTools.GetDefaultImage(FileArea.Section);
             else if (id > 0)
-                return ImageTools.GetImage(FileArea.Section, id);
-
-            return ImageTools.GetDefaultImage(FileArea.Section);
+            {
+                result = ImageTools.GetDefaultImage(FileArea.Section, id) ??
+                   ImageTools.GetDefaultImage(FileArea.Section);
+            }
+            else
+            {
+                result = ImageTools.GetDefaultImage(FileArea.Section);
+            }
+            return result;
         }
 
         public FileStreamResult GetArticleImage(int id = 0, bool isDefault = false)

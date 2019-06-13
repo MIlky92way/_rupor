@@ -70,8 +70,11 @@ namespace Rupor.Logik.Article
                 article = new ArticleEntity();
             }
 
-            article.StatusId = GetStatus(model.ArticleStatus);
             article.AuthorId = model.AuthorId;
+            article.StatusId = GetStatus(model.ArticleStatus);            
+            article.Title = model.Title;
+            article.Content = model.Content;
+            article.TitleImageId = model.TitleImageId;
 
             if (!string.IsNullOrEmpty(model.Description))
                 article.Description = model.Description;

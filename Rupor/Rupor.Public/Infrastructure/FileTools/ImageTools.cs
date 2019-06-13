@@ -284,15 +284,16 @@ namespace Rupor.Public.Infrastructure.FileTools
             }
 
             path = defaultPath = Server.MapPath($"{AppFilePath.DefaultPathImage}/{file.Name}");
-
+            
             try
-            {
+            {                
                 if (id > 0)
                 {
                     path = GetPathByArea(area, file);
-
                     result = new FileStreamResult(GetFile(path), file.ContentType);
                 }
+                else
+                    result = new FileStreamResult(GetFile(defaultPath), file.ContentType);
             }
             catch (FileNotFoundException ex)
             {

@@ -12,16 +12,17 @@
         </button>
     </form>
 </div>
+<h4>Мои статьи</h4>
 <div class="rupor-cards">
     <div class="rupor-cards__inner">
         @foreach (var article in Model.Articles ?? new List<ArticleModel>())
         {
-            var articlePicture = Url.Action("", "", new { id = article.TitleImageId });
+            var articlePicture = Url.Action("GetArticleImage", "Pic", new { id = article.TitleImageId });
             var imageUrl = Url.Action("GetProfileImage", "Pic", new { id = article.AuthorImageId });
 
 
             <div class="rupor-card rupor-card__middle">
-                <div class="rupor-card__middle--preview" style="background-image: url('')">
+                <div class="rupor-card__middle--preview" style="background-image: url('@articlePicture')">
                     <div class="rupor-card__middle--preview cnt">
                         <div class="date-post">
                             <i class="icon-clock"></i>
